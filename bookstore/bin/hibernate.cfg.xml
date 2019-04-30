@@ -8,12 +8,19 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bookstore</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-   		<property name="connection.pool_size">1</property>
+   		<property name="connection.pool_size">100</property>
    		<property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
+        <property name="show_sql">1</property>
+
    		
    		<mapping class="models.sach"/>
    		<mapping class="models.theloai"/>
+   		<mapping class="models.phieunhap"/>
+   		<mapping class="models.khachhang"/>
+   		<mapping class="models.hoadonbansach"/>
+   		<mapping class="models.chitietphieunhap"/>
+   		<mapping class="models.chitiethoadon"/>
    
     </session-factory>
     

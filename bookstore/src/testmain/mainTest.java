@@ -20,9 +20,13 @@ public class mainTest {
 		Transaction trans = sess.beginTransaction();
 		theloai tl = (theloai) sess.load(theloai.class, 1);
 		
+		sach s = new sach("Me ma","hn",20000,tl);
+		
+		sess.save(s);
 		System.out.println(tl.getSach().size());
 		trans.commit();
 		sess.close();
+		
 	}
 
 }

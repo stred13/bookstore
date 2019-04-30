@@ -26,7 +26,7 @@ public class sach {
 	long Gia;
 	
 	@ManyToOne
-	@JoinColumn(name="MaTL",nullable=false)
+	@JoinColumn(name="TheLoai",nullable=false)
 	theloai tlsach;
 	
 	public sach() {
@@ -73,7 +73,6 @@ public class sach {
 		this.tlsach = tlsach;
 	}
 
-	@Ignore
 	public sach(int maSach, String tenSach, String tacGia, long gia, theloai tlsach) {
 		super();
 		MaSach = maSach;
@@ -83,7 +82,7 @@ public class sach {
 		this.tlsach = tlsach;
 	}
 
-	@Ignore
+
 	public sach(String tenSach, String tacGia, long gia, theloai tlsach) {
 		super();
 		TenSach = tenSach;
