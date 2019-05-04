@@ -3,25 +3,28 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory >
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bookstore</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-   		<property name="connection.pool_size">100</property>
-   		<property name="hibernate.current_session_context_class">thread</property>
-        <property name="hibernate.show_sql">true</property>
-        <property name="show_sql">1</property>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bookstore</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="connection.pool_size">100</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.show_sql">true</property>
 
-   		
-   		<mapping class="models.sach"/>
-   		<mapping class="models.theloai"/>
-   		<mapping class="models.phieunhap"/>
-   		<mapping class="models.khachhang"/>
-   		<mapping class="models.hoadonbansach"/>
-   		<mapping class="models.chitietphieunhap"/>
-   		<mapping class="models.chitiethoadon"/>
-   
-    </session-factory>
-    
+		<property name="format_sql">true</property>
+		<property name="use_sql_comments">true</property>
+
+
+
+		<mapping class="models.Sach" />
+		<mapping class="models.TheLoai" />
+		<mapping class="models.PhieuNhap" />
+		<mapping class="models.KhachHang" />
+		<mapping class="models.HoaDonBanSach" />
+		<mapping class="models.ChiTietPhieuNhap" />
+		<mapping class="models.ChiTietHoaDon" />
+		<mapping class="models.NhanVien" />
+
+	</session-factory>
 </hibernate-configuration>
