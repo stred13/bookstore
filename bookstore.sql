@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2019 at 09:54 AM
+-- Generation Time: May 05, 2019 at 06:44 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.16
 
@@ -29,11 +29,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `chitiethoadon` (
+  `MaCTHD` int(5) NOT NULL,
   `MaHD` int(5) NOT NULL,
-  `MaKH` int(5) NOT NULL,
   `MaSach` int(5) NOT NULL,
-  `SoLuong` int(5) NOT NULL
+  `SoLuong` int(5) NOT NULL,
+  `DonGia` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `chitiethoadon`
+--
+
+INSERT INTO `chitiethoadon` (`MaCTHD`, `MaHD`, `MaSach`, `SoLuong`, `DonGia`) VALUES
+(2, 1, 1, 4, 12000);
 
 -- --------------------------------------------------------
 
@@ -42,10 +50,19 @@ CREATE TABLE `chitiethoadon` (
 --
 
 CREATE TABLE `chitietphieunhap` (
+  `MaCTNH` int(5) NOT NULL,
   `MaPN` int(5) NOT NULL,
   `MaSach` int(5) NOT NULL,
+  `DonGia` int(10) NOT NULL,
   `SoLuong` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `chitietphieunhap`
+--
+
+INSERT INTO `chitietphieunhap` (`MaCTNH`, `MaPN`, `MaSach`, `DonGia`, `SoLuong`) VALUES
+(1, 3, 1, 250000, 15);
 
 -- --------------------------------------------------------
 
@@ -55,8 +72,18 @@ CREATE TABLE `chitietphieunhap` (
 
 CREATE TABLE `hoadonbansach` (
   `MaHD` int(5) NOT NULL,
-  `NgayLap` date NOT NULL
+  `NgayLap` date NOT NULL,
+  `MaNhanVien` int(5) NOT NULL,
+  `MaKH` int(5) NOT NULL,
+  `TongTien` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hoadonbansach`
+--
+
+INSERT INTO `hoadonbansach` (`MaHD`, `NgayLap`, `MaNhanVien`, `MaKH`, `TongTien`) VALUES
+(1, '2019-05-05', 1, 1, 50000);
 
 -- --------------------------------------------------------
 
@@ -72,6 +99,34 @@ CREATE TABLE `khachhang` (
   `Email` char(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `khachhang`
+--
+
+INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`, `Email`) VALUES
+(1, 'Doanh', '123 tam hà', '1111111111', 'doanh@gmail.com'),
+(2, 'TIến', '56 Gia Kiệm', '094545215', 'tien@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nhanvien`
+--
+
+CREATE TABLE `nhanvien` (
+  `MaNV` int(5) NOT NULL,
+  `TenNV` varchar(100) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `Sdt` char(10) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `nhanvien`
+--
+
+INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `Sdt`) VALUES
+(1, 'nv1', '11111111'),
+(2, 'nv2', '222222222');
+
 -- --------------------------------------------------------
 
 --
@@ -83,6 +138,15 @@ CREATE TABLE `phieunhap` (
   `NgayNhap` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `phieunhap`
+--
+
+INSERT INTO `phieunhap` (`MaPN`, `NgayNhap`) VALUES
+(1, '2019-05-04'),
+(2, '2019-05-04'),
+(3, '2019-05-04');
+
 -- --------------------------------------------------------
 
 --
@@ -93,9 +157,16 @@ CREATE TABLE `sach` (
   `MaSach` int(5) NOT NULL,
   `TenSach` varchar(280) COLLATE utf8_unicode_ci NOT NULL,
   `TacGia` varchar(280) COLLATE utf8_unicode_ci NOT NULL,
-  `TheLoai` int(5) NOT NULL,
-  `Gia` int(10) NOT NULL
+  `TheLoai` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `sach`
+--
+
+INSERT INTO `sach` (`MaSach`, `TenSach`, `TacGia`, `TheLoai`) VALUES
+(1, 'XYZ', 'ABC', 1),
+(2, 'Me ma', 'hn', 1);
 
 -- --------------------------------------------------------
 
@@ -109,14 +180,29 @@ CREATE TABLE `theloai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
+-- Dumping data for table `theloai`
+--
+
+INSERT INTO `theloai` (`MaTL`, `TenTL`) VALUES
+(1, 'Trinh Thám'),
+(2, 'Tình Cảm');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `chitiethoadon`
+--
+ALTER TABLE `chitiethoadon`
+  ADD PRIMARY KEY (`MaCTHD`),
+  ADD KEY `MaSach` (`MaSach`);
 
 --
 -- Indexes for table `chitietphieunhap`
 --
 ALTER TABLE `chitietphieunhap`
-  ADD PRIMARY KEY (`MaPN`,`MaSach`);
+  ADD PRIMARY KEY (`MaCTNH`);
 
 --
 -- Indexes for table `hoadonbansach`
@@ -131,16 +217,24 @@ ALTER TABLE `khachhang`
   ADD PRIMARY KEY (`MaKH`);
 
 --
+-- Indexes for table `nhanvien`
+--
+ALTER TABLE `nhanvien`
+  ADD PRIMARY KEY (`MaNV`);
+
+--
 -- Indexes for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
-  ADD PRIMARY KEY (`MaPN`);
+  ADD PRIMARY KEY (`MaPN`),
+  ADD KEY `MaPN` (`MaPN`);
 
 --
 -- Indexes for table `sach`
 --
 ALTER TABLE `sach`
-  ADD PRIMARY KEY (`MaSach`);
+  ADD PRIMARY KEY (`MaSach`),
+  ADD KEY `MaSach_2` (`MaSach`);
 
 --
 -- Indexes for table `theloai`
@@ -153,34 +247,52 @@ ALTER TABLE `theloai`
 --
 
 --
+-- AUTO_INCREMENT for table `chitiethoadon`
+--
+ALTER TABLE `chitiethoadon`
+  MODIFY `MaCTHD` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `chitietphieunhap`
+--
+ALTER TABLE `chitietphieunhap`
+  MODIFY `MaCTNH` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `hoadonbansach`
 --
 ALTER TABLE `hoadonbansach`
-  MODIFY `MaHD` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaHD` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `khachhang`
 --
 ALTER TABLE `khachhang`
-  MODIFY `MaKH` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaKH` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `nhanvien`
+--
+ALTER TABLE `nhanvien`
+  MODIFY `MaNV` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
-  MODIFY `MaPN` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaPN` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sach`
 --
 ALTER TABLE `sach`
-  MODIFY `MaSach` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaSach` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `theloai`
 --
 ALTER TABLE `theloai`
-  MODIFY `MaTL` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaTL` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
