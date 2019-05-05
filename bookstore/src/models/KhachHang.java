@@ -11,82 +11,77 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name="khachhang")
 public class KhachHang {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int MaKH;
+	@Column(name="MaKH")
+	int makh;
 	
-	@Column
-	String TenKH;
+	@Column(name="TenKH")
+	String tenkh;
 	
-	@Column
-	String DiaChi;
+	@Column(name="DiaChi")
+	String diachi;
 	
-	@Column
-	String SDT;
+	@Column(name="SDT")
+	String sdt;
 	
-	@Column
-	String Email;
+	@Column(name="Email")
+	String email;
 	
-	@OneToMany(mappedBy="Khachhang")
-	private Set<HoaDonBanSach> HoaDonBanSachs;
+	@OneToMany(mappedBy="khachhang")
+	private Set<HoaDonBanSach> hoadonbansach;
 
-	public int getMaKH() {
-		return MaKH;
+
+	public Set<HoaDonBanSach> getHoadonbansach() {
+		return hoadonbansach;
 	}
 
-	public void setMaKH(int maKH) {
-		MaKH = maKH;
+	public void setHoadonbansach(Set<HoaDonBanSach> hoadonbansach) {
+		this.hoadonbansach = hoadonbansach;
+	}
+	
+	
+
+	public int getMakh() {
+		return makh;
 	}
 
-	public String getTenKH() {
-		return TenKH;
+	public void setMakh(int makh) {
+		this.makh = makh;
 	}
 
-	public void setTenKH(String tenKH) {
-		TenKH = tenKH;
+	public String getTenkh() {
+		return tenkh;
 	}
 
-	public String getDiaChi() {
-		return DiaChi;
+	public void setTenkh(String tenkh) {
+		this.tenkh = tenkh;
 	}
 
-	public void setDiaChi(String diaChi) {
-		DiaChi = diaChi;
+	public String getDiachi() {
+		return diachi;
 	}
 
-	public String getSDT() {
-		return SDT;
+	public void setDiachi(String diachi) {
+		this.diachi = diachi;
 	}
 
-	public void setSDT(String sDT) {
-		SDT = sDT;
+	public String getSdt() {
+		return sdt;
+	}
+
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
-	}
-
-	public KhachHang(int maKH, String tenKH, String diaChi, String sDT, String email) {
-		super();
-		MaKH = maKH;
-		TenKH = tenKH;
-		DiaChi = diaChi;
-		SDT = sDT;
-		Email = email;
-	}
-
-	public KhachHang(String tenKH, String diaChi, String sDT, String email) {
-		super();
-		TenKH = tenKH;
-		DiaChi = diaChi;
-		SDT = sDT;
-		Email = email;
+		this.email = email;
 	}
 
 	public KhachHang() {

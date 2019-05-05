@@ -2,75 +2,79 @@ package models;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
-@Table
-public class ChiTietHoaDon implements Serializable{
-	
-	@EmbeddedId
-	private ChiTietHoaDonID cthdId;
-	
+@Table(name = "chitiethoadon")
+public class ChiTietHoaDon implements Serializable {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MaCTHD")
+	private int macthd;
+
 	@ManyToOne
-	@MapsId("MaHD")
-	private HoaDonBanSach HoaDon;
-	
-	@ManyToOne
-	@MapsId("MaSach")
-	private Sach Sach;
-	
-	@Column
-	private int SoLuong;
-	
-	@Column
-	private long DonGia;
+	@JoinColumn(name = "MaSach")
+	private Sach sach;
 
-	public ChiTietHoaDonID getCthdId() {
-		return cthdId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "MaHD")
+	private HoaDonBanSach hoadon;
+
+	@Column(name = "SoLuong")
+	private int soluong;
+
+	@Column(name = "DonGia")
+	private long dongia;
+
+	public int getMacthd() {
+		return macthd;
 	}
 
-	public void setCthdId(ChiTietHoaDonID cthdId) {
-		this.cthdId = cthdId;
-	}
-
-	public HoaDonBanSach getHoaDon() {
-		return HoaDon;
-	}
-
-	public void setHoaDon(HoaDonBanSach hoaDon) {
-		HoaDon = hoaDon;
+	public void setMacthd(int macthd) {
+		this.macthd = macthd;
 	}
 
 	public Sach getSach() {
-		return Sach;
+		return sach;
 	}
 
-	public void setSach(Sach Sach) {
-		Sach = Sach;
+	public void setSach(Sach sach) {
+		this.sach = sach;
 	}
 
-	public int getSoLuong() {
-		return SoLuong;
+	public HoaDonBanSach getHoadon() {
+		return hoadon;
 	}
 
-	public void setSoLuong(int soLuong) {
-		SoLuong = soLuong;
+	public void setHoadon(HoaDonBanSach hoadon) {
+		this.hoadon = hoadon;
 	}
 
-	public long getDonGia() {
-		return DonGia;
+	public int getSoluong() {
+		return soluong;
 	}
 
-	public void setDonGia(long donGia) {
-		DonGia = donGia;
+	public void setSoluong(int soluong) {
+		this.soluong = soluong;
+	}
+
+	public long getDongia() {
+		return dongia;
+	}
+
+	public void setDongia(long dongia) {
+		this.dongia = dongia;
 	}
 
 	public ChiTietHoaDon() {
