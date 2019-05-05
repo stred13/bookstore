@@ -8,7 +8,11 @@ import org.hibernate.Transaction;
 
 
 import config.hibSessionFactory;
+import models.ChiTietHoaDon;
 import models.ChiTietPhieuNhap;
+import models.HoaDonBanSach;
+import models.KhachHang;
+import models.NhanVien;
 import models.PhieuNhap;
 import models.Sach;
 import models.TheLoai;
@@ -32,7 +36,7 @@ public class mainTest {
 		trans.commit();
 		sess.close();*/
 		
-		sess.beginTransaction();
+		/*sess.beginTransaction();
 		PhieuNhap pn = new PhieuNhap(new Date());
 		Sach s = (Sach) sess.load(Sach.class, 1);
 		
@@ -43,8 +47,35 @@ public class mainTest {
 		ctpn.setPhieunhap(pn);
 		
 		sess.persist(ctpn);
+		sess.getTransaction().commit();*/
+		
+		sess.beginTransaction();
+		/*NhanVien nv = (NhanVien) sess.load(NhanVien.class, 1);
+		KhachHang kh = (KhachHang) sess.load(KhachHang.class, 1);
+		Sach s = (Sach) sess.load(Sach.class, 1);
+		//System.out.println(nv.getManv()+" "+kh.getMakh());
+		
+		HoaDonBanSach hd = new HoaDonBanSach();
+		hd.setKhachhang(kh);
+		hd.setNgaylap(new Date());
+		hd.setNhanvien(nv);
+		hd.setTongtien(50000);
+		//hd.setMahd(3);
+		
+		ChiTietHoaDon cthd = new ChiTietHoaDon();
+		cthd.setDongia(12000);
+		cthd.setSach(s);
+		cthd.setSoluong(4);
+		cthd.setHoadon(hd);
+		
+		
+		sess.save(cthd);*/
+		
+		HoaDonBanSach hd = (HoaDonBanSach) sess.load(HoaDonBanSach.class, 1);
+		
+		System.out.println(hd.getCthd().size());
+		
 		sess.getTransaction().commit();
-		//trans.commit();
 		sess.close();
 		
 	}

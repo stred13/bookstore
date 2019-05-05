@@ -39,8 +39,8 @@ public class Sach{
 	@OneToMany(mappedBy="sach",cascade = CascadeType.ALL)
 	private Set<ChiTietPhieuNhap> ctpn = new HashSet<>();
 	
-	@OneToMany(mappedBy="HoaDon")
-	private Set<ChiTietHoaDon> HoaDons = new HashSet<>();
+	@OneToMany(mappedBy="sach",cascade = CascadeType.ALL)
+	private Set<ChiTietHoaDon> cthd = new HashSet<>();
 
 	public int getMasach() {
 		return masach;
@@ -82,20 +82,21 @@ public class Sach{
 	public void setCtpn(Set<ChiTietPhieuNhap> ctpn) {
 		this.ctpn = ctpn;
 	}
-
-	public Set<ChiTietHoaDon> getHoaDons() {
-		return HoaDons;
+	public Set<ChiTietHoaDon> getCthd() {
+		return cthd;
 	}
 
-	public void setHoaDons(Set<ChiTietHoaDon> hoaDons) {
-		HoaDons = hoaDons;
+	public void setCthd(Set<ChiTietHoaDon> cthd) {
+		this.cthd = cthd;
 	}
 
-	public Sach(String tensach, String tacgia, TheLoai tLSach) {
+	public Sach(String tensach, String tacgia, TheLoai tLSach, Set<ChiTietPhieuNhap> ctpn, Set<ChiTietHoaDon> cthd) {
 		super();
 		this.tensach = tensach;
 		this.tacgia = tacgia;
 		TLSach = tLSach;
+		this.ctpn = ctpn;
+		this.cthd = cthd;
 	}
 
 	public Sach() {

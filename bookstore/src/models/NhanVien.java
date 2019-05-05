@@ -14,56 +14,57 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
-public class NhanVien implements Serializable{
+@Table(name = "nhanvien")
+public class NhanVien implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaNV;
-	
-	@Column
-	private String TenNV;
-	
-	@Column
-	private String Sdt;
+	@Column(name = "MaNV")
+	private int manv;
 
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="NhanVien",cascade=CascadeType.ALL)
-	private Set<HoaDonBanSach> HoaDonBanSachs;
-	
-	
-	public int getMaNV() {
-		return MaNV;
+	@Column(name = "TenNV")
+	private String tennv;
+
+	@Column(name = "Sdt")
+	private String sdt;
+
+	@OneToMany(mappedBy = "nhanvien")
+	private Set<HoaDonBanSach> hoadon;
+
+	public int getManv() {
+		return manv;
 	}
 
-	public void setMaNV(int maNV) {
-		MaNV = maNV;
+	public void setManv(int manv) {
+		this.manv = manv;
 	}
 
-	public String getTenNV() {
-		return TenNV;
+	public String getTennv() {
+		return tennv;
 	}
 
-	public void setTenNV(String tenNV) {
-		TenNV = tenNV;
+	public void setTennv(String tennv) {
+		this.tennv = tennv;
 	}
 
 	public String getSdt() {
-		return Sdt;
+		return sdt;
 	}
 
 	public void setSdt(String sdt) {
-		Sdt = sdt;
+		this.sdt = sdt;
 	}
 
-	public NhanVien(String tenNV, String sdt) {
-		super();
-		TenNV = tenNV;
-		Sdt = sdt;
+	public Set<HoaDonBanSach> getHoadon() {
+		return hoadon;
+	}
+
+	public void setHoadon(Set<HoaDonBanSach> hoadon) {
+		this.hoadon = hoadon;
 	}
 
 	public NhanVien() {
 		super();
 	}
-	
-	
+
 }

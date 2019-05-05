@@ -1,8 +1,11 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,79 +18,83 @@ import javax.persistence.Table;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
 
-
 @Entity
-@Table
-public class HoaDonBanSach {
+@Table(name = "hoadonbansach")
+public class HoaDonBanSach implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaHD;
-	
-	@Column
-	private Date NgayLap;
-	
-	@ManyToOne(targetEntity = KhachHang.class)
-	@JoinColumn(name="khachhang")
-	private KhachHang Khachhang;
-	
+	@Column(name = "MaHD")
+	private int mahd;
+
+	@Column(name = "NgayLap")
+	private Date ngaylap;
+
 	@ManyToOne
-	@JoinColumn(name="nhanvien")
-	private NhanVien NhanVien;
+	@JoinColumn(name = "MaKH")
+	private KhachHang khachhang;
+
+	@ManyToOne
+	@JoinColumn(name = "MaNhanVien")
+	private NhanVien nhanvien;
+
+	@Column(name = "TongTien")
+	private long tongtien;
 	
-	@OneToMany(mappedBy="Sach")
-	private Set<ChiTietHoaDon> Sachs;
+	@OneToMany(mappedBy = "hoadon",cascade=CascadeType.ALL)
+	private Set<ChiTietHoaDon> cthd = new HashSet<>();
 
-	@Column
-	private long TongTien;
-	
-	public int getMaHD() {
-		return MaHD;
+	public int getMahd() {
+		return mahd;
 	}
 
-	public void setMaHD(int maHD) {
-		MaHD = maHD;
+	public void setMahd(int mahd) {
+		this.mahd = mahd;
 	}
 
-	public Date getNgayLap() {
-		return NgayLap;
+	public Date getNgaylap() {
+		return ngaylap;
 	}
 
-
-	public void setNgayLap(Date ngayLap) {
-		NgayLap = ngayLap;
+	public void setNgaylap(Date ngaylap) {
+		this.ngaylap = ngaylap;
 	}
 
-
-	public NhanVien getNhanVien() {
-		return NhanVien;
-	}
-
-	public void setNhanVien(NhanVien nhanVien) {
-		NhanVien = nhanVien;
-	}
 
 	public KhachHang getKhachhang() {
-		return Khachhang;
+		return khachhang;
 	}
 
 	public void setKhachhang(KhachHang khachhang) {
-		Khachhang = khachhang;
+		this.khachhang = khachhang;
 	}
 
-
-
-	public long getTongTien() {
-		return TongTien;
+	public Set<ChiTietHoaDon> getCthd() {
+		return cthd;
 	}
 
-	public void setTongTien(long tongTien) {
-		TongTien = tongTien;
+	public void setCthd(Set<ChiTietHoaDon> cthd) {
+		this.cthd = cthd;
+	}
+
+	public NhanVien getNhanvien() {
+		return nhanvien;
+	}
+
+	public void setNhanvien(NhanVien nhanvien) {
+		this.nhanvien = nhanvien;
+	}
+
+	public long getTongtien() {
+		return tongtien;
+	}
+
+	public void setTongtien(long tongtien) {
+		this.tongtien = tongtien;
 	}
 
 	public HoaDonBanSach() {
 		super();
 	}
-	
-	
+
 }
