@@ -35,8 +35,8 @@ public class ChiTietPhieuNhap {
 	@JoinColumn(name="MaPN")
 	private PhieuNhap phieunhap;
 	
-	@Column(name = "DonGia")
-	private long dongia;
+	@Column(name = "GiaNhap")
+	private long gianhap;
 	
 	@Column(name = "SoLuong")
 	private int soluong;
@@ -66,11 +66,11 @@ public class ChiTietPhieuNhap {
 	}
 
 	public long getDongia() {
-		return dongia;
+		return gianhap;
 	}
 
 	public void setDongia(long dongia) {
-		this.dongia = dongia;
+		this.gianhap = dongia;
 	}
 
 	public int getSoluong() {
