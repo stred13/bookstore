@@ -18,28 +18,31 @@ import javax.persistence.Table;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 
 @Entity
-@Table(name="sach")
-public class Sach{
-	
+@Table(name = "sach")
+public class Sach {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="MaSach")
+	@Column(name = "MaSach")
 	private int masach;
-	
-	@Column(name="TenSach")
+
+	@Column(name = "TenSach")
 	private String tensach;
-	
-	@Column(name="TacGia")
+
+	@Column(name = "TacGia")
 	private String tacgia;
-	
+
+	@Column(name = "GiaBan")
+	private long giaban;
+
 	@ManyToOne
-	@JoinColumn(name="TheLoai",nullable=false)
+	@JoinColumn(name = "TheLoai", nullable = false)
 	private TheLoai TLSach;
-	
-	@OneToMany(mappedBy="sach",cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "sach", cascade = CascadeType.ALL)
 	private Set<ChiTietPhieuNhap> ctpn = new HashSet<>();
-	
-	@OneToMany(mappedBy="sach",cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "sach", cascade = CascadeType.ALL)
 	private Set<ChiTietHoaDon> cthd = new HashSet<>();
 
 	public int getMasach() {
@@ -58,6 +61,14 @@ public class Sach{
 		this.tensach = tensach;
 	}
 
+	public long getGiaban() {
+		return giaban;
+	}
+
+	public void setGiaban(long giaban) {
+		this.giaban = giaban;
+	}
+
 	public String getTacgia() {
 		return tacgia;
 	}
@@ -74,7 +85,6 @@ public class Sach{
 		TLSach = tLSach;
 	}
 
-	
 	public Set<ChiTietPhieuNhap> getCtpn() {
 		return ctpn;
 	}
@@ -82,6 +92,7 @@ public class Sach{
 	public void setCtpn(Set<ChiTietPhieuNhap> ctpn) {
 		this.ctpn = ctpn;
 	}
+
 	public Set<ChiTietHoaDon> getCthd() {
 		return cthd;
 	}
@@ -100,7 +111,7 @@ public class Sach{
 	}
 
 	public Sach() {
-		
+
 	}
-	
+
 }
