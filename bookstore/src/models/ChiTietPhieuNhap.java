@@ -20,26 +20,27 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="chitietphieunhap")
+@Table(name = "chitietphieunhap")
 public class ChiTietPhieuNhap {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="MaCTNH")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MaCTNH")
 	private int mactpn;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="MaSach")
+	@JoinColumn(name = "MaSach")
 	private Sach sach;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="MaPN")
+	@JoinColumn(name = "MaPN")
 	private PhieuNhap phieunhap;
-	
+
 	@Column(name = "GiaNhap")
 	private long gianhap;
-	
+
 	@Column(name = "SoLuong")
 	private int soluong;
+
 
 	public int getMactpn() {
 		return mactpn;
@@ -65,13 +66,7 @@ public class ChiTietPhieuNhap {
 		this.phieunhap = phieunhap;
 	}
 
-	public long getDongia() {
-		return gianhap;
-	}
-
-	public void setDongia(long dongia) {
-		this.gianhap = dongia;
-	}
+	
 
 	public int getSoluong() {
 		return soluong;
@@ -79,6 +74,14 @@ public class ChiTietPhieuNhap {
 
 	public void setSoluong(int soluong) {
 		this.soluong = soluong;
+	}
+
+	public long getGianhap() {
+		return gianhap;
+	}
+
+	public void setGianhap(long gianhap) {
+		this.gianhap = gianhap;
 	}
 
 	public ChiTietPhieuNhap() {

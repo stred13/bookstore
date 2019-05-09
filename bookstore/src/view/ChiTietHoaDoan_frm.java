@@ -26,9 +26,7 @@ public class ChiTietHoaDoan_frm extends JFrame {
 			}
 		});
 	}
-	/**
-	 * Create the frame.
-	 */
+
 	public ChiTietHoaDoan_frm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

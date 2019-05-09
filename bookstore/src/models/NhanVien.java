@@ -30,6 +30,9 @@ public class NhanVien implements Serializable {
 
 	@OneToMany(mappedBy = "nhanvien")
 	private Set<HoaDonBanSach> hoadon;
+	
+	@OneToMany(mappedBy = "nhanvien")
+	private Set<PhieuNhap> phieunhap;
 
 	public int getManv() {
 		return manv;

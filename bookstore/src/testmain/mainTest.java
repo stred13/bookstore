@@ -8,6 +8,8 @@ import org.hibernate.Transaction;
 
 
 import config.hibSessionFactory;
+import daos.phieunhapDao;
+import daos.sachDao;
 import models.ChiTietHoaDon;
 import models.ChiTietPhieuNhap;
 import models.HoaDonBanSach;
@@ -25,6 +27,7 @@ public class mainTest {
 		
 		SessionFactory sessFac = hibSessionFactory.getSession();
 		sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
 		//Transaction trans = sess.beginTransaction();
 		/*theloai tl = (theloai) sess.load(theloai.class, 1);
 		
@@ -48,8 +51,6 @@ public class mainTest {
 		
 		sess.persist(ctpn);
 		sess.getTransaction().commit();*/
-		
-		sess.beginTransaction();
 		/*NhanVien nv = (NhanVien) sess.load(NhanVien.class, 1);
 		KhachHang kh = (KhachHang) sess.load(KhachHang.class, 1);
 		Sach s = (Sach) sess.load(Sach.class, 1);
@@ -67,16 +68,23 @@ public class mainTest {
 		cthd.setSach(s);
 		cthd.setSoluong(4);
 		cthd.setHoadon(hd);
-		
-		
 		sess.save(cthd);*/
 		
-		HoaDonBanSach hd = (HoaDonBanSach) sess.load(HoaDonBanSach.class, 1);
-		
-		System.out.println(hd.getCthd().size());
-		
+		/*TheLoai tl = (TheLoai) sess.load(TheLoai.class, 1);
+		NhanVien nv = (NhanVien) sess.load(NhanVien.class, 1);
+		Sach sach = new Sach();
+		sach.setGiaban(0);
+		sach.setTacgia("Tien");
+		sach.setTensach("Tien heo");
+		sach.setTLSach(tl);
 		sess.getTransaction().commit();
 		sess.close();
+		sachDao sDao = new sachDao();
+		sDao.nhapSach(sach, nv);		
+		*/
 		
+		sachDao sDao = new sachDao();
+		Sach s =sDao.getSachbyName("sachdoanh");
+		System.out.println(s.getTensach());
 	}
 }
