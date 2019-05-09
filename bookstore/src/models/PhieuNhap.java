@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -34,6 +36,10 @@ public class PhieuNhap{
 	
 	@OneToMany(mappedBy = "phieunhap",cascade = CascadeType.ALL)
 	private Set<ChiTietPhieuNhap> ctpn = new HashSet<>();
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="MaNV")
+	private NhanVien nhanvien;
 
 	public PhieuNhap(Date ngayNhap) {
 		super();
@@ -66,6 +72,14 @@ public class PhieuNhap{
 
 	public void setCtpn(Set<ChiTietPhieuNhap> ctpn) {
 		this.ctpn = ctpn;
+	}
+
+	public NhanVien getNhanvien() {
+		return nhanvien;
+	}
+
+	public void setNhanvien(NhanVien nhanvien) {
+		this.nhanvien = nhanvien;
 	}
 	
 	

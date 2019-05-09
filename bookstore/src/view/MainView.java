@@ -222,7 +222,7 @@ public class MainView extends JFrame {
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_2.setBounds(420, 11, 509, 259);
+		panel_2.setBounds(420, 47, 509, 392);
 		panel.add(panel_2);
 		
 		JLabel label = new JLabel("T\u00EAn S\u00E1ch");
@@ -240,25 +240,25 @@ public class MainView extends JFrame {
 		JLabel label_2 = new JLabel("Th\u1EC3 Lo\u1EA1i");
 		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_2.setBounds(34, 139, 81, 17);
+		label_2.setBounds(34, 145, 81, 17);
 		panel_2.add(label_2);
 		
 		JLabel label_3 = new JLabel("S\u1ED1 L\u01B0\u1EE3ng T\u1ED3n");
 		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_3.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_3.setBounds(10, 210, 105, 17);
+		label_3.setBounds(10, 236, 105, 17);
 		panel_2.add(label_3);
 		
 		JLabel label_4 = new JLabel("Gi\u00E1 B\u00E1n");
 		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_4.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_4.setBounds(34, 177, 81, 17);
+		label_4.setBounds(34, 192, 81, 17);
 		panel_2.add(label_4);
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		textField.setColumns(10);
-		textField.setBounds(125, 53, 373, 28);
+		textField.setBounds(125, 53, 245, 28);
 		panel_2.add(textField);
 		
 		textField_1 = new JTextField();
@@ -269,19 +269,19 @@ public class MainView extends JFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		comboBox.setBounds(125, 134, 140, 25);
+		comboBox.setBounds(125, 140, 140, 25);
 		panel_2.add(comboBox);
 		
 		textField_2 = new JTextField();
 		textField_2.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		textField_2.setColumns(10);
-		textField_2.setBounds(125, 168, 140, 28);
+		textField_2.setBounds(125, 183, 140, 28);
 		panel_2.add(textField_2);
 		
 		textField_4 = new JTextField();
 		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		textField_4.setColumns(10);
-		textField_4.setBounds(125, 205, 140, 28);
+		textField_4.setBounds(125, 229, 140, 28);
 		panel_2.add(textField_4);
 		
 		JLabel label_6 = new JLabel("M\u00E3 S\u00E1ch");
@@ -296,27 +296,37 @@ public class MainView extends JFrame {
 		textField_5.setBounds(125, 10, 96, 28);
 		panel_2.add(textField_5);
 		
+		JLabel lblMT = new JLabel("Mô Tả");
+		lblMT.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMT.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblMT.setBounds(10, 277, 105, 17);
+		panel_2.add(lblMT);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(125, 274, 362, 92);
+		panel_2.add(textArea);
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 400, 593);
+		scrollPane.setBounds(10, 141, 400, 430);
 		panel.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		JButton btnNewButton_1 = new JButton("Nh\u1EADp S\u00E1ch");
-		btnNewButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnNewButton_1.setBounds(729, 291, 97, 27);
-		panel.add(btnNewButton_1);
-		
 		JButton btnCpNht = new JButton("C\u1EADp nh\u1EADt");
 		btnCpNht.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnCpNht.setBounds(605, 291, 97, 27);
+		btnCpNht.setBounds(832, 450, 97, 27);
 		panel.add(btnCpNht);
 		
 		JButton btnXa = new JButton("X\u00F3a");
 		btnXa.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnXa.setBounds(474, 291, 97, 27);
+		btnXa.setBounds(700, 450, 97, 27);
 		panel.add(btnXa);
+		
+		JPanel panel_8 = new JPanel();
+		panel_8.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_8.setBounds(10, 47, 400, 72);
+		panel.add(panel_8);
 		
 		JPanel panel_5 = new JPanel();
 		tabbedPane.addTab("Khách hàng", null, panel_5, null);
