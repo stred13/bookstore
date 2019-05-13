@@ -21,24 +21,23 @@ import javax.swing.JTextArea;
 import javax.swing.JEditorPane;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.List;
+import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainView extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_4;
-	private JTextField textField_5;
 	private JTable table;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_9;
+	private JTextField txtSLMua;
 	private JTextField textField_10;
 	private JTextField textField_11;
 	private JTable table_1;
-	private JTextField textField_3;
-	private JTextField textField_12;
+	private JTextField txtTimKiem;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
 
 	/**
 	 * Launch the application.
@@ -61,7 +60,7 @@ public class MainView extends JFrame {
 	 */
 	public MainView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 970, 693);
+		setBounds(100, 100, 973, 805);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -70,306 +69,307 @@ public class MainView extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Quản lý bán sách", null, panel_1, null);
-		panel_1.setLayout(null);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_3.setBounds(471, 102, 446, 207);
-		panel_1.add(panel_3);
-		panel_3.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Mã Sách");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblNewLabel.setBounds(10, 11, 102, 25);
-		panel_3.add(lblNewLabel);
-		
-		JLabel lblTngTin = new JLabel("Tên Sách");
-		lblTngTin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTngTin.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblTngTin.setBounds(10, 38, 102, 25);
-		panel_3.add(lblTngTin);
-		
-		JLabel lblSLngSch = new JLabel("Thể Loại");
-		lblSLngSch.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSLngSch.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblSLngSch.setBounds(10, 67, 102, 25);
-		panel_3.add(lblSLngSch);
-		
-		JLabel lblMNhnVin = new JLabel("Số Lượng Mua");
-		lblMNhnVin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMNhnVin.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMNhnVin.setBounds(10, 135, 102, 25);
-		panel_3.add(lblMNhnVin);
-		
-		textField_6 = new JTextField();
-		textField_6.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_6.setBounds(140, 14, 153, 20);
-		panel_3.add(textField_6);
-		textField_6.setColumns(10);
-		
-		textField_7 = new JTextField();
-		textField_7.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_7.setColumns(10);
-		textField_7.setBounds(140, 41, 153, 20);
-		panel_3.add(textField_7);
-		
-		textField_9 = new JTextField();
-		textField_9.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_9.setColumns(10);
-		textField_9.setBounds(140, 138, 187, 20);
-		panel_3.add(textField_9);
-		
-		JLabel label_7 = new JLabel("Số Lượng Còn");
-		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_7.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_7.setBounds(10, 101, 102, 25);
-		panel_3.add(label_7);
-		
-		textField_12 = new JTextField();
-		textField_12.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_12.setColumns(10);
-		textField_12.setBounds(140, 104, 116, 20);
-		panel_3.add(textField_12);
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.setLayout(null);
-		panel_4.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_4.setBounds(471, 11, 446, 83);
-		panel_1.add(panel_4);
-		
-		JLabel lblMKhchHng = new JLabel("M\u00E3 Kh\u00E1ch H\u00E0ng");
-		lblMKhchHng.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMKhchHng.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMKhchHng.setBounds(10, 11, 102, 25);
-		panel_4.add(lblMKhchHng);
-		
-		JLabel lblTnKhchHng = new JLabel("T\u00EAn Kh\u00E1ch H\u00E0ng");
-		lblTnKhchHng.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTnKhchHng.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblTnKhchHng.setBounds(10, 47, 102, 25);
-		panel_4.add(lblTnKhchHng);
-		
-		textField_10 = new JTextField();
-		textField_10.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_10.setColumns(10);
-		textField_10.setBounds(140, 14, 102, 20);
-		panel_4.add(textField_10);
-		
-		textField_11 = new JTextField();
-		textField_11.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_11.setColumns(10);
-		textField_11.setBounds(140, 50, 226, 20);
-		panel_4.add(textField_11);
-		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(10, 102, 446, 207);
-		panel_1.add(scrollPane_2);
-		
-		table_1 = new JTable();
-		scrollPane_2.setViewportView(table_1);
-		
-		JButton btnToHan = new JButton("Mua Sách");
-		btnToHan.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		btnToHan.setBounds(815, 320, 102, 25);
-		panel_1.add(btnToHan);
-		
-		JPanel panel_7 = new JPanel();
-		panel_7.setLayout(null);
-		panel_7.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_7.setBounds(10, 11, 446, 83);
-		panel_1.add(panel_7);
-		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_3.setColumns(10);
-		textField_3.setBounds(10, 14, 226, 20);
-		panel_7.add(textField_3);
-		
-		JButton btnNewButton_2 = new JButton("Tìm Kiếm");
-		btnNewButton_2.setBounds(335, 14, 101, 23);
-		panel_7.add(btnNewButton_2);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Thể Loại"}));
-		comboBox_1.setBounds(246, 15, 79, 20);
-		panel_7.add(comboBox_1);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 356, 907, 219);
-		panel_1.add(scrollPane_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Số lượng:");
-		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(10, 325, 67, 20);
-		panel_1.add(lblNewLabel_2);
-		
-		JLabel lblTngTin_1 = new JLabel("Tổng Tiền:");
-		lblTngTin_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblTngTin_1.setBounds(140, 325, 67, 20);
-		panel_1.add(lblTngTin_1);
-		
-		JButton btnNewButton = new JButton("Xuất hóa đơn");
-		btnNewButton.setBounds(815, 586, 102, 23);
-		panel_1.add(btnNewButton);
-		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Quản lý sách", null, panel, null);
-		panel.setLayout(null);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setLayout(null);
-		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_2.setBounds(420, 47, 509, 392);
-		panel.add(panel_2);
-		
-		JLabel label = new JLabel("T\u00EAn S\u00E1ch");
-		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		label.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label.setBounds(34, 60, 81, 17);
-		panel_2.add(label);
-		
-		JLabel label_1 = new JLabel("T\u00E1c Gi\u1EA3");
-		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_1.setBounds(34, 102, 81, 17);
-		panel_2.add(label_1);
-		
-		JLabel label_2 = new JLabel("Th\u1EC3 Lo\u1EA1i");
-		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_2.setBounds(34, 145, 81, 17);
-		panel_2.add(label_2);
-		
-		JLabel label_3 = new JLabel("S\u1ED1 L\u01B0\u1EE3ng T\u1ED3n");
-		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_3.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_3.setBounds(10, 236, 105, 17);
-		panel_2.add(label_3);
-		
-		JLabel label_4 = new JLabel("Gi\u00E1 B\u00E1n");
-		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_4.setBounds(34, 192, 81, 17);
-		panel_2.add(label_4);
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		textField.setColumns(10);
-		textField.setBounds(125, 53, 245, 28);
-		panel_2.add(textField);
-		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		textField_1.setColumns(10);
-		textField_1.setBounds(125, 95, 373, 28);
-		panel_2.add(textField_1);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		comboBox.setBounds(125, 140, 140, 25);
-		panel_2.add(comboBox);
-		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		textField_2.setColumns(10);
-		textField_2.setBounds(125, 183, 140, 28);
-		panel_2.add(textField_2);
-		
-		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		textField_4.setColumns(10);
-		textField_4.setBounds(125, 229, 140, 28);
-		panel_2.add(textField_4);
-		
-		JLabel label_6 = new JLabel("M\u00E3 S\u00E1ch");
-		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_6.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_6.setBounds(34, 17, 81, 17);
-		panel_2.add(label_6);
-		
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		textField_5.setColumns(10);
-		textField_5.setBounds(125, 10, 96, 28);
-		panel_2.add(textField_5);
-		
-		JLabel lblMT = new JLabel("Mô Tả");
-		lblMT.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMT.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMT.setBounds(10, 277, 105, 17);
-		panel_2.add(lblMT);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(125, 274, 362, 92);
-		panel_2.add(textArea);
+		JPanel pnl_NhapSach = new JPanel();
+		tabbedPane.addTab("Quản Lý Sách", null, pnl_NhapSach, null);
+		pnl_NhapSach.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 141, 400, 430);
-		panel.add(scrollPane);
+		scrollPane.setBounds(10, 163, 918, 542);
+		pnl_NhapSach.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		JButton btnCpNht = new JButton("C\u1EADp nh\u1EADt");
-		btnCpNht.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnCpNht.setBounds(832, 450, 97, 27);
-		panel.add(btnCpNht);
-		
-		JButton btnXa = new JButton("X\u00F3a");
-		btnXa.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnXa.setBounds(700, 450, 97, 27);
-		panel.add(btnXa);
-		
 		JPanel panel_8 = new JPanel();
-		panel_8.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_8.setBounds(10, 47, 400, 72);
-		panel.add(panel_8);
+		panel_8.setBounds(10, 123, 918, 38);
+		panel_8.setLayout(null);
+		pnl_NhapSach.add(panel_8);
+		
+		textField_6 = new JTextField();
+		textField_6.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		textField_6.setColumns(10);
+		panel_8.add(textField_6);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		panel_8.add(comboBox_1);
+		
+		JButton button_2 = new JButton("Tìm Kiếm");
+		panel_8.add(button_2);
+		
+		textField_7 = new JTextField();
+		textField_7.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		textField_7.setColumns(10);
+		textField_7.setBounds(449, 13, 305, 20);
+		panel_8.add(textField_7);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(135, 13, 153, 20);
+		panel_8.add(comboBox_2);
+		
+		JButton button_3 = new JButton("Tìm Kiếm");
+		button_3.setBounds(806, 13, 100, 20);
+		panel_8.add(button_3);
+		
+		JLabel lblLoiTmKim = new JLabel("Loại Tìm Kiếm");
+		lblLoiTmKim.setBounds(29, 15, 92, 16);
+		panel_8.add(lblLoiTmKim);
+		
+		JLabel lblTKhaTm = new JLabel("Từ Khóa Tìm Kiếm");
+		lblTKhaTm.setBounds(335, 15, 119, 16);
+		panel_8.add(lblTKhaTm);
+		
+		JLabel lblQunLSch = new JLabel("Quản Lý Sách");
+		lblQunLSch.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		lblQunLSch.setBounds(370, 13, 201, 46);
+		pnl_NhapSach.add(lblQunLSch);
+		
+		JButton button_4 = new JButton("Thêm Sách Mới");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button_4.setBounds(24, 87, 137, 31);
+		pnl_NhapSach.add(button_4);
+		
+		JButton button = new JButton("Chỉnh sửa thông tin sách");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button.setBounds(173, 87, 178, 31);
+		pnl_NhapSach.add(button);
+		
+		JButton button_1 = new JButton("Xóa sách");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button_1.setBounds(370, 87, 178, 31);
+		pnl_NhapSach.add(button_1);
+		
+		JPanel pnlBanSach = new JPanel();
+		tabbedPane.addTab("Bán Sách", null, pnlBanSach, null);
+		pnlBanSach.setLayout(null);
+		
+		JPanel pnlThongTinSach = new JPanel();
+		pnlThongTinSach.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnlThongTinSach.setBounds(519, 131, 411, 250);
+		pnlBanSach.add(pnlThongTinSach);
+		pnlThongTinSach.setLayout(null);
+		
+		JLabel lblMaSach = new JLabel("Mã Sách");
+		lblMaSach.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMaSach.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblMaSach.setBounds(10, 11, 102, 25);
+		pnlThongTinSach.add(lblMaSach);
+		
+		JLabel lblTenSach = new JLabel("Tên Sách");
+		lblTenSach.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTenSach.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblTenSach.setBounds(10, 38, 102, 25);
+		pnlThongTinSach.add(lblTenSach);
+		
+		JLabel lblTheLoai = new JLabel("Thể Loại");
+		lblTheLoai.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTheLoai.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblTheLoai.setBounds(10, 67, 102, 25);
+		pnlThongTinSach.add(lblTheLoai);
+		
+		JLabel lblSLMua = new JLabel("Số Lượng Mua");
+		lblSLMua.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSLMua.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblSLMua.setBounds(10, 164, 102, 25);
+		pnlThongTinSach.add(lblSLMua);
+		
+		txtSLMua = new JTextField();
+		txtSLMua.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtSLMua.setColumns(10);
+		txtSLMua.setBounds(140, 167, 89, 20);
+		pnlThongTinSach.add(txtSLMua);
+		
+		JLabel lblSLSach = new JLabel("Số Lượng Còn");
+		lblSLSach.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSLSach.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblSLSach.setBounds(10, 130, 102, 25);
+		pnlThongTinSach.add(lblSLSach);
+		
+		JLabel txtTheLoai = new JLabel("");
+		txtTheLoai.setBounds(140, 71, 180, 16);
+		pnlThongTinSach.add(txtTheLoai);
+		
+		JButton btnChnMua = new JButton("Chọn Mua");
+		btnChnMua.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		btnChnMua.setBounds(256, 202, 102, 25);
+		pnlThongTinSach.add(btnChnMua);
+		
+		JButton btnThayi = new JButton("Thay Đổi");
+		btnThayi.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		btnThayi.setBounds(142, 203, 102, 25);
+		pnlThongTinSach.add(btnThayi);
+		
+		JButton btnXa_1 = new JButton("Bỏ Chọn");
+		btnXa_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		btnXa_1.setBounds(28, 203, 102, 25);
+		pnlThongTinSach.add(btnXa_1);
+		
+		JLabel lblnGi = new JLabel("Đơn Giá");
+		lblnGi.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblnGi.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblnGi.setBounds(10, 92, 102, 25);
+		pnlThongTinSach.add(lblnGi);
+		
+		JLabel label_8 = new JLabel("");
+		label_8.setBounds(140, 96, 180, 16);
+		pnlThongTinSach.add(label_8);
+		
+		JLabel label = new JLabel("");
+		label.setBounds(140, 138, 180, 16);
+		pnlThongTinSach.add(label);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setBounds(140, 42, 180, 16);
+		pnlThongTinSach.add(label_1);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setBounds(140, 15, 180, 16);
+		pnlThongTinSach.add(label_2);
+		
+		JPanel pnlThongTinKhachHang = new JPanel();
+		pnlThongTinKhachHang.setLayout(null);
+		pnlThongTinKhachHang.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnlThongTinKhachHang.setBounds(519, 13, 411, 105);
+		pnlBanSach.add(pnlThongTinKhachHang);
+		
+		JLabel lblMKhchHng = new JLabel("M\u00E3 Kh\u00E1ch H\u00E0ng");
+		lblMKhchHng.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMKhchHng.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblMKhchHng.setBounds(44, 13, 102, 25);
+		pnlThongTinKhachHang.add(lblMKhchHng);
+		
+		JLabel lblTnKhchHng = new JLabel("T\u00EAn Kh\u00E1ch H\u00E0ng");
+		lblTnKhchHng.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTnKhchHng.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblTnKhchHng.setBounds(44, 36, 102, 25);
+		pnlThongTinKhachHang.add(lblTnKhchHng);
+		
+		textField_10 = new JTextField();
+		textField_10.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		textField_10.setColumns(10);
+		textField_10.setBounds(174, 16, 180, 20);
+		pnlThongTinKhachHang.add(textField_10);
+		
+		textField_11 = new JTextField();
+		textField_11.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		textField_11.setColumns(10);
+		textField_11.setBounds(174, 39, 180, 20);
+		pnlThongTinKhachHang.add(textField_11);
+		
+		JCheckBox checkBoxKhachHang = new JCheckBox("Khách hàng vãng lai");
+		checkBoxKhachHang.setBounds(44, 71, 310, 25);
+		pnlThongTinKhachHang.add(checkBoxKhachHang);
+		
+		JPanel pnlTimKiemSach = new JPanel();
+		pnlTimKiemSach.setLayout(null);
+		pnlTimKiemSach.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnlTimKiemSach.setBounds(10, 11, 500, 53);
+		pnlBanSach.add(pnlTimKiemSach);
+		
+		txtTimKiem = new JTextField();
+		txtTimKiem.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtTimKiem.setColumns(10);
+		txtTimKiem.setBounds(10, 14, 230, 20);
+		pnlTimKiemSach.add(txtTimKiem);
+		
+		JButton btnTimKiem = new JButton("Tìm Kiếm");
+		btnTimKiem.setBounds(379, 14, 100, 20);
+		pnlTimKiemSach.add(btnTimKiem);
+		
+		JComboBox cbbTheLoai = new JComboBox();
+		cbbTheLoai.setModel(new DefaultComboBoxModel(new String[] {"Thể Loại"}));
+		cbbTheLoai.setBounds(252, 14, 118, 20);
+		pnlTimKiemSach.add(cbbTheLoai);
+		
+		JScrollPane lstSachMua = new JScrollPane();
+		lstSachMua.setBounds(10, 417, 920, 209);
+		pnlBanSach.add(lstSachMua);
+		
+		JButton btnNewButton = new JButton("Xuất hóa đơn");
+		btnNewButton.setBounds(762, 664, 168, 36);
+		pnlBanSach.add(btnNewButton);
+		
+		JLabel label_7 = new JLabel("Tổng Tiền:");
+		label_7.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		label_7.setBounds(734, 631, 67, 20);
+		pnlBanSach.add(label_7);
+		
+		JLabel lblVn = new JLabel("100000 VNĐ");
+		lblVn.setBounds(813, 631, 117, 20);
+		pnlBanSach.add(lblVn);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 95, 497, 286);
+		pnlBanSach.add(scrollPane_1);
+		
+		JLabel lblDanhSchSch = new JLabel("Danh Sách Sách Chọn Mua");
+		lblDanhSchSch.setBounds(10, 397, 168, 16);
+		pnlBanSach.add(lblDanhSchSch);
+		
+		JLabel lblDanhSchSch_1 = new JLabel("Danh Sách Sách Tìm Kiếm");
+		lblDanhSchSch_1.setBounds(10, 77, 168, 16);
+		pnlBanSach.add(lblDanhSchSch_1);
+		
+		JPanel pnl_MuonSach = new JPanel();
+		tabbedPane.addTab("Mượn Sách", null, pnl_MuonSach, null);
 		
 		JPanel panel_5 = new JPanel();
-		tabbedPane.addTab("Khách hàng", null, panel_5, null);
+		tabbedPane.addTab("Thành Viên", null, panel_5, null);
 		panel_5.setLayout(null);
 		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_6.setBounds(10, 25, 919, 227);
-		panel_5.add(panel_6);
-		panel_6.setLayout(null);
-		
-		JLabel lblNewLabel_1 = new JLabel("Mã Khách Hàng");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(28, 11, 99, 18);
-		panel_6.add(lblNewLabel_1);
-		
-		JLabel lblTnKhchHng_1 = new JLabel("Tên Khách Hàng");
-		lblTnKhchHng_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTnKhchHng_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblTnKhchHng_1.setBounds(10, 61, 117, 18);
-		panel_6.add(lblTnKhchHng_1);
-		
-		JLabel lblGiiTnh = new JLabel("Giới Tính");
-		lblGiiTnh.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblGiiTnh.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblGiiTnh.setBounds(10, 113, 117, 18);
-		panel_6.add(lblGiiTnh);
-		
-		JLabel lblNmSinh = new JLabel("Năm Sinh");
-		lblNmSinh.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNmSinh.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblNmSinh.setBounds(10, 160, 117, 18);
-		panel_6.add(lblNmSinh);
-		
-		JLabel label_5 = new JLabel("Tên Khách Hàng");
-		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_5.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		label_5.setBounds(270, 11, 117, 18);
-		panel_6.add(label_5);
-		
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(10, 334, 919, 270);
+		scrollPane_3.setBounds(10, 188, 919, 517);
 		panel_5.add(scrollPane_3);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 87, 919, 92);
+		panel.setLayout(null);
+		panel_5.add(panel);
+		
+		JButton btnNewButton_1 = new JButton("Thêm Thành Viên");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setBounds(0, 26, 135, 28);
+		panel.add(btnNewButton_1);
+		
+		JButton button_5 = new JButton("Chỉnh Sửa Thông Tin");
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button_5.setBounds(147, 26, 153, 28);
+		panel.add(button_5);
+		
+		textField_8 = new JTextField();
+		textField_8.setBounds(498, 66, 300, 22);
+		panel.add(textField_8);
+		textField_8.setColumns(10);
+		
+		JButton btnTmKim = new JButton("Tìm Kiếm");
+		btnTmKim.setBounds(810, 65, 97, 25);
+		panel.add(btnTmKim);
+		
+		JButton button_6 = new JButton("Xóa Thành Viên");
+		button_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button_6.setBounds(314, 28, 153, 28);
+		panel.add(button_6);
+		
+		JLabel lblQunLThnh = new JLabel("Quản Lý Thành Viên");
+		lblQunLThnh.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblQunLThnh.setBounds(367, 13, 192, 46);
+		panel_5.add(lblQunLThnh);
 	}
 }
