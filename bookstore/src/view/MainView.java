@@ -140,7 +140,7 @@ public class MainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button.setBounds(167, 87, 178, 31);
+		button.setBounds(159, 87, 178, 31);
 		pnl_NhapSach.add(button);
 		
 		JButton button_1 = new JButton("Xóa sách");
@@ -148,7 +148,7 @@ public class MainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button_1.setBounds(370, 87, 178, 31);
+		button_1.setBounds(349, 87, 178, 31);
 		pnl_NhapSach.add(button_1);
 		
 		JPanel pnlBanSach = new JPanel();
@@ -157,7 +157,7 @@ public class MainView extends JFrame {
 		
 		JPanel pnlThongTinSach = new JPanel();
 		pnlThongTinSach.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnlThongTinSach.setBounds(519, 145, 411, 236);
+		pnlThongTinSach.setBounds(519, 175, 411, 225);
 		pnlBanSach.add(pnlThongTinSach);
 		pnlThongTinSach.setLayout(null);
 		
@@ -188,7 +188,7 @@ public class MainView extends JFrame {
 		txtSLMua = new JTextField();
 		txtSLMua.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		txtSLMua.setColumns(10);
-		txtSLMua.setBounds(155, 154, 172, 20);
+		txtSLMua.setBounds(155, 154, 104, 20);
 		pnlThongTinSach.add(txtSLMua);
 		
 		JLabel lblSLSach = new JLabel("Số Lượng Còn");
@@ -198,7 +198,7 @@ public class MainView extends JFrame {
 		pnlThongTinSach.add(lblSLSach);
 		
 		JLabel txtTheLoai = new JLabel("");
-		txtTheLoai.setBounds(155, 67, 180, 16);
+		txtTheLoai.setBounds(155, 67, 218, 16);
 		pnlThongTinSach.add(txtTheLoai);
 		
 		JButton btnChnMua = new JButton("Chọn Mua");
@@ -223,65 +223,70 @@ public class MainView extends JFrame {
 		pnlThongTinSach.add(lblnGi);
 		
 		JLabel label_8 = new JLabel("");
-		label_8.setBounds(155, 96, 180, 16);
+		label_8.setBounds(155, 96, 218, 16);
 		pnlThongTinSach.add(label_8);
 		
 		JLabel label = new JLabel("");
-		label.setBounds(155, 125, 180, 16);
+		label.setBounds(155, 125, 218, 16);
 		pnlThongTinSach.add(label);
 		
 		JLabel label_1 = new JLabel("");
-		label_1.setBounds(155, 40, 180, 16);
+		label_1.setBounds(155, 40, 218, 16);
 		pnlThongTinSach.add(label_1);
 		
 		JLabel label_2 = new JLabel("");
-		label_2.setBounds(155, 17, 180, 16);
+		label_2.setBounds(155, 17, 218, 16);
 		pnlThongTinSach.add(label_2);
 		
 		JPanel pnlThongTinKhachHang = new JPanel();
 		pnlThongTinKhachHang.setLayout(null);
 		pnlThongTinKhachHang.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnlThongTinKhachHang.setBounds(519, 13, 411, 124);
+		pnlThongTinKhachHang.setBounds(519, 11, 411, 155);
 		pnlBanSach.add(pnlThongTinKhachHang);
 		
 		JLabel lblMKhchHng = new JLabel("M\u00E3 Kh\u00E1ch H\u00E0ng");
 		lblMKhchHng.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMKhchHng.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMKhchHng.setBounds(29, 14, 102, 25);
+		lblMKhchHng.setBounds(29, 41, 102, 25);
 		pnlThongTinKhachHang.add(lblMKhchHng);
 		
 		JLabel lblTnKhchHng = new JLabel("T\u00EAn Kh\u00E1ch H\u00E0ng");
 		lblTnKhchHng.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTnKhchHng.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblTnKhchHng.setBounds(29, 37, 102, 25);
+		lblTnKhchHng.setBounds(29, 64, 102, 25);
 		pnlThongTinKhachHang.add(lblTnKhchHng);
 		
 		textField_10 = new JTextField();
+		textField_10.setEditable(false);
 		textField_10.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		textField_10.setColumns(10);
-		textField_10.setBounds(150, 16, 180, 20);
+		textField_10.setBounds(150, 43, 180, 20);
 		pnlThongTinKhachHang.add(textField_10);
 		
 		textField_11 = new JTextField();
 		textField_11.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		textField_11.setColumns(10);
-		textField_11.setBounds(150, 39, 180, 20);
+		textField_11.setBounds(150, 66, 180, 20);
 		pnlThongTinKhachHang.add(textField_11);
-		
-		JCheckBox checkBoxKhachHang = new JCheckBox("Khách hàng vãng lai");
-		checkBoxKhachHang.setBounds(147, 90, 156, 25);
-		pnlThongTinKhachHang.add(checkBoxKhachHang);
 		
 		JLabel lblSt = new JLabel("SĐT");
 		lblSt.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSt.setBounds(75, 67, 56, 16);
+		lblSt.setBounds(75, 94, 56, 16);
 		pnlThongTinKhachHang.add(lblSt);
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		textField.setColumns(10);
-		textField.setBounds(150, 63, 180, 20);
+		textField.setBounds(150, 90, 180, 20);
 		pnlThongTinKhachHang.add(textField);
+		
+		JButton btnChnThnhVin = new JButton("Chọn Thành Viên");
+		btnChnThnhVin.setBounds(199, 117, 131, 25);
+		pnlThongTinKhachHang.add(btnChnThnhVin);
+		
+		JCheckBox checkBox = new JCheckBox("Khách hàng vãng lai");
+		checkBox.setBounds(8, 7, 156, 25);
+		pnlThongTinKhachHang.add(checkBox);
 		
 		JPanel pnlTimKiemSach = new JPanel();
 		pnlTimKiemSach.setLayout(null);
@@ -305,7 +310,7 @@ public class MainView extends JFrame {
 		pnlTimKiemSach.add(cbbTheLoai);
 		
 		JScrollPane lstSachMua = new JScrollPane();
-		lstSachMua.setBounds(10, 417, 920, 209);
+		lstSachMua.setBounds(10, 443, 920, 183);
 		pnlBanSach.add(lstSachMua);
 		
 		JButton btnNewButton = new JButton("Xuất hóa đơn");
@@ -322,11 +327,11 @@ public class MainView extends JFrame {
 		pnlBanSach.add(lblVn);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 95, 497, 286);
+		scrollPane_1.setBounds(10, 95, 497, 305);
 		pnlBanSach.add(scrollPane_1);
 		
-		JLabel lblDanhSchSch = new JLabel("Danh Sách Sách Chọn Mua");
-		lblDanhSchSch.setBounds(10, 397, 168, 16);
+		JLabel lblDanhSchSch = new JLabel("Danh sách Sách Chọn Mua");
+		lblDanhSchSch.setBounds(10, 424, 168, 16);
 		pnlBanSach.add(lblDanhSchSch);
 		
 		JLabel lblDanhSchSch_1 = new JLabel("Danh Sách Sách Tìm Kiếm");
@@ -431,7 +436,7 @@ public class MainView extends JFrame {
 		textField_3 = new JTextField();
 		textField_3.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		textField_3.setColumns(10);
-		textField_3.setBounds(177, 77, 180, 20);
+		textField_3.setBounds(177, 77, 90, 20);
 		panel_1.add(textField_3);
 		
 		JComboBox comboBox_3 = new JComboBox();
@@ -719,7 +724,7 @@ public class MainView extends JFrame {
 		panel_5.add(label_40);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(518, 13, 196, 22);
+		textField_1.setBounds(518, 13, 90, 22);
 		panel_5.add(textField_1);
 		textField_1.setColumns(10);
 		
@@ -732,11 +737,11 @@ public class MainView extends JFrame {
 		pnlThanhVien.setLayout(null);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(10, 188, 919, 517);
+		scrollPane_3.setBounds(12, 187, 916, 518);
 		pnlThanhVien.add(scrollPane_3);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 87, 919, 92);
+		panel.setBounds(10, 87, 919, 97);
 		panel.setLayout(null);
 		pnlThanhVien.add(panel);
 		
@@ -757,7 +762,7 @@ public class MainView extends JFrame {
 		panel.add(button_5);
 		
 		textField_8 = new JTextField();
-		textField_8.setBounds(498, 66, 300, 22);
+		textField_8.setBounds(467, 66, 331, 22);
 		panel.add(textField_8);
 		textField_8.setColumns(10);
 		
