@@ -26,31 +26,36 @@ public class sachDao {
 	}
 
 	
-	public void nhapSach(Sach sach,NhanVien nv) {
-		SessionFactory sessFac = hibSessionFactory.getSession();
-		Session sess = sessFac.getCurrentSession();
-		sess.beginTransaction();
+	public boolean nhapSach(Sach sach,NhanVien nv,PhieuNhap pn,long gianhap, int soluong) {
+		try {
+			SessionFactory sessFac = hibSessionFactory.getSession();
+			Session sess = sessFac.getCurrentSession();
+			sess.beginTransaction();
+			
+			//chi tiết phiếu nhập
+			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
+			ctpn.setGianhap(gianhap);
+			ctpn.setSoluong(soluong);
+			
+			//thông tin sách
+			ctpn.setSach(sach);
+			
+			//thông tin phiếu nhập
+			ctpn.setPhieunhap(pn);
+			
+			sess.save(ctpn);
+			sess.getTransaction().commit();
+			sess.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean banSach(Sach s) {
 		
-		//tạo phiếu nhập
-		PhieuNhap pn = new PhieuNhap();
-		pn.setNgaynhap(new Date());
-		pn.setNhanvien(nv);
-		
-		//chi tiết phiếu nhập
-		ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
-		ctpn.setGianhap(250000);
-		ctpn.setSoluong(15);
-		
-		//thông tin sách
-		ctpn.setSach(sach);
-		
-		//thông tin phiếu nhập
-		ctpn.setPhieunhap(pn);
-		
-		sess.save(ctpn);
-		sess.getTransaction().commit();
-		sess.close();
-		
+		return true;
 	}
 	
 	public Sach getSachbyName(String name) {
@@ -65,4 +70,5 @@ public class sachDao {
 		
 		return s;
 	}
+	
 }
