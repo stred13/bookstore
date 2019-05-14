@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,10 +40,10 @@ public class Sach {
 	@JoinColumn(name = "TheLoai", nullable = false)
 	private TheLoai TLSach;
 
-	@OneToMany(mappedBy = "sach", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "sach", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<ChiTietPhieuNhap> ctpn = new HashSet<>();
 
-	@OneToMany(mappedBy = "sach", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "sach", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<ChiTietHoaDon> cthd = new HashSet<>();
 
 	public int getMasach() {
