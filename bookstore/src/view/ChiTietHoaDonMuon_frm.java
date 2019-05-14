@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class ChiTietHoaDoan_frm extends JFrame {
+public class ChiTietHoaDonMuon_frm extends JFrame {
 
 	private JPanel contentPane;
 
@@ -18,7 +18,7 @@ public class ChiTietHoaDoan_frm extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChiTietHoaDoan_frm frame = new ChiTietHoaDoan_frm();
+					ChiTietHoaDonMuon_frm frame = new ChiTietHoaDonMuon_frm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class ChiTietHoaDoan_frm extends JFrame {
 		});
 	}
 
-	public ChiTietHoaDoan_frm() {
+	public ChiTietHoaDonMuon_frm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
