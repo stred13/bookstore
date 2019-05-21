@@ -53,10 +53,6 @@ public class sachDao {
 		return true;
 	}
 	
-	public boolean banSach(Sach s) {
-		
-		return true;
-	}
 	
 	public Sach getSachbyName(String name) {
 		SessionFactory sessFac = hibSessionFactory.getSession();
@@ -69,6 +65,16 @@ public class sachDao {
 		sess.close();
 		
 		return s;
+	}
+	
+	public void insertSach(Sach sach) {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+		
+		sess.save(sach);
+		sess.getTransaction().commit();
+		sess.close();
 	}
 	
 }

@@ -73,5 +73,10 @@ public class TheLoai {
 		super();
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getTentl();
+	}
 	
 }

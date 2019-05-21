@@ -35,6 +35,9 @@ public class Sach {
 
 	@Column(name = "GiaBan")
 	private long giaban;
+	
+	@Column(name="mota")
+	private String mota;
 
 	@ManyToOne
 	@JoinColumn(name = "TheLoai", nullable = false)
@@ -65,9 +68,21 @@ public class Sach {
 	public long getGiaban() {
 		return giaban;
 	}
+	
+	
 
 	public void setGiaban(long giaban) {
 		this.giaban = giaban;
+	}
+	
+	
+
+	public String getMota() {
+		return mota;
+	}
+
+	public void setMota(String mota) {
+		this.mota = mota;
 	}
 
 	public String getTacgia() {
@@ -102,13 +117,15 @@ public class Sach {
 		this.cthd = cthd;
 	}
 
-	public Sach(String tensach, String tacgia, TheLoai tLSach, Set<ChiTietPhieuNhap> ctpn, Set<ChiTietHoaDon> cthd) {
+	
+
+	public Sach(String tensach, String tacgia, long giaban, String mota, TheLoai tLSach) {
 		super();
 		this.tensach = tensach;
 		this.tacgia = tacgia;
+		this.giaban = giaban;
+		this.mota = mota;
 		TLSach = tLSach;
-		this.ctpn = ctpn;
-		this.cthd = cthd;
 	}
 
 	public Sach() {
