@@ -701,10 +701,6 @@ public class MainView extends JFrame {
 		table_3 = new JTable();
 		lstSachMua.setViewportView(table_3);
 		
-		JButton btnNewButton = new JButton("Xuất hóa đơn");
-		btnNewButton.setBounds(762, 664, 168, 36);
-		pnlBanSach.add(btnNewButton);
-		
 		JLabel lblDanhSchSch = new JLabel("Danh sách Sách Chọn Mua");
 		lblDanhSchSch.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDanhSchSch.setBounds(10, 418, 198, 16);
@@ -1011,6 +1007,8 @@ public class MainView extends JFrame {
 		panel_9.add(btnThm);
 		btnThm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frmThemSachMoi frmthemsach = new frmThemSachMoi();
+				frmthemsach.setVisible(true);
 			}
 		});
 		btnThm.setFont(new Font("Times New Roman", Font.PLAIN, 14));
