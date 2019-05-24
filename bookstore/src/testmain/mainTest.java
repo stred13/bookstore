@@ -26,11 +26,9 @@ public class mainTest {
 	public static void main(String[] args) {
 		
 		theloaisachDao tl = new theloaisachDao();
-		tl.getAllTheloai();
-		System.out.println(tl.getAllTheloai().size());
+		sachDao sDao = new sachDao();
 		
-		
-		
+		System.out.println(sDao.getListSach().get(0).getCtpn().size());
 		
 	}
 }

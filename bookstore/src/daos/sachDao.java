@@ -3,6 +3,8 @@ package daos;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -18,8 +20,9 @@ public class sachDao {
 		SessionFactory sessFac = hibSessionFactory.getSession();
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
-		
-		List<Sach> listSach = sess.createQuery("from Sach").list();
+		String hql = "From Sach";
+		Query query = sess.createQuery(hql);
+		List<Sach> listSach = query.getResultList();
 		sess.getTransaction().commit();
 		sess.close();
 		return listSach;
@@ -60,6 +63,19 @@ public class sachDao {
 		sess.beginTransaction();
 		
 		Sach s = (Sach) sess.createQuery("from Sach s Where s.tensach = :name").setParameter("name", name).getSingleResult();
+		
+		sess.getTransaction().commit();
+		sess.close();
+		
+		return s;
+	}
+	
+	public Sach getSachbyId(int id) {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+		
+		Sach s = (Sach) sess.createQuery("from Sach s Where s.masach = :id").setParameter("masach", id).getSingleResult();
 		
 		sess.getTransaction().commit();
 		sess.close();

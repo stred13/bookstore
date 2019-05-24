@@ -9,6 +9,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.BoxLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
+import models.ChiTietPhieuNhap;
+import models.Sach;
+import viewmodels.nhapSachTablemodel;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -26,21 +33,23 @@ import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainView extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtSLMua;
-	private JTextField textField_10;
-	private JTextField textField_11;
+	private JTextField txtMaKH;
+	private JTextField txtTenKH;
 	private JTable table_1;
 	private JTextField txtTimKiem;
 	private JTextField textField_8;
-	private JTextField textField;
+	private JTextField txtSdt;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_1;
-	private JTextField textField_4;
+	private JTextField txtNgheNghiep;
 	private JTextField textField_5;
 	private JTable table_2;
 	private JTextField textField_6;
@@ -49,11 +58,11 @@ public class MainView extends JFrame {
 	private JTextField textField_12;
 	private JTable table;
 	private JTextField textField_13;
-	private JTextField textField_14;
-	private JTextField textField_15;
-	private JTextField textField_16;
-	private JTextField textField_17;
-	private JTextField textField_18;
+	private JTextField txtSLNhap;
+	private JTextField txtMaSachN;
+	private JTextField txtTenSachN;
+	private JTextField txtSoLuongConN;
+	private JTextField txtGiaNhapN;
 	private JTextField textField_19;
 	private JTextField textField_20;
 	private JTextField textField_21;
@@ -62,6 +71,14 @@ public class MainView extends JFrame {
 	private JTextField textField_24;
 	private JTextField textField_25;
 	private JTable table_3;
+	private JTextField txtMaSach;
+	private JTextField txtTenSach;
+	private JTextField txtTheLoai;
+	private JTextField txtDonGia;
+	private JTextField txtSLCon;
+	private JTable tbSach;
+	private JTextField txtTheLoaiN;
+	private JTable tbctpN;
 
 	/**
 	 * Launch the application.
@@ -553,24 +570,20 @@ public class MainView extends JFrame {
 		lblSLSach.setBounds(25, 117, 102, 25);
 		pnlThongTinSach.add(lblSLSach);
 		
-		JLabel txtTheLoai = new JLabel("");
-		txtTheLoai.setBounds(155, 67, 218, 16);
-		pnlThongTinSach.add(txtTheLoai);
-		
-		JButton btnChnMua = new JButton("Chọn Mua");
-		btnChnMua.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		btnChnMua.setBounds(296, 187, 102, 25);
-		pnlThongTinSach.add(btnChnMua);
+		JButton btnMua = new JButton("Chọn Mua");
+		btnMua.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		btnMua.setBounds(296, 187, 102, 25);
+		pnlThongTinSach.add(btnMua);
 		
 		JButton btnThayi = new JButton("Thay Đổi");
 		btnThayi.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		btnThayi.setBounds(182, 188, 102, 25);
 		pnlThongTinSach.add(btnThayi);
 		
-		JButton btnXa_1 = new JButton("Bỏ Chọn");
-		btnXa_1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		btnXa_1.setBounds(68, 188, 102, 25);
-		pnlThongTinSach.add(btnXa_1);
+		JButton btnBoSach = new JButton("Bỏ Chọn");
+		btnBoSach.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		btnBoSach.setBounds(68, 188, 102, 25);
+		pnlThongTinSach.add(btnBoSach);
 		
 		JLabel lblnGi = new JLabel("Đơn Giá Bán");
 		lblnGi.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -578,21 +591,40 @@ public class MainView extends JFrame {
 		lblnGi.setBounds(25, 92, 102, 25);
 		pnlThongTinSach.add(lblnGi);
 		
-		JLabel label_8 = new JLabel("");
-		label_8.setBounds(155, 96, 218, 16);
-		pnlThongTinSach.add(label_8);
+		txtMaSach = new JTextField();
+		txtMaSach.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtMaSach.setEditable(false);
+		txtMaSach.setColumns(10);
+		txtMaSach.setBounds(155, 15, 180, 20);
+		pnlThongTinSach.add(txtMaSach);
 		
-		JLabel label = new JLabel("");
-		label.setBounds(155, 125, 218, 16);
-		pnlThongTinSach.add(label);
+		txtTenSach = new JTextField();
+		txtTenSach.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtTenSach.setEditable(false);
+		txtTenSach.setColumns(10);
+		txtTenSach.setBounds(155, 39, 180, 20);
+		pnlThongTinSach.add(txtTenSach);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setBounds(155, 40, 218, 16);
-		pnlThongTinSach.add(label_1);
+		txtTheLoai = new JTextField();
+		txtTheLoai.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtTheLoai.setEditable(false);
+		txtTheLoai.setColumns(10);
+		txtTheLoai.setBounds(155, 66, 180, 20);
+		pnlThongTinSach.add(txtTheLoai);
 		
-		JLabel label_2 = new JLabel("");
-		label_2.setBounds(155, 17, 218, 16);
-		pnlThongTinSach.add(label_2);
+		txtDonGia = new JTextField();
+		txtDonGia.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtDonGia.setEditable(false);
+		txtDonGia.setColumns(10);
+		txtDonGia.setBounds(155, 95, 180, 20);
+		pnlThongTinSach.add(txtDonGia);
+		
+		txtSLCon = new JTextField();
+		txtSLCon.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtSLCon.setEditable(false);
+		txtSLCon.setColumns(10);
+		txtSLCon.setBounds(155, 120, 180, 20);
+		pnlThongTinSach.add(txtSLCon);
 		
 		JPanel pnlThongTinKhachHang = new JPanel();
 		pnlThongTinKhachHang.setLayout(null);
@@ -612,33 +644,33 @@ public class MainView extends JFrame {
 		lblTnKhchHng.setBounds(29, 55, 102, 25);
 		pnlThongTinKhachHang.add(lblTnKhchHng);
 		
-		textField_10 = new JTextField();
-		textField_10.setEditable(false);
-		textField_10.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_10.setColumns(10);
-		textField_10.setBounds(150, 34, 180, 20);
-		pnlThongTinKhachHang.add(textField_10);
+		txtMaKH = new JTextField();
+		txtMaKH.setEditable(false);
+		txtMaKH.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtMaKH.setColumns(10);
+		txtMaKH.setBounds(150, 34, 180, 20);
+		pnlThongTinKhachHang.add(txtMaKH);
 		
-		textField_11 = new JTextField();
-		textField_11.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_11.setColumns(10);
-		textField_11.setBounds(150, 57, 180, 20);
-		pnlThongTinKhachHang.add(textField_11);
+		txtTenKH = new JTextField();
+		txtTenKH.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtTenKH.setColumns(10);
+		txtTenKH.setBounds(150, 57, 180, 20);
+		pnlThongTinKhachHang.add(txtTenKH);
 		
 		JLabel lblSt = new JLabel("SĐT");
 		lblSt.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSt.setBounds(29, 85, 102, 16);
 		pnlThongTinKhachHang.add(lblSt);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField.setColumns(10);
-		textField.setBounds(150, 81, 180, 20);
-		pnlThongTinKhachHang.add(textField);
+		txtSdt = new JTextField();
+		txtSdt.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtSdt.setColumns(10);
+		txtSdt.setBounds(150, 81, 180, 20);
+		pnlThongTinKhachHang.add(txtSdt);
 		
-		JButton btnChnThnhVin = new JButton("Chọn Thành Viên");
-		btnChnThnhVin.setBounds(264, 134, 154, 25);
-		pnlThongTinKhachHang.add(btnChnThnhVin);
+		JButton btnChonKH = new JButton("Chọn Thành Viên");
+		btnChonKH.setBounds(264, 134, 154, 25);
+		pnlThongTinKhachHang.add(btnChonKH);
 		
 		JCheckBox checkBox = new JCheckBox("Khách hàng vãng lai");
 		checkBox.setBounds(8, 7, 156, 25);
@@ -649,19 +681,19 @@ public class MainView extends JFrame {
 		lblNghNghip_1.setBounds(29, 107, 102, 16);
 		pnlThongTinKhachHang.add(lblNghNghip_1);
 		
-		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_4.setColumns(10);
-		textField_4.setBounds(150, 103, 180, 20);
-		pnlThongTinKhachHang.add(textField_4);
+		txtNgheNghiep = new JTextField();
+		txtNgheNghiep.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtNgheNghiep.setColumns(10);
+		txtNgheNghiep.setBounds(150, 103, 180, 20);
+		pnlThongTinKhachHang.add(txtNgheNghiep);
 		
-		JButton btnThmThnhVin_1 = new JButton("Thêm Thành Viên");
-		btnThmThnhVin_1.addActionListener(new ActionListener() {
+		JButton btnThemKH = new JButton("Thêm Thành Viên");
+		btnThemKH.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnThmThnhVin_1.setBounds(50, 136, 154, 25);
-		pnlThongTinKhachHang.add(btnThmThnhVin_1);
+		btnThemKH.setBounds(50, 136, 154, 25);
+		pnlThongTinKhachHang.add(btnThemKH);
 		
 		JPanel pnlTimKiemSach = new JPanel();
 		pnlTimKiemSach.setLayout(null);
@@ -716,10 +748,10 @@ public class MainView extends JFrame {
 		label_47.setBounds(813, 418, 117, 20);
 		pnlBanSach.add(label_47);
 		
-		JButton btnXutHan = new JButton("Xuất Hóa Đơn");
-		btnXutHan.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		btnXutHan.setBounds(842, 608, 117, 25);
-		pnlBanSach.add(btnXutHan);
+		JButton btnXuatHD = new JButton("Xuất Hóa Đơn");
+		btnXuatHD.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		btnXuatHD.setBounds(842, 608, 117, 25);
+		pnlBanSach.add(btnXuatHD);
 		
 		JPanel panel_12 = new JPanel();
 		tabbedPane.addTab("Hóa Đơn", null, panel_12, null);
@@ -884,6 +916,43 @@ public class MainView extends JFrame {
 		scrollPane_6.setBounds(10, 71, 513, 295);
 		panel_10.add(scrollPane_6);
 		
+		JPanel panel_11 = new JPanel();
+		panel_11.setLayout(null);
+		panel_11.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_11.setBounds(553, 11, 406, 337);
+		panel_9.add(panel_11);
+		
+		JTextArea txaMoTaN = new JTextArea();
+		txaMoTaN.setText("");
+		txaMoTaN.setBounds(152, 226, 244, 100);
+		panel_11.add(txaMoTaN);
+		
+		nhapSachTablemodel sachtbModel = new nhapSachTablemodel();
+		tbSach = new JTable();
+		
+		tbSach.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int ms = Integer.parseInt(tbSach.getModel().getValueAt(tbSach.getSelectedRow(), 0).toString());
+				String tenSach = tbSach.getModel().getValueAt(tbSach.getSelectedRow(), 1).toString();
+				String tacGia = tbSach.getModel().getValueAt(tbSach.getSelectedRow(), 2).toString();
+				String theloai = tbSach.getModel().getValueAt(tbSach.getSelectedRow(), 3).toString();
+				int sl = Integer.parseInt(tbSach.getModel().getValueAt(tbSach.getSelectedRow(), 4).toString());
+				
+				if(tbSach.getModel().getValueAt(tbSach.getSelectedRow(), 5)!=null) {
+					String mota = tbSach.getModel().getValueAt(tbSach.getSelectedRow(), 5).toString();
+					System.out.println("mota: "+mota);
+				}
+				txtMaSachN.setText(String.valueOf(ms));
+				txtTenSachN.setText(tenSach);
+				txtSoLuongConN.setText(String.valueOf(sl));
+				txtTheLoaiN.setText(theloai);
+				
+			}
+		});
+		tbSach.setModel(sachtbModel.sachTablmodel());
+		scrollPane_6.setViewportView(tbSach);
+		
 		JLabel label_43 = new JLabel("Danh Sách Sách");
 		label_43.setHorizontalAlignment(SwingConstants.CENTER);
 		label_43.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -899,11 +968,12 @@ public class MainView extends JFrame {
 		scrollPane_7.setBounds(10, 412, 949, 200);
 		panel_9.add(scrollPane_7);
 		
-		JPanel panel_11 = new JPanel();
-		panel_11.setLayout(null);
-		panel_11.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_11.setBounds(553, 11, 406, 337);
-		panel_9.add(panel_11);
+		tbctpN = new JTable();
+		DefaultTableModel ctpnModel = new DefaultTableModel();
+		tbctpN.setModel(ctpnModel);
+		scrollPane_7.setViewportView(tbctpN);
+		
+		
 		
 		JLabel label_44 = new JLabel("Mã Sách");
 		label_44.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -929,11 +999,11 @@ public class MainView extends JFrame {
 		lblSLngNhp.setBounds(25, 193, 102, 25);
 		panel_11.add(lblSLngNhp);
 		
-		textField_14 = new JTextField();
-		textField_14.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_14.setColumns(10);
-		textField_14.setBounds(152, 195, 116, 25);
-		panel_11.add(textField_14);
+		txtSLNhap = new JTextField();
+		txtSLNhap.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtSLNhap.setColumns(10);
+		txtSLNhap.setBounds(152, 195, 116, 25);
+		panel_11.add(txtSLNhap);
 		
 		JLabel label_48 = new JLabel("Số Lượng Còn");
 		label_48.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -953,39 +1023,37 @@ public class MainView extends JFrame {
 		lblMT.setBounds(25, 229, 102, 25);
 		panel_11.add(lblMT);
 		
-		textField_15 = new JTextField();
-		textField_15.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_15.setColumns(10);
-		textField_15.setBounds(152, 16, 116, 25);
-		panel_11.add(textField_15);
+		txtMaSachN = new JTextField();
+		txtMaSachN.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtMaSachN.setColumns(10);
+		txtMaSachN.setBounds(152, 16, 116, 25);
+		panel_11.add(txtMaSachN);
 		
-		textField_16 = new JTextField();
-		textField_16.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_16.setColumns(10);
-		textField_16.setBounds(152, 52, 244, 25);
-		panel_11.add(textField_16);
+		txtTenSachN = new JTextField();
+		txtTenSachN.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtTenSachN.setColumns(10);
+		txtTenSachN.setBounds(152, 52, 244, 25);
+		panel_11.add(txtTenSachN);
 		
-		JComboBox comboBox_6 = new JComboBox();
-		comboBox_6.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		comboBox_6.setBounds(152, 88, 157, 25);
-		panel_11.add(comboBox_6);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setText("");
-		textArea.setBounds(152, 226, 244, 100);
-		panel_11.add(textArea);
 		
-		textField_17 = new JTextField();
-		textField_17.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_17.setColumns(10);
-		textField_17.setBounds(152, 160, 116, 25);
-		panel_11.add(textField_17);
+		txtSoLuongConN = new JTextField();
+		txtSoLuongConN.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtSoLuongConN.setColumns(10);
+		txtSoLuongConN.setBounds(152, 160, 116, 25);
+		panel_11.add(txtSoLuongConN);
 		
-		textField_18 = new JTextField();
-		textField_18.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		textField_18.setColumns(10);
-		textField_18.setBounds(152, 124, 157, 25);
-		panel_11.add(textField_18);
+		txtGiaNhapN = new JTextField();
+		txtGiaNhapN.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtGiaNhapN.setColumns(10);
+		txtGiaNhapN.setBounds(152, 124, 157, 25);
+		panel_11.add(txtGiaNhapN);
+		
+		txtTheLoaiN = new JTextField();
+		txtTheLoaiN.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtTheLoaiN.setColumns(10);
+		txtTheLoaiN.setBounds(152, 88, 157, 25);
+		panel_11.add(txtTheLoaiN);
 		
 		JButton btnNhpSch = new JButton("Nhập tất cả");
 		btnNhpSch.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -997,10 +1065,24 @@ public class MainView extends JFrame {
 		panel_9.add(button_3);
 		button_3.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		
-		JButton btnThmVoPhiu = new JButton("Chọn");
-		btnThmVoPhiu.setBounds(716, 362, 102, 25);
-		panel_9.add(btnThmVoPhiu);
-		btnThmVoPhiu.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		nhapSachTablemodel nstbmodel= new nhapSachTablemodel(ctpnModel);
+		JButton txtChonN = new JButton("Chọn");
+		txtChonN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Sach s = new Sach();
+				
+				
+				
+				ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
+				ctpn.setGianhap(Long.parseLong(txtGiaNhapN.getText()));
+				ctpn.setSoluong(Integer.parseInt(txtSLNhap.getText()));
+				//nstbmodel.getCtpns().add
+				nstbmodel.addchipntableModel(s,ctpn);
+			}
+		});
+		txtChonN.setBounds(716, 362, 102, 25);
+		panel_9.add(txtChonN);
+		txtChonN.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		
 		JButton btnThm = new JButton("Thêm Sách mới");
 		btnThm.setBounds(830, 362, 129, 25);
