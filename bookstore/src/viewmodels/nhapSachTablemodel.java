@@ -20,7 +20,7 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 	public DefaultTableModel sachTablmodel() {
 		DefaultTableModel model = new DefaultTableModel();
 
-		model.setColumnIdentifiers(new Object[] { "ID", "Tên Sách", "Tác Giả", "Thể Loại", "Số Lượng", "Mô Tả" });
+		model.setColumnIdentifiers(new Object[] { "ID", "Tên Sách", "Tác Giả", "Thể Loại", "Số Lượng","Mô Tả" });
 		sCon.getAllSach().forEach(sach -> {
 			model.addRow(new Object[] { sach.getMasach(), sach.getTensach(), sach.getTacgia(),
 					sach.getTLSach().getTentl(), sach.getSoluong(), sach.getMota() });
@@ -29,6 +29,30 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 		return model;
 	}
 
+	public DefaultTableModel sachNhapTablmodel() {
+
+		this.Nmodel.setColumnIdentifiers(new Object[] { "ID", "Tên Sách", "Tác Giả", "Thể Loại", "Số Lượng Còn", "Số Lượng Nhập", "Giá Nhập", "Mô Tả" });
+		return this.Nmodel;
+	}
+	
+	public void ChonSach(int maSach, int slNhap, int giaNhap) {
+		Sach sach = (Sach)sCon.getSachbyId(maSach);
+		this.Nmodel.addRow(new Object[] {sach.getMasach(), sach.getTensach(), sach.getTacgia(),
+				sach.getTLSach().getTentl(), sach.getSoluong(), slNhap, giaNhap, sach.getMota()});
+	}
+	
+	public void boChonSach(int maSach) {
+		int nRows = this.Nmodel.getRowCount();
+		for(int count = 0; count < nRows; count++){
+			int ms = Integer.parseInt(this.Nmodel.getValueAt(count, 0).toString());
+			if(ms == maSach){
+				this.Nmodel.removeRow(count);
+				break;
+			}
+		}
+	}
+
+	
 	public void addchipntableModel(Sach s, ChiTietPhieuNhap ctpn) {
 
 		Nmodel.addRow(new Object[] { s.getTensach(), s.getTacgia(), s.getTLSach().getTentl(), s.getSoluong(),
@@ -40,7 +64,7 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 		super();
 		this.Nmodel = nmodel;
 		Nmodel.setColumnIdentifiers(
-				new Object[] { "Tên Sách", "Tác Giả", "Thể Loại", "Số Lượng Còn", "Số Lượng Nhập", "Giá Nhập" });
+				new Object[] { "ID", "Tên Sách", "Tác Giả", "Thể Loại", "Số Lượng Còn", "Số Lượng Nhập", "Giá Nhập" });
 	}
 	
 	public List<Sach> getSachs() {

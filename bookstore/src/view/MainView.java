@@ -35,6 +35,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class MainView extends JFrame {
 
@@ -913,6 +914,7 @@ public class MainView extends JFrame {
 		panel_10.add(comboBox_1);
 		
 		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane_6.setBounds(10, 71, 513, 295);
 		panel_10.add(scrollPane_6);
 		
@@ -922,10 +924,10 @@ public class MainView extends JFrame {
 		panel_11.setBounds(553, 11, 406, 337);
 		panel_9.add(panel_11);
 		
-		JTextArea txaMoTaN = new JTextArea();
-		txaMoTaN.setText("");
-		txaMoTaN.setBounds(152, 226, 244, 100);
-		panel_11.add(txaMoTaN);
+		JTextArea txtMoTaN = new JTextArea();
+		txtMoTaN.setText("");
+		txtMoTaN.setBounds(152, 226, 244, 100);
+		panel_11.add(txtMoTaN);
 		
 		nhapSachTablemodel sachtbModel = new nhapSachTablemodel();
 		tbSach = new JTable();
@@ -941,13 +943,15 @@ public class MainView extends JFrame {
 				
 				if(tbSach.getModel().getValueAt(tbSach.getSelectedRow(), 5)!=null) {
 					String mota = tbSach.getModel().getValueAt(tbSach.getSelectedRow(), 5).toString();
-					System.out.println("mota: "+mota);
+					txtMoTaN.setText(mota);
 				}
 				txtMaSachN.setText(String.valueOf(ms));
 				txtTenSachN.setText(tenSach);
 				txtSoLuongConN.setText(String.valueOf(sl));
+				txtSLNhap.setText("0");
+				txtGiaNhapN.setText("0");
 				txtTheLoaiN.setText(theloai);
-				
+				tbSach.getSelectionModel().clearSelection();
 			}
 		});
 		tbSach.setModel(sachtbModel.sachTablmodel());
@@ -969,8 +973,35 @@ public class MainView extends JFrame {
 		panel_9.add(scrollPane_7);
 		
 		tbctpN = new JTable();
-		DefaultTableModel ctpnModel = new DefaultTableModel();
-		tbctpN.setModel(ctpnModel);
+		tbctpN.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int ms = Integer.parseInt(tbctpN.getModel().getValueAt(tbctpN.getSelectedRow(), 0).toString());
+				String tenSach = tbctpN.getModel().getValueAt(tbctpN.getSelectedRow(), 1).toString();
+				String theloai = tbctpN.getModel().getValueAt(tbctpN.getSelectedRow(), 3).toString();
+				int slCon = Integer.parseInt(tbctpN.getModel().getValueAt(tbctpN.getSelectedRow(), 4).toString());
+				int slNhap = Integer.parseInt(tbctpN.getModel().getValueAt(tbctpN.getSelectedRow(), 5).toString());
+				int giaNhap = Integer.parseInt(tbctpN.getModel().getValueAt(tbctpN.getSelectedRow(), 6).toString());
+				if(tbSach.getModel().getValueAt(tbctpN.getSelectedRow(), 7)!=null) {
+					String mota = tbctpN.getModel().getValueAt(tbSach.getSelectedRow(), 7).toString();
+					txtMoTaN.setText(mota);
+				}
+				txtMaSachN.setText(String.valueOf(ms));
+				txtTenSachN.setText(tenSach);
+				txtTheLoaiN.setText(theloai);
+				txtSoLuongConN.setText(String.valueOf(slCon));
+				txtSLNhap.setText(String.valueOf(slNhap));
+				txtGiaNhapN.setText(String.valueOf(giaNhap));
+				tbctpN.getSelectionModel().clearSelection();
+			}
+		});
+		tbctpN.setModel(sachtbModel.sachNhapTablmodel());
+		tbctpN.getColumnModel().getColumn(0).setMinWidth(0);
+		tbctpN.getColumnModel().getColumn(0).setMaxWidth(0);
+		tbctpN.getColumnModel().getColumn(0).setWidth(0);
+		tbctpN.getColumnModel().getColumn(7).setMinWidth(0);
+		tbctpN.getColumnModel().getColumn(7).setMaxWidth(0);
+		tbctpN.getColumnModel().getColumn(7).setWidth(0);
 		scrollPane_7.setViewportView(tbctpN);
 		
 		
@@ -1061,23 +1092,23 @@ public class MainView extends JFrame {
 		panel_9.add(btnNhpSch);
 		
 		JButton button_3 = new JButton("Bỏ Chọn");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sachtbModel.boChonSach(Integer.parseInt(txtMaSachN.getText().toString()));
+			}
+		});
 		button_3.setBounds(596, 362, 102, 25);
 		panel_9.add(button_3);
 		button_3.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		
-		nhapSachTablemodel nstbmodel= new nhapSachTablemodel(ctpnModel);
 		JButton txtChonN = new JButton("Chọn");
 		txtChonN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sach s = new Sach();
-				
-				
-				
-				ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
-				ctpn.setGianhap(Long.parseLong(txtGiaNhapN.getText()));
-				ctpn.setSoluong(Integer.parseInt(txtSLNhap.getText()));
-				//nstbmodel.getCtpns().add
-				nstbmodel.addchipntableModel(s,ctpn);
+				sachtbModel.ChonSach(
+						Integer.parseInt(txtMaSachN.getText().toString()),
+						Integer.parseInt(txtSLNhap.getText().toString()),
+						Integer.parseInt(txtGiaNhapN.getText().toString())
+						);
 			}
 		});
 		txtChonN.setBounds(716, 362, 102, 25);
