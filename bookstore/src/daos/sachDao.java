@@ -75,7 +75,7 @@ public class sachDao {
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
 		
-		Sach s = (Sach) sess.createQuery("from Sach s Where s.masach = :id").setParameter("masach", id).getSingleResult();
+		Sach s = (Sach) sess.createQuery("from Sach s Where s.masach = :id").setParameter("id", id).getSingleResult();
 		
 		sess.getTransaction().commit();
 		sess.close();
