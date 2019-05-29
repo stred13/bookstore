@@ -2,13 +2,18 @@ package viewmodels;
 
 import java.awt.HeadlessException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import controllers.sachController;
+import daos.nhanvienDao;
+import daos.sachDao;
 import models.ChiTietPhieuNhap;
+import models.NhanVien;
+import models.PhieuNhap;
 import models.Sach;
 
 public class nhapSachTablemodel extends javax.swing.JFrame {
@@ -16,7 +21,8 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 	List<Sach> sachs = new ArrayList<>();
 	sachController sCon = new sachController();
 	DefaultTableModel Nmodel = new DefaultTableModel();
-
+	nhanvienDao nvDao = new nhanvienDao();
+	NhanVien nv = nvDao.getNhanVienbyId(1);
 	public DefaultTableModel sachTablmodel() {
 		DefaultTableModel model = new DefaultTableModel();
 
@@ -30,15 +36,21 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 	}
 
 	public DefaultTableModel sachNhapTablmodel() {
-
 		this.Nmodel.setColumnIdentifiers(new Object[] { "ID", "Tên Sách", "Tác Giả", "Thể Loại", "Số Lượng Còn", "Số Lượng Nhập", "Giá Nhập", "Mô Tả" });
 		return this.Nmodel;
 	}
 	
-	public void ChonSach(int maSach, int slNhap, int giaNhap) {
+	public void ChonSach(int maSach, int slNhap, long giaNhap) {
 		Sach sach = (Sach)sCon.getSachbyId(maSach);
+		ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
 		this.Nmodel.addRow(new Object[] {sach.getMasach(), sach.getTensach(), sach.getTacgia(),
 				sach.getTLSach().getTentl(), sach.getSoluong(), slNhap, giaNhap, sach.getMota()});
+		
+		ctpn.setGianhap(giaNhap);
+		ctpn.setSoluong(slNhap);
+		
+		sachs.add(sach);
+		ctpns.add(ctpn);
 	}
 	
 	public void boChonSach(int maSach) {
@@ -47,14 +59,26 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 			int ms = Integer.parseInt(this.Nmodel.getValueAt(count, 0).toString());
 			if(ms == maSach){
 				this.Nmodel.removeRow(count);
+				ctpns.remove(count);
+				sachs.remove(count);
 				break;
 			}
+		}
+		
+	}
+	
+	public void nhapSach() {
+		PhieuNhap pn = new PhieuNhap();
+		pn.setNgaynhap(new Date());
+		pn.setNhanvien(nv);
+		
+		for(int i=0;i<sachs.size();i++) {
+			sCon.nhapSach(sachs.get(i), null, pn, ctpns.get(i));
 		}
 	}
 
 	
 	public void addchipntableModel(Sach s, ChiTietPhieuNhap ctpn) {
-
 		Nmodel.addRow(new Object[] { s.getTensach(), s.getTacgia(), s.getTLSach().getTentl(), s.getSoluong(),
 				ctpn.getSoluong(), ctpn.getGianhap() });
 

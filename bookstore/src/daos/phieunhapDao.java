@@ -24,4 +24,15 @@ public class phieunhapDao {
 		sess.close();
 	}
 	
+	public void deletePhieuNhap() {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+		
+		PhieuNhap pn = sess.get(PhieuNhap.class, 10);
+		
+		sess.remove(pn);
+		sess.getTransaction().commit();
+		sess.close();
+	}
 }

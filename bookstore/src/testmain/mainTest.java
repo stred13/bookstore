@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 
 
 import config.hibSessionFactory;
+import daos.nhanvienDao;
 import daos.phieunhapDao;
 import daos.sachDao;
 import daos.theloaisachDao;
@@ -27,8 +28,22 @@ public class mainTest {
 		
 		theloaisachDao tl = new theloaisachDao();
 		sachDao sDao = new sachDao();
+		nhanvienDao nvd = new nhanvienDao();
+		NhanVien nv = nvd.getNhanVienbyId(1);
+		PhieuNhap pn = new PhieuNhap();
+		phieunhapDao pndao = new phieunhapDao();
 		
-		System.out.println(sDao.getListSach().get(0).getCtpn().size());
+		pn.setNgaynhap(new Date());
+		pn.setNhanvien(nv);
+		
+		ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
+		ctpn.setGianhap(23000);
+		ctpn.setSoluong(20);
+		
+		pndao.deletePhieuNhap();
+		//sDao.nhapSach(sDao.getSachbyId(1), nv, pn, ctpn);
+		
+		System.out.println(nvd.getNhanVienbyId(1).getTennv());
 		
 	}
 }

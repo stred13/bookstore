@@ -1087,6 +1087,11 @@ public class MainView extends JFrame {
 		panel_11.add(txtTheLoaiN);
 		
 		JButton btnNhpSch = new JButton("Nhập tất cả");
+		btnNhpSch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sachtbModel.nhapSach();
+			}
+		});
 		btnNhpSch.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		btnNhpSch.setBounds(857, 614, 102, 28);
 		panel_9.add(btnNhpSch);
