@@ -34,10 +34,10 @@ public class PhieuNhap{
 	@Temporal(TemporalType.TIMESTAMP)
 	Date ngaynhap;
 	
-	@OneToMany(mappedBy = "phieunhap",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "phieunhap",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	private Set<ChiTietPhieuNhap> ctpn = new HashSet<>();
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="MaNV")
 	private NhanVien nhanvien;
 
