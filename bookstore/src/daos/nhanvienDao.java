@@ -33,7 +33,7 @@ public class nhanvienDao {
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
 		
-		NhanVien nv = (NhanVien) sess.get(NhanVien.class,1);
+		NhanVien nv = (NhanVien) sess.get(NhanVien.class,id);
 		
 		sess.getTransaction().commit();
 		sess.close();
@@ -63,4 +63,14 @@ public class nhanvienDao {
 		sess.getTransaction().commit();
 		sess.close();
 	}
+	public void updateNhanVien(NhanVien nv) {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+
+		sess.update(nv);
+		sess.getTransaction().commit();
+		sess.close();
+	}
+
 }

@@ -39,16 +39,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.ScrollPaneConstants;
 
 public class MainView extends JFrame {
-
+	private static JFrame frame;
 	private JPanel contentPane;
 	private JTextField txtSLMua;
-	private JTextField txtMaKH;
-	private JTextField txtTenKH;
 	private JTable table_1;
 	private JTextField txtTimKiem;
-	private JTextField textField_8;
-	private JTextField txtSdt;
-	private JTextField txtNgheNghiep;
+	private JTextField txtSearchNV;
 	private JTextField textField_5;
 	private JTable table_2;
 	private JTextField textField_6;
@@ -80,6 +76,8 @@ public class MainView extends JFrame {
 	private JTable tbctpN;
 	private JTable tbListNhanVien;
 
+	
+	public static int manhanvien = 0;
 	/**
 	 * Launch the application.
 	 */
@@ -87,7 +85,7 @@ public class MainView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainView frame = new MainView();
+					frame = new MainView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -116,7 +114,7 @@ public class MainView extends JFrame {
 		
 		JPanel pnlThongTinSach = new JPanel();
 		pnlThongTinSach.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnlThongTinSach.setBounds(519, 190, 440, 225);
+		pnlThongTinSach.setBounds(519, 11, 440, 404);
 		BanSach.add(pnlThongTinSach);
 		pnlThongTinSach.setLayout(null);
 		
@@ -212,75 +210,6 @@ public class MainView extends JFrame {
 		txtSLCon.setBounds(155, 120, 180, 20);
 		pnlThongTinSach.add(txtSLCon);
 		
-		JPanel pnlThongTinKhachHang = new JPanel();
-		pnlThongTinKhachHang.setLayout(null);
-		pnlThongTinKhachHang.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnlThongTinKhachHang.setBounds(519, 11, 440, 174);
-		BanSach.add(pnlThongTinKhachHang);
-		
-		JLabel lblMKhchHng = new JLabel("M\u00E3 Kh\u00E1ch H\u00E0ng");
-		lblMKhchHng.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMKhchHng.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMKhchHng.setBounds(29, 32, 102, 25);
-		pnlThongTinKhachHang.add(lblMKhchHng);
-		
-		JLabel lblTnKhchHng = new JLabel("T\u00EAn Kh\u00E1ch H\u00E0ng");
-		lblTnKhchHng.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTnKhchHng.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblTnKhchHng.setBounds(29, 55, 102, 25);
-		pnlThongTinKhachHang.add(lblTnKhchHng);
-		
-		txtMaKH = new JTextField();
-		txtMaKH.setEditable(false);
-		txtMaKH.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		txtMaKH.setColumns(10);
-		txtMaKH.setBounds(150, 34, 180, 20);
-		pnlThongTinKhachHang.add(txtMaKH);
-		
-		txtTenKH = new JTextField();
-		txtTenKH.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		txtTenKH.setColumns(10);
-		txtTenKH.setBounds(150, 57, 180, 20);
-		pnlThongTinKhachHang.add(txtTenKH);
-		
-		JLabel lblSt = new JLabel("SĐT");
-		lblSt.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSt.setBounds(29, 85, 102, 16);
-		pnlThongTinKhachHang.add(lblSt);
-		
-		txtSdt = new JTextField();
-		txtSdt.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		txtSdt.setColumns(10);
-		txtSdt.setBounds(150, 81, 180, 20);
-		pnlThongTinKhachHang.add(txtSdt);
-		
-		JButton btnChonKH = new JButton("Chọn Thành Viên");
-		btnChonKH.setBounds(264, 134, 154, 25);
-		pnlThongTinKhachHang.add(btnChonKH);
-		
-		JCheckBox checkBox = new JCheckBox("Khách hàng vãng lai");
-		checkBox.setBounds(8, 7, 156, 25);
-		pnlThongTinKhachHang.add(checkBox);
-		
-		JLabel lblNghNghip_1 = new JLabel("Nghề Nghiệp");
-		lblNghNghip_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNghNghip_1.setBounds(29, 107, 102, 16);
-		pnlThongTinKhachHang.add(lblNghNghip_1);
-		
-		txtNgheNghiep = new JTextField();
-		txtNgheNghiep.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		txtNgheNghiep.setColumns(10);
-		txtNgheNghiep.setBounds(150, 103, 180, 20);
-		pnlThongTinKhachHang.add(txtNgheNghiep);
-		
-		JButton btnThemKH = new JButton("Thêm Thành Viên");
-		btnThemKH.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnThemKH.setBounds(50, 136, 154, 25);
-		pnlThongTinKhachHang.add(btnThemKH);
-		
 		JPanel pnlTimKiemSach = new JPanel();
 		pnlTimKiemSach.setLayout(null);
 		pnlTimKiemSach.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -290,17 +219,12 @@ public class MainView extends JFrame {
 		txtTimKiem = new JTextField();
 		txtTimKiem.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		txtTimKiem.setColumns(10);
-		txtTimKiem.setBounds(10, 44, 236, 20);
+		txtTimKiem.setBounds(10, 44, 361, 20);
 		pnlTimKiemSach.add(txtTimKiem);
 		
 		JButton btnTimKiem = new JButton("Tìm Kiếm");
 		btnTimKiem.setBounds(385, 44, 100, 20);
 		pnlTimKiemSach.add(btnTimKiem);
-		
-		JComboBox cbbTheLoai = new JComboBox();
-		cbbTheLoai.setModel(new DefaultComboBoxModel(new String[] {"Thể Loại"}));
-		cbbTheLoai.setBounds(258, 44, 118, 20);
-		pnlTimKiemSach.add(cbbTheLoai);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 71, 475, 320);
@@ -357,7 +281,7 @@ public class MainView extends JFrame {
 		textField_19 = new JTextField();
 		textField_19.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		textField_19.setColumns(10);
-		textField_19.setBounds(10, 76, 239, 25);
+		textField_19.setBounds(10, 76, 363, 25);
 		panel_13.add(textField_19);
 		
 		JButton button_1 = new JButton("Tìm Kiếm");
@@ -368,11 +292,6 @@ public class MainView extends JFrame {
 		JScrollPane scrollPane_8 = new JScrollPane();
 		scrollPane_8.setBounds(10, 113, 475, 474);
 		panel_13.add(scrollPane_8);
-		
-		JComboBox comboBox_7 = new JComboBox();
-		comboBox_7.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		comboBox_7.setBounds(258, 76, 120, 25);
-		panel_13.add(comboBox_7);
 		
 		JPanel panel_14 = new JPanel();
 		panel_14.setLayout(null);
@@ -485,18 +404,13 @@ public class MainView extends JFrame {
 		textField_13 = new JTextField();
 		textField_13.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		textField_13.setColumns(10);
-		textField_13.setBounds(10, 42, 275, 25);
+		textField_13.setBounds(10, 42, 401, 25);
 		panel_10.add(textField_13);
 		
 		JButton button = new JButton("Tìm Kiếm");
 		button.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		button.setBounds(423, 42, 100, 25);
 		panel_10.add(button);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		comboBox_1.setBounds(295, 42, 118, 25);
-		panel_10.add(comboBox_1);
 		
 		JScrollPane scrollPane_6 = new JScrollPane();
 		scrollPane_6.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -506,7 +420,7 @@ public class MainView extends JFrame {
 		JPanel panel_11 = new JPanel();
 		panel_11.setLayout(null);
 		panel_11.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_11.setBounds(553, 11, 406, 337);
+		panel_11.setBounds(553, 11, 406, 374);
 		NhapSach.add(panel_11);
 		
 		JTextArea txtMoTaN = new JTextArea();
@@ -662,6 +576,31 @@ public class MainView extends JFrame {
 		txtTheLoaiN.setBounds(152, 88, 157, 25);
 		panel_11.add(txtTheLoaiN);
 		
+		JButton btnThm = new JButton("Thêm Sách mới");
+		btnThm.setBounds(267, 336, 129, 25);
+		panel_11.add(btnThm);
+		btnThm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmThemSachMoi frmthemsach = new frmThemSachMoi();
+				frmthemsach.setVisible(true);
+			}
+		});
+		btnThm.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		
+		JButton txtChonN = new JButton("Chọn");
+		txtChonN.setBounds(153, 336, 102, 25);
+		panel_11.add(txtChonN);
+		txtChonN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sachtbModel.ChonSach(
+						Integer.parseInt(txtMaSachN.getText().toString()),
+						Integer.parseInt(txtSLNhap.getText().toString()),
+						Integer.parseInt(txtGiaNhapN.getText().toString())
+						);
+			}
+		});
+		txtChonN.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		
 		JButton btnNhpSch = new JButton("Nhập tất cả");
 		btnNhpSch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -684,31 +623,6 @@ public class MainView extends JFrame {
 		NhapSach.add(button_3);
 		button_3.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		
-		JButton txtChonN = new JButton("Chọn");
-		txtChonN.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sachtbModel.ChonSach(
-						Integer.parseInt(txtMaSachN.getText().toString()),
-						Integer.parseInt(txtSLNhap.getText().toString()),
-						Integer.parseInt(txtGiaNhapN.getText().toString())
-						);
-			}
-		});
-		txtChonN.setBounds(716, 362, 102, 25);
-		NhapSach.add(txtChonN);
-		txtChonN.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		
-		JButton btnThm = new JButton("Thêm Sách mới");
-		btnThm.setBounds(830, 362, 129, 25);
-		NhapSach.add(btnThm);
-		btnThm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmThemSachMoi frmthemsach = new frmThemSachMoi();
-				frmthemsach.setVisible(true);
-			}
-		});
-		btnThm.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		
 		JPanel QLHDNhapSach = new JPanel();
 		tabbedPane.addTab("Quản Lí Nhập Sách", null, QLHDNhapSach, null);
 		QLHDNhapSach.setLayout(null);
@@ -726,7 +640,7 @@ public class MainView extends JFrame {
 		
 		textField_5 = new JTextField();
 		textField_5.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		textField_5.setBounds(10, 76, 239, 25);
+		textField_5.setBounds(10, 76, 363, 25);
 		panel_6.add(textField_5);
 		textField_5.setColumns(10);
 		
@@ -742,11 +656,6 @@ public class MainView extends JFrame {
 		table_2 = new JTable();
 		table_2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		scrollPane_5.setViewportView(table_2);
-		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		comboBox_2.setBounds(258, 76, 120, 25);
-		panel_6.add(comboBox_2);
 		
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -854,48 +763,48 @@ public class MainView extends JFrame {
 		panel.setLayout(null);
 		QLTV.add(panel);
 		
-		JButton btnNewButton_1 = new JButton("Thêm Nhân Viên Mới");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		txtSearchNV = new JTextField();
+		txtSearchNV.setBounds(453, 55, 371, 22);
+		panel.add(txtSearchNV);
+		txtSearchNV.setColumns(10);
+		
+		JButton btnThemNhanVien = new JButton("Thêm Nhân Viên Mới");
+		btnThemNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThemNhanVien_frm frmThemNhanVien = new ThemNhanVien_frm();
 				frmThemNhanVien.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(0, 13, 174, 28);
-		panel.add(btnNewButton_1);
+		btnThemNhanVien.setBounds(0, 13, 174, 28);
+		panel.add(btnThemNhanVien);
 		
-		JButton button_5 = new JButton("Chỉnh Sửa Thông Tin");
-		button_5.addActionListener(new ActionListener() {
+		JButton btnChinhSuaNhanVien = new JButton("Chỉnh Sửa Thông Tin Nhân Viên");
+		btnChinhSuaNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int rowSelect = tbListNhanVien.getSelectedRow();
+				if(rowSelect > -1) {
+					int maNV = Integer.parseInt(tbListNhanVien.getModel().getValueAt(rowSelect, 0).toString());
+					manhanvien = maNV;
+					ChinhSuaThongTinNhanVien_frm frmEditMember = new ChinhSuaThongTinNhanVien_frm();
+					frmEditMember.setVisible(true);
+				}
 			}
 		});
-		button_5.setBounds(187, 13, 153, 28);
-		panel.add(button_5);
+		btnChinhSuaNhanVien.setBounds(187, 13, 223, 28);
+		panel.add(btnChinhSuaNhanVien);
 		
-		textField_8 = new JTextField();
-		textField_8.setBounds(328, 55, 371, 22);
-		panel.add(textField_8);
-		textField_8.setColumns(10);
 		
 		JButton btnTmKim = new JButton("Tìm Kiếm");
 		btnTmKim.setBounds(836, 54, 97, 25);
 		panel.add(btnTmKim);
 		
-		JButton button_6 = new JButton("Xóa Thành Viên");
-		button_6.addActionListener(new ActionListener() {
+		JButton btnXoaNhanVien = new JButton("Xóa Nhân Viên");
+		btnXoaNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button_6.setBounds(521, 13, 153, 28);
-		panel.add(button_6);
-		
-		JComboBox comboBox_5 = new JComboBox();
-		comboBox_5.setBounds(711, 55, 113, 22);
-		panel.add(comboBox_5);
-		
-		JButton btnXtQuynAdmin = new JButton("Cấp quyền Admin");
-		btnXtQuynAdmin.setBounds(356, 13, 153, 28);
-		panel.add(btnXtQuynAdmin);
+		btnXoaNhanVien.setBounds(422, 14, 153, 28);
+		panel.add(btnXoaNhanVien);
 		
 		JLabel lblQunLThnh = new JLabel("Quản Lý Tài Khoản Nhân Viên");
 		lblQunLThnh.setFont(new Font("Times New Roman", Font.BOLD, 20));
