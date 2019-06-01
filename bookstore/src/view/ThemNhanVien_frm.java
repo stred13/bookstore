@@ -57,7 +57,7 @@ public class ThemNhanVien_frm extends JFrame {
 	 */
 	public ThemNhanVien_frm() {
 		nhanvienController nvCons= new nhanvienController();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 393, 485);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

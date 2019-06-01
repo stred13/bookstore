@@ -22,7 +22,7 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 	sachController sCon = new sachController();
 	DefaultTableModel Nmodel = new DefaultTableModel();
 	nhanvienDao nvDao = new nhanvienDao();
-	NhanVien nv = nvDao.getNhanVienbyId(1);
+	NhanVien nv = new NhanVien();
 	public DefaultTableModel sachTablmodel() {
 		DefaultTableModel model = new DefaultTableModel();
 

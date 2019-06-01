@@ -20,10 +20,10 @@ import models.Sach;
 public class NhanVienTableModel extends javax.swing.JFrame {
 	nhanvienController nvCon = new nhanvienController();
 	nhanvienDao nvDao = new nhanvienDao();
-	NhanVien nv = nvDao.getNhanVienbyId(1);
-	public DefaultTableModel nhanVienTablmodel() {
-		DefaultTableModel model = new DefaultTableModel();
+	DefaultTableModel model = new DefaultTableModel();
 
+	public DefaultTableModel nhanVienTablmodel() {
+		
 		model.setColumnIdentifiers(new Object[] { "Ma NV", "Ho Ten", "Email", "Gioi Tinh", "Ngay Sinh", "SDT", "Dia Chi" });
 		nvCon.getAllNhanVien().forEach(nv -> {
 			model.addRow(new Object[] { nv.getManv(), nv.getTennv(), nv.getEmail(),
@@ -31,6 +31,13 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 		});
 
 		return model;
+	}
+	public NhanVien getThongTinNhanVien(int maNV) {
+		NhanVien nv = nvCon.getNhanVienbyId(maNV);
+		return nv;
+	}
+	public void updateNhanVien(NhanVien nv) {
+		nvCon.updateNhanVien(nv);
 	}
 	public NhanVienTableModel() throws HeadlessException {
 		super();

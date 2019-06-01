@@ -16,8 +16,14 @@ public class nhanvienController {
 	public void insertNhanVien(NhanVien nv) {		
 		nvDao.insertNhanVien(nv);
 	}
+	public void updateNhanVien(NhanVien nv) {		
+		nvDao.updateNhanVien(nv);
+	}
 	
 	public List<NhanVien> getAllNhanVien(){
 		return nvDao.getListNhanVien();
+	}
+	public NhanVien getNhanVienbyId(int maNV){
+		return nvDao.getNhanVienbyId(maNV);
 	}
 }

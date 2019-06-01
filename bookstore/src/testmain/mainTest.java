@@ -33,14 +33,14 @@ public class mainTest {
 		PhieuNhap pn = new PhieuNhap();
 		phieunhapDao pndao = new phieunhapDao();
 		
-		pn.setNgaynhap(new Date());
-		pn.setNhanvien(nv);
-		
-		ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
-		ctpn.setGianhap(23000);
-		ctpn.setSoluong(20);
-		
-		pndao.deletePhieuNhap();
+//		pn.setNgaynhap(new Date());
+//		pn.setNhanvien(nv);
+//		
+//		ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
+//		ctpn.setGianhap(23000);
+//		ctpn.setSoluong(20);
+//		
+//		pndao.deletePhieuNhap();
 		//sDao.nhapSach(sDao.getSachbyId(1), nv, pn, ctpn);
 		
 		System.out.println(nvd.getNhanVienbyId(1).getTennv());
