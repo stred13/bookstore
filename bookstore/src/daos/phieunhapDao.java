@@ -1,6 +1,7 @@
 package daos;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +11,17 @@ import models.NhanVien;
 import models.PhieuNhap;
 
 public class phieunhapDao {
+	
+	public List<PhieuNhap> getListPhieuNhap(){
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+		List<PhieuNhap> phieunhaps = sess.createQuery("from PhieuNhap").getResultList();
+		sess.getTransaction().commit();
+		sess.close();
+		
+		return phieunhaps;
+	}
 	
 	public void insertPhieuNhap(NhanVien nv) {
 		SessionFactory sessFac = hibSessionFactory.getSession();

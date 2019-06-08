@@ -34,7 +34,7 @@ public class PhieuNhap{
 	@Temporal(TemporalType.TIMESTAMP)
 	Date ngaynhap;
 	
-	@OneToMany(mappedBy = "phieunhap",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+	@OneToMany(mappedBy = "phieunhap",cascade = {CascadeType.PERSIST,CascadeType.REMOVE},fetch =FetchType.EAGER)
 	private Set<ChiTietPhieuNhap> ctpn = new HashSet<>();
 	
 	@ManyToOne

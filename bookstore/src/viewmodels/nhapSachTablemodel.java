@@ -21,18 +21,23 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 	List<Sach> sachs = new ArrayList<>();
 	sachController sCon = new sachController();
 	DefaultTableModel Nmodel = new DefaultTableModel();
+	DefaultTableModel model = new DefaultTableModel();
 	nhanvienDao nvDao = new nhanvienDao();
 	NhanVien nv = new NhanVien();
+	
 	public DefaultTableModel sachTablmodel() {
-		DefaultTableModel model = new DefaultTableModel();
-
+		model = new DefaultTableModel();
 		model.setColumnIdentifiers(new Object[] { "ID", "Tên Sách", "Tác Giả", "Thể Loại", "Số Lượng","Mô Tả" });
 		sCon.getAllSach().forEach(sach -> {
 			model.addRow(new Object[] { sach.getMasach(), sach.getTensach(), sach.getTacgia(),
 					sach.getTLSach().getTentl(), sach.getSoluong(), sach.getMota() });
 		});
-
 		return model;
+	}
+	
+	public void insertSachtbModel(Sach sach) {
+		model.addRow(new Object[] { sach.getMasach(), sach.getTensach(), sach.getTacgia(),
+					sach.getTLSach().getTentl(), sach.getSoluong(), sach.getMota() });
 	}
 
 	public DefaultTableModel sachNhapTablmodel() {
@@ -70,6 +75,7 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 	public void nhapSach() {
 		PhieuNhap pn = new PhieuNhap();
 		pn.setNgaynhap(new Date());
+		nv = nvDao.getNhanVienbyId(1);
 		pn.setNhanvien(nv);
 		
 		for(int i=0;i<sachs.size();i++) {
@@ -81,10 +87,9 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 	public void addchipntableModel(Sach s, ChiTietPhieuNhap ctpn) {
 		Nmodel.addRow(new Object[] { s.getTensach(), s.getTacgia(), s.getTLSach().getTentl(), s.getSoluong(),
 				ctpn.getSoluong(), ctpn.getGianhap() });
-
 	}
 
-	public nhapSachTablemodel(DefaultTableModel nmodel) throws HeadlessException {
+	public nhapSachTablemodel(DefaultTableModel nmodel) {
 		super();
 		this.Nmodel = nmodel;
 		Nmodel.setColumnIdentifiers(

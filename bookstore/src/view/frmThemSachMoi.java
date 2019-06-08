@@ -12,8 +12,11 @@ import controllers.theloaisachController;
 import daos.sachDao;
 import models.Sach;
 import models.TheLoai;
+import viewmodels.nhapSachTablemodel;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
@@ -23,13 +26,15 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class frmThemSachMoi extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtTacGia;
 	private JTextField txtTenSach;
-
+	private nhapSachTablemodel nhapSachtbmodel = new nhapSachTablemodel();
 	/**
 	 * Launch the application.
 	 */
@@ -38,7 +43,7 @@ public class frmThemSachMoi extends JFrame {
 			public void run() {
 				try {
 					frmThemSachMoi frame = new frmThemSachMoi();
-					frame.setVisible(true);
+					frame.setEnabled(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,6 +55,16 @@ public class frmThemSachMoi extends JFrame {
 	 * Create the frame.
 	 */
 	public frmThemSachMoi() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				//MainView.frame.setVisible(true);
+				//JOptionPane.showMessageDialog(null, "A basic JOptionPane message dialog");
+				MainView.frame.setEnabled(true);
+				
+			
+			}
+		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 426, 399);
 		contentPane = new JPanel();
@@ -119,6 +134,11 @@ public class frmThemSachMoi extends JFrame {
 				s.setMota(mota);
 				
 				sCon.insertSach(s);
+				MainView.tbSachModel.setRowCount(0);
+				//MainView.tbSachModel = nhapSachtbmodel.sachTablmodel();
+				MainView.tbSach.setModel(nhapSachtbmodel.sachTablmodel());
+				//JOptionPane.showMessageDialog(null, "A basic JOptionPane message dialog "+MainView.tbSachModel.getRowCount());
+
 			}
 		});
 		btnAddSach.setFont(new Font("Times New Roman", Font.PLAIN, 16));

@@ -15,10 +15,13 @@ import javax.swing.table.TableColumnModel;
 import models.ChiTietPhieuNhap;
 import models.Sach;
 import viewmodels.NhanVienTableModel;
+import viewmodels.QLyNhapTableModel;
 import viewmodels.nhapSachTablemodel;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -39,14 +42,14 @@ import java.awt.event.MouseEvent;
 import javax.swing.ScrollPaneConstants;
 
 public class MainView extends JFrame {
-	private static JFrame frame;
+	public static JFrame frame;
 	private JPanel contentPane;
 	private JTextField txtSLMua;
 	private JTable table_1;
 	private JTextField txtTimKiem;
 	private JTextField txtSearchNV;
 	private JTextField textField_5;
-	private JTable table_2;
+	private JTable tbNhapsach;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_9;
@@ -69,10 +72,13 @@ public class MainView extends JFrame {
 	private JTextField txtTheLoai;
 	private JTextField txtDonGia;
 	private JTextField txtSLCon;
-	private JTable tbSach;
+	public static JTable tbSach;
 	private JTextField txtTheLoaiN;
 	private JTable tbctpN;
 	private JTable tbListNhanVien;
+	
+	public static DefaultTableModel tbSachModel;
+	public static DefaultTableModel tbNhapsachModel;
 
 	
 	public static int manhanvien = 0;
@@ -96,6 +102,10 @@ public class MainView extends JFrame {
 	 * Create the frame.
 	 */
 	public MainView() {
+		nhapSachTablemodel sachtbModel = new nhapSachTablemodel();
+		QLyNhapTableModel qlNhapSachtbmd = new QLyNhapTableModel();
+		tbSachModel = sachtbModel.sachTablmodel();
+		tbNhapsachModel = qlNhapSachtbmd.getTbmdPhieuNhap();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 769);
 		contentPane = new JPanel();
@@ -408,7 +418,7 @@ public class MainView extends JFrame {
 		txtMoTaN.setBounds(152, 226, 244, 100);
 		panel_11.add(txtMoTaN);
 		
-		nhapSachTablemodel sachtbModel = new nhapSachTablemodel();
+		
 		tbSach = new JTable(){
 			public boolean isCellEditable(int rowIndex, int colIndex) {
 				return false;
@@ -437,7 +447,10 @@ public class MainView extends JFrame {
 				tbSach.getSelectionModel().clearSelection();
 			}
 		});
-		tbSach.setModel(sachtbModel.sachTablmodel());
+		tbSach.setModel(tbSachModel);
+		System.out.println(tbSachModel.getRowCount());
+		//JOptionPane.showMessageDialog(null, "sach "+MainView.tbSachModel.getRowCount());
+
 		scrollPane_6.setViewportView(tbSach);
 		
 		JLabel label_43 = new JLabel("Danh Sách Sách");
@@ -562,6 +575,7 @@ public class MainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				frmThemSachMoi frmthemsach = new frmThemSachMoi();
 				frmthemsach.setVisible(true);
+				frame.setEnabled(false);
 			}
 		});
 		btnThm.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -643,9 +657,10 @@ public class MainView extends JFrame {
 		scrollPane_5.setBounds(10, 113, 475, 499);
 		panel_6.add(scrollPane_5);
 		
-		table_2 = new JTable();
-		table_2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		scrollPane_5.setViewportView(table_2);
+		tbNhapsach = new JTable();
+		tbNhapsach.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		scrollPane_5.setViewportView(tbNhapsach);
+		tbNhapsach.setModel(tbNhapsachModel);
 		
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new LineBorder(new Color(0, 0, 0)));

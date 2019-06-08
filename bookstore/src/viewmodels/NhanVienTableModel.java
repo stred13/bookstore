@@ -21,7 +21,9 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 	nhanvienController nvCon = new nhanvienController();
 	nhanvienDao nvDao = new nhanvienDao();
 	DefaultTableModel model = new DefaultTableModel();
-
+	NhanVien nv = new NhanVien();
+	NhanVien nvlogin = new NhanVien();
+	
 	public DefaultTableModel nhanVienTablmodel() {
 		
 		model.setColumnIdentifiers(new Object[] { "Ma NV", "Ho Ten", "Email", "Gioi Tinh", "Ngay Sinh", "SDT", "Dia Chi" });
@@ -33,12 +35,16 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 		return model;
 	}
 	public NhanVien getThongTinNhanVien(int maNV) {
-		NhanVien nv = nvCon.getNhanVienbyId(maNV);
+		nv = nvCon.getNhanVienbyId(maNV);
 		return nv;
+	}
+	public NhanVien getNhanVienLogin() {
+		return nvlogin;
 	}
 	public void updateNhanVien(NhanVien nv) {
 		nvCon.updateNhanVien(nv);
 	}
+	
 	public NhanVienTableModel() throws HeadlessException {
 		super();
 	}
