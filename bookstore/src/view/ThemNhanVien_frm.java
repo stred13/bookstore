@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -18,10 +20,15 @@ import javax.swing.border.LineBorder;
 
 import controllers.nhanvienController;
 import models.NhanVien;
+import viewmodels.NhanVienTableModel;
 
 import java.awt.Color;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Date;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class ThemNhanVien_frm extends JFrame {
@@ -30,9 +37,9 @@ public class ThemNhanVien_frm extends JFrame {
 	private JTextField txtUsername;
 	private JTextField txtName;
 	private JTextField txtEmail;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField txtBirthday;
+	private JTextField txtPhone;
+	private JTextField txtAddress;
 	private JPasswordField txtPassword;
 	private JPasswordField txtRePassword;
 
@@ -56,6 +63,15 @@ public class ThemNhanVien_frm extends JFrame {
 	 * Create the frame.
 	 */
 	public ThemNhanVien_frm() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				MainView.frame.setEnabled(true);
+				
+			
+			}
+		});
+		NhanVienTableModel nvtblModel= new NhanVienTableModel();
 		nhanvienController nvCons= new nhanvienController();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 393, 485);
@@ -69,23 +85,19 @@ public class ThemNhanVien_frm extends JFrame {
 		lblThmThnhVin.setBounds(73, 13, 262, 40);
 		contentPane.add(lblThmThnhVin);
 		
-		JButton button = new JButton("Th\u00EAm");
-		button.addActionListener(new ActionListener() {
+		JButton btnThem = new JButton("Th\u00EAm");
+		btnThem.setBounds(183, 400, 97, 25);
+		contentPane.add(btnThem);
+		
+		JButton btnClose = new JButton("\u0110\u00F3ng");
+		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				NhanVien nv = new NhanVien();
-				nv.setTaikhoan(txtUsername.getText());
-				nv.setMatkhau(txtPassword.getText());
-				nv.setTennv(txtName.getText());
-				nv.setEmail(txtEmail.getText());
-				nvCons.insertNhanVien(nv);
+				MainView.frame.setEnabled(true);
+				dispose();
 			}
 		});
-		button.setBounds(183, 400, 97, 25);
-		contentPane.add(button);
-		
-		JButton button_1 = new JButton("H\u1EE7y");
-		button_1.setBounds(74, 400, 97, 25);
-		contentPane.add(button_1);
+		btnClose.setBounds(74, 400, 97, 25);
+		contentPane.add(btnClose);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -152,19 +164,19 @@ public class ThemNhanVien_frm extends JFrame {
 		label_5.setBounds(43, 80, 77, 16);
 		panel_1.add(label_5);
 		
-		JRadioButton rdName = new JRadioButton("Nam");
-		rdName.setSelected(true);
-		rdName.setBounds(132, 76, 63, 25);
-		panel_1.add(rdName);
+		JRadioButton rdNam = new JRadioButton("Nam");
+		rdNam.setSelected(true);
+		rdNam.setBounds(132, 76, 63, 25);
+		panel_1.add(rdNam);
 		
 		JRadioButton rdNu = new JRadioButton("N\u1EEF");
 		rdNu.setBounds(196, 76, 63, 25);
 		panel_1.add(rdNu);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(132, 105, 193, 22);
-		panel_1.add(textField_3);
+		txtBirthday = new JTextField();
+		txtBirthday.setColumns(10);
+		txtBirthday.setBounds(132, 105, 193, 22);
+		panel_1.add(txtBirthday);
 		
 		JLabel label_6 = new JLabel("Ng\u00E0y Sinh");
 		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -176,19 +188,68 @@ public class ThemNhanVien_frm extends JFrame {
 		label_7.setBounds(63, 138, 56, 16);
 		panel_1.add(label_7);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(132, 135, 193, 22);
-		panel_1.add(textField_4);
+		txtPhone = new JTextField();
+		txtPhone.setColumns(10);
+		txtPhone.setBounds(132, 135, 193, 22);
+		panel_1.add(txtPhone);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(131, 164, 194, 22);
-		panel_1.add(textField_5);
+		txtAddress = new JTextField();
+		txtAddress.setColumns(10);
+		txtAddress.setBounds(131, 164, 194, 22);
+		panel_1.add(txtAddress);
 		
 		JLabel label_8 = new JLabel("\u0110\u1ECBa ch\u1EC9");
 		label_8.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_8.setBounds(63, 167, 56, 16);
 		panel_1.add(label_8);
+		rdNam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				rdNam.setSelected(true);
+				rdNu.setSelected(false);
+			}
+		});
+		rdNu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				rdNam.setSelected(false);
+				rdNu.setSelected(true);
+			}
+		});
+		btnThem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Pattern patternPhone = Pattern.compile("^\\d{10,11}$");
+				Pattern patternEmail = Pattern.compile("^[a-zA-Z][\\w-]+@([\\w]+\\.[\\w]+|[\\w]+\\.[\\w]{2,}\\.[\\w]{2,})$");
+				Pattern patternUsername = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9._-]{5,40}$");
+				Pattern patternPassword = Pattern.compile("^[a-zA-Z0-9]{6,40}$");
+				if (!patternUsername.matcher(txtUsername.getText().toString()).matches()) {
+			        JOptionPane.showMessageDialog(null, "Tài khoản không hợp lệ \nbắt đầu là chữ \ntừ 6 đến 40 ký tự \nký tự không dấu \nkhông chứa ký tự đặc biệt ngoại trừ ._-");
+			    } else if (!patternPassword.matcher(txtPassword.getText().toString()).matches()) {
+			        JOptionPane.showMessageDialog(null, "Mật khẩu không hợp lệ \ntừ 6 đến 40 ký tự \nký tự không dấu");
+			    } else if(!(txtPassword.getText().toString().equals(txtRePassword.getText().toString()))) {
+					JOptionPane.showMessageDialog(null, "Mật khẩu nhập lại không khớp");
+			    } else if (!patternEmail.matcher(txtEmail.getText().toString()).matches()) {
+			        JOptionPane.showMessageDialog(null, "Email không hợp lệ");
+			    } else if (!patternPhone.matcher(txtPhone.getText().toString()).matches()) {
+			    	JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ (phải từ 10 đến 11 số)");
+			    } else {
+			    	NhanVien nv = new NhanVien();
+					nv.setTaikhoan(txtUsername.getText());
+					nv.setMatkhau(txtPassword.getPassword().toString());
+					nv.setTennv(txtName.getText());
+					nv.setEmail(txtEmail.getText());
+					if(rdNam.isSelected()) {
+						nv.setGioitinh(1);
+					}else {
+						nv.setGioitinh(0);
+					}
+					nv.setSdt(txtPhone.getText());
+					nv.setDiachi(txtAddress.getText());
+					nv.setNgaysinh(new Date());
+					nvCons.insertNhanVien(nv);
+					MainView.tblDSNVModel.setRowCount(0);
+					MainView.tblDSNVModel = nvtblModel.nhanVienTablmodel();
+					MainView.tbListNhanVien.setModel(MainView.tblDSNVModel);
+			    }
+			}
+		});
 	}
 }

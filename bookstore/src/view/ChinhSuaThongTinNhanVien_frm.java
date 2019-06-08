@@ -7,12 +7,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controllers.nhanvienController;
 import models.NhanVien;
 import viewmodels.NhanVienTableModel;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Window;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -20,6 +24,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class ChinhSuaThongTinNhanVien_frm extends JFrame {
@@ -38,8 +47,8 @@ public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChinhSuaThongTinNhanVien_frm frame = new ChinhSuaThongTinNhanVien_frm();
-					frame.setVisible(true);
+					ChinhSuaThongTinNhanVien_frm frameEditNV = new ChinhSuaThongTinNhanVien_frm();
+					frameEditNV.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -51,15 +60,21 @@ public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 	 * Create the frame.
 	 */
 	public ChinhSuaThongTinNhanVien_frm() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				MainView.frame.setEnabled(true);
+			}
+		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 430, 367);
+		setBounds(100, 100, 430, 348);
 		getContentPane().setLayout(null);
 		nvTblModel = new NhanVienTableModel();
 		nv = nvTblModel.getThongTinNhanVien(MainView.manhanvien);
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setBounds(0, 0, 412, 336);
+		panel.setBounds(0, 0, 412, 318);
 		getContentPane().add(panel);
 		
 		JLabel lblChnhSaThng = new JLabel("Ch\u1EC9nh S\u1EEDa Th\u00F4ng Tin Nh\u00E2n Vi\u00EAn");
@@ -92,7 +107,7 @@ public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_3.setBounds(65, 149, 77, 16);
 		panel.add(label_3);
-		
+
 		txtNgaySinh = new JTextField();
 		txtNgaySinh.setColumns(10);
 		txtNgaySinh.setBounds(154, 174, 193, 22);
@@ -130,7 +145,7 @@ public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 		panel.add(txtMaNV);
 		
 		JRadioButton rdbtnNam = new JRadioButton("Nam");
-		rdbtnNam.setSelected(true);
+				rdbtnNam.setSelected(true);
 		rdbtnNam.setBounds(154, 145, 63, 25);
 		panel.add(rdbtnNam);
 		
@@ -138,29 +153,52 @@ public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 		rdbtnNu.setBounds(218, 145, 63, 25);
 		panel.add(rdbtnNu);
 		
+		rdbtnNam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				rdbtnNam.setSelected(true);
+				rdbtnNu.setSelected(false);
+			}
+		});
+		rdbtnNu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				rdbtnNam.setSelected(false);
+				rdbtnNu.setSelected(true);
+			}
+		});
+
+		
 		JButton btnChinhSua = new JButton("Ch\u1EC9nh S\u1EEDa");
 		btnChinhSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nv.setTennv(txtHoTen.getText());
-				nv.setEmail(txtEmail.getText());
-				nv.setDiachi(txtDiaChi.getText());
-				nv.setSdt(txtSDT.getText());
-				if(rdbtnNam.isSelected()) {
-					nv.setGioitinh(1);
-				}else {
-					nv.setGioitinh(0);
-				}
-				nvTblModel.updateNhanVien(nv);
-				
-				
+				Pattern patternPhone = Pattern.compile("^\\d{10,11}$");
+				Pattern patternEmail = Pattern.compile("^[a-zA-Z][\\w-]+@([\\w]+\\.[\\w]+|[\\w]+\\.[\\w]{2,}\\.[\\w]{2,})$");
+				if (!patternEmail.matcher(txtEmail.getText().toString()).matches()) {
+					JOptionPane.showMessageDialog(null, "Email không hợp lệ");
+				} else if (!patternPhone.matcher(txtSDT.getText().toString()).matches()) {
+			        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ (phải từ 10 đến 11 số)");
+			    } else {
+			    	nv.setTennv(txtHoTen.getText());
+			    	nv.setEmail(txtEmail.getText());
+			    	nv.setDiachi(txtDiaChi.getText());
+			    	nv.setSdt(txtSDT.getText());
+			    	nv.setNgaysinh(new Date());
+			    	if(rdbtnNam.isSelected()) {
+			    		nv.setGioitinh(1);
+			    	}else {
+			    		nv.setGioitinh(0);
+			    	}
+			    	nvTblModel.updateNhanVien(nv);
+			    	MainView.tblDSNVModel.setRowCount(0);
+			    	MainView.tblDSNVModel = nvTblModel.nhanVienTablmodel();
+			    	MainView.tbListNhanVien.setModel(MainView.tblDSNVModel);
+			    	MainView.frame.setEnabled(true);
+			    	JOptionPane.showMessageDialog(null, "Chỉnh Sửa Thành Công");
+			    	dispose();						    	
+			    }
 			}
 		});
-		btnChinhSua.setBounds(224, 268, 97, 25);
+		btnChinhSua.setBounds(111, 268, 210, 25);
 		panel.add(btnChinhSua);
-		
-		JButton btnHuy = new JButton("H\u1EE7y");
-		btnHuy.setBounds(116, 268, 97, 25);
-		panel.add(btnHuy);
 		
 		JLabel lblMThnhVin = new JLabel("M\u00E3 Nh\u00E2nVi\u00EAn");
 		lblMThnhVin.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -171,6 +209,8 @@ public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 		txtHoTen.setText(nv.getTennv());
 		txtEmail.setText(nv.getEmail());
 		txtDiaChi.setText(nv.getDiachi());
+		txtSDT.setText(nv.getSdt().toString());
+		txtNgaySinh.setText(nv.getNgaysinh().toString());
 		int gioitinh = nv.getGioitinh();
 		if(gioitinh == 1) {
 			rdbtnNam.setSelected(true);

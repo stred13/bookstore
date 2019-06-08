@@ -26,6 +26,18 @@ public class nhanvienDao {
 		sess.close();
 		return listSach;
 	}
+	public List<NhanVien> getNhanVienSearch(String txtSearch) {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+		String hql = "From NhanVien s Where s.tennv like :txtSearch";
+		List<NhanVien> listSach = sess.createQuery(hql).setParameter("txtSearch", "%" + txtSearch + "%").getResultList();
+
+		sess.getTransaction().commit();
+		sess.close();
+		return listSach;
+	}
+
 
 	public NhanVien getNhanVienbyId(int id) {
 		
@@ -72,5 +84,13 @@ public class nhanvienDao {
 		sess.getTransaction().commit();
 		sess.close();
 	}
+	public void deleteNhanVien(NhanVien nv) {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
 
+		sess.delete(nv);
+		sess.getTransaction().commit();
+		sess.close();
+	}
 }

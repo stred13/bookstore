@@ -58,8 +58,6 @@ public class frmThemSachMoi extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				//MainView.frame.setVisible(true);
-				//JOptionPane.showMessageDialog(null, "A basic JOptionPane message dialog");
 				MainView.frame.setEnabled(true);
 				
 			
