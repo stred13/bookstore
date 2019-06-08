@@ -20,23 +20,35 @@ import models.Sach;
 public class NhanVienTableModel extends javax.swing.JFrame {
 	nhanvienController nvCon = new nhanvienController();
 	nhanvienDao nvDao = new nhanvienDao();
-	DefaultTableModel model = new DefaultTableModel();
+	DefaultTableModel DSNVModel = new DefaultTableModel();
 	NhanVien nv = new NhanVien();
 	NhanVien nvlogin = new NhanVien();
 	
 	public DefaultTableModel nhanVienTablmodel() {
 		
-		model.setColumnIdentifiers(new Object[] { "Ma NV", "Ho Ten", "Email", "Gioi Tinh", "Ngay Sinh", "SDT", "Dia Chi" });
 		nvCon.getAllNhanVien().forEach(nv -> {
-			model.addRow(new Object[] { nv.getManv(), nv.getTennv(), nv.getEmail(),
+			DSNVModel.addRow(new Object[] { nv.getManv(), nv.getTennv(), nv.getEmail(),
 					nv.getGioitinh(), nv.getNgaysinh(), nv.getSdt(), nv.getDiachi() });
 		});
 
-		return model;
+		return DSNVModel;
 	}
+	public DefaultTableModel nhanVienTablmodelSearch(String txtSearch) {
+		
+		nvCon.getNhanVienSearch(txtSearch).forEach(nv -> {
+			DSNVModel.addRow(new Object[] { nv.getManv(), nv.getTennv(), nv.getEmail(),
+					nv.getGioitinh(), nv.getNgaysinh(), nv.getSdt(), nv.getDiachi() });
+		});
+
+		return DSNVModel;
+	}
+
 	public NhanVien getThongTinNhanVien(int maNV) {
 		nv = nvCon.getNhanVienbyId(maNV);
 		return nv;
+	}
+	public void NhanVienLogin(String tk, String mk) {
+		nvlogin = nvCon.getNhanVienLogin(tk, mk);
 	}
 	public NhanVien getNhanVienLogin() {
 		return nvlogin;
@@ -44,9 +56,14 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 	public void updateNhanVien(NhanVien nv) {
 		nvCon.updateNhanVien(nv);
 	}
-	
-	public NhanVienTableModel() throws HeadlessException {
+	public void deleteNhanVien(int maNV) {
+		NhanVien nvDelete = nvCon.getNhanVienbyId(maNV);
+		nvCon.deleteNhanVien(nvDelete);
+	}
+	public NhanVienTableModel() {
 		super();
+		DSNVModel.setColumnIdentifiers(new Object[] { "Mã NV", "Họ Tên", "Email", "Giới Tính", "Ngày Sinh", "SDT", "Địa Chỉ" });
+		
 	}
 
 }

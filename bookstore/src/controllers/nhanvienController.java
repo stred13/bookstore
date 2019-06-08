@@ -19,11 +19,22 @@ public class nhanvienController {
 	public void updateNhanVien(NhanVien nv) {		
 		nvDao.updateNhanVien(nv);
 	}
+	public void deleteNhanVien(NhanVien nv) {		
+		nvDao.deleteNhanVien(nv);
+	}
 	
 	public List<NhanVien> getAllNhanVien(){
 		return nvDao.getListNhanVien();
 	}
+	
+	public List<NhanVien> getNhanVienSearch(String txtSearch){
+		return nvDao.getNhanVienSearch(txtSearch);
+	}
 	public NhanVien getNhanVienbyId(int maNV){
 		return nvDao.getNhanVienbyId(maNV);
 	}
+	public NhanVien getNhanVienLogin(String tk, String mk){
+		return nvDao.getNhanVienbyTaiKhoan(tk, mk);
+	}
+
 }

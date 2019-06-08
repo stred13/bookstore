@@ -47,7 +47,7 @@ public class MainView extends JFrame {
 	private JTextField txtSLMua;
 	private JTable table_1;
 	private JTextField txtTimKiem;
-	private JTextField txtSearchNV;
+	private JTextField txtSearchNameNV;
 	private JTextField textField_5;
 	private JTable tbNhapsach;
 	private JTextField textField_6;
@@ -75,11 +75,11 @@ public class MainView extends JFrame {
 	public static JTable tbSach;
 	private JTextField txtTheLoaiN;
 	private JTable tbctpN;
-	private JTable tbListNhanVien;
+	public static JTable tbListNhanVien;
 	
 	public static DefaultTableModel tbSachModel;
 	public static DefaultTableModel tbNhapsachModel;
-
+	public static DefaultTableModel tblDSNVModel;
 	
 	public static int manhanvien = 0;
 	/**
@@ -104,8 +104,11 @@ public class MainView extends JFrame {
 	public MainView() {
 		nhapSachTablemodel sachtbModel = new nhapSachTablemodel();
 		QLyNhapTableModel qlNhapSachtbmd = new QLyNhapTableModel();
+		NhanVienTableModel nvtblModel= new NhanVienTableModel();
+		
 		tbSachModel = sachtbModel.sachTablmodel();
 		tbNhapsachModel = qlNhapSachtbmd.getTbmdPhieuNhap();
+		tblDSNVModel = nvtblModel.nhanVienTablmodel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 769);
 		contentPane = new JPanel();
@@ -448,7 +451,7 @@ public class MainView extends JFrame {
 			}
 		});
 		tbSach.setModel(tbSachModel);
-		System.out.println(tbSachModel.getRowCount());
+//		System.out.println(tbSachModel.getRowCount());
 		//JOptionPane.showMessageDialog(null, "sach "+MainView.tbSachModel.getRowCount());
 
 		scrollPane_6.setViewportView(tbSach);
@@ -744,8 +747,6 @@ public class MainView extends JFrame {
 		btnBoCo.setBounds(834, 644, 121, 25);
 		QLHDNhapSach.add(btnBoCo);
 		
-		NhanVienTableModel nvtblModel= new NhanVienTableModel();
-		
 		JPanel QLTV = new JPanel();
 		tabbedPane.addTab("Nhân Viên", null, QLTV, null);
 		QLTV.setLayout(null);
@@ -758,7 +759,7 @@ public class MainView extends JFrame {
 				return false;
 			}
 		};
-		tbListNhanVien.setModel(nvtblModel.nhanVienTablmodel());
+		tbListNhanVien.setModel(tblDSNVModel);
 		tblDSNV.setViewportView(tbListNhanVien);
 		
 
@@ -768,16 +769,17 @@ public class MainView extends JFrame {
 		panel.setLayout(null);
 		QLTV.add(panel);
 		
-		txtSearchNV = new JTextField();
-		txtSearchNV.setBounds(453, 55, 371, 22);
-		panel.add(txtSearchNV);
-		txtSearchNV.setColumns(10);
+		txtSearchNameNV = new JTextField();
+		txtSearchNameNV.setBounds(453, 55, 371, 22);
+		panel.add(txtSearchNameNV);
+		txtSearchNameNV.setColumns(10);
 		
 		JButton btnThemNhanVien = new JButton("Thêm Nhân Viên Mới");
 		btnThemNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThemNhanVien_frm frmThemNhanVien = new ThemNhanVien_frm();
 				frmThemNhanVien.setVisible(true);
+				frame.setEnabled(false);
 			}
 		});
 		btnThemNhanVien.setBounds(0, 13, 174, 28);
@@ -787,11 +789,14 @@ public class MainView extends JFrame {
 		btnChinhSuaNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int rowSelect = tbListNhanVien.getSelectedRow();
-				if(rowSelect > -1) {
+				if (rowSelect > -1) {
 					int maNV = Integer.parseInt(tbListNhanVien.getModel().getValueAt(rowSelect, 0).toString());
 					manhanvien = maNV;
 					ChinhSuaThongTinNhanVien_frm frmEditMember = new ChinhSuaThongTinNhanVien_frm();
 					frmEditMember.setVisible(true);
+					frame.setEnabled(false);
+				} else {
+					JOptionPane.showMessageDialog(frame, "Chưa chọn nhân viên cần chỉnh sửa.");
 				}
 			}
 		});
@@ -799,17 +804,43 @@ public class MainView extends JFrame {
 		panel.add(btnChinhSuaNhanVien);
 		
 		
-		JButton btnTmKim = new JButton("Tìm Kiếm");
-		btnTmKim.setBounds(836, 54, 97, 25);
-		panel.add(btnTmKim);
+		JButton btnSearchNameNV = new JButton("Tìm Kiếm");
+		btnSearchNameNV.setBounds(836, 54, 97, 25);
+		panel.add(btnSearchNameNV);
 		
 		JButton btnXoaNhanVien = new JButton("Xóa Nhân Viên");
 		btnXoaNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int rowSelect = tbListNhanVien.getSelectedRow();
+				if (rowSelect > -1) {
+					int maNV = Integer.parseInt(tbListNhanVien.getModel().getValueAt(rowSelect, 0).toString());
+					nvtblModel.deleteNhanVien(maNV);
+					tblDSNVModel.setRowCount(0);
+					tblDSNVModel = nvtblModel.nhanVienTablmodel();
+					tbListNhanVien.setModel(tblDSNVModel);
+				} else {
+					JOptionPane.showMessageDialog(frame, "Chưa chọn nhân viên cần chỉnh sửa.");
+				}
 			}
 		});
 		btnXoaNhanVien.setBounds(422, 14, 153, 28);
 		panel.add(btnXoaNhanVien);
+		btnSearchNameNV.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String txtSearch = txtSearchNameNV.getText().toString();
+				if(txtSearch.equals("")) {
+					tblDSNVModel.setRowCount(0);
+					tblDSNVModel = nvtblModel.nhanVienTablmodel();
+					tbListNhanVien.setModel(tblDSNVModel);
+				}else {
+					tblDSNVModel.setRowCount(0);
+					tblDSNVModel = nvtblModel.nhanVienTablmodelSearch(txtSearch);
+					tbListNhanVien.setModel(tblDSNVModel);
+
+				}
+			}
+		});
+
 		
 		JLabel lblQunLThnh = new JLabel("Quản Lý Tài Khoản Nhân Viên");
 		lblQunLThnh.setFont(new Font("Times New Roman", Font.BOLD, 20));
