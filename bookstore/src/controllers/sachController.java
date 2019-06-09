@@ -24,6 +24,17 @@ public class sachController {
 		return sDao.getListSach();
 	}
 	
+	public List<Sach> getAllSachSearch(String txtSearch){
+		return sDao.getAllSachSearch(txtSearch);
+	}
+	
+	public void updateSach(Sach s) {		
+		sDao.updateSach(s);
+	}
+	public void deleteSach(Sach s) {		
+		sDao.deleteSach(s);
+	}
+	
 	public Sach getSachbyId(int id) {
 		
 		return sDao.getSachbyId(id);

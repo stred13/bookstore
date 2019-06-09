@@ -12,6 +12,7 @@ import controllers.theloaisachController;
 import daos.sachDao;
 import models.Sach;
 import models.TheLoai;
+import viewmodels.SachTableModel;
 import viewmodels.nhapSachTablemodel;
 
 import javax.swing.JLabel;
@@ -36,6 +37,7 @@ public class frmThemSachMoi extends JFrame {
 	private JTextField txtTacGia;
 	private JTextField txtTenSach;
 	private nhapSachTablemodel nhapSachtbmodel = new nhapSachTablemodel();
+	private SachTableModel sachTblModel = new SachTableModel();
 	/**
 	 * Launch the application.
 	 */
@@ -127,15 +129,18 @@ public class frmThemSachMoi extends JFrame {
 
 				Sach s = new Sach();
 				s.setTacgia(tg);
-				s.setGiaban(20000);
+				s.setGiaban(0);
+				s.setSoluong(0);
 				s.setTensach(tensach);
 				s.setTLSach(theloai);
 				s.setMota(mota);
+				s.setXoa(0);
 				
 				sCon.insertSach(s);
 				MainView.tbSachModel.setRowCount(0);
 				//MainView.tbSachModel = nhapSachtbmodel.sachTablmodel();
 				MainView.tbSach.setModel(nhapSachtbmodel.sachTablmodel());
+				MainView.tblListSach.setModel(sachTblModel.getAllSachTableModel());
 				//JOptionPane.showMessageDialog(null, "A basic JOptionPane message dialog "+MainView.tbSachModel.getRowCount());
 				//dispose();
 

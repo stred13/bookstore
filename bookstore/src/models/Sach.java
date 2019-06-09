@@ -42,6 +42,9 @@ public class Sach {
 	@Column(name="SoLuong")
 	private int soluong;
 	
+	@Column(name="Xoa")
+	private int xoa;
+	
 	@ManyToOne
 	@JoinColumn(name = "TheLoai", nullable = false)
 	private TheLoai TLSach;
@@ -96,6 +99,14 @@ public class Sach {
 
 	public void setSoluong(int soluong) {
 		this.soluong = soluong;
+	}
+	
+	public int getXoa() {
+		return xoa;
+	}
+
+	public void setXoa(int xoa) {
+		this.xoa = xoa;
 	}
 
 	public String getTacgia() {

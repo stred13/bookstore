@@ -6,24 +6,37 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controllers.theloaisachController;
+import models.Sach;
+import models.TheLoai;
+import viewmodels.SachTableModel;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.regex.Pattern;
+import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class ChinhSuaThongTinSach_frm extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-
+	private JTextField txtTenSach;
+	private JTextField txtTacGia;
+	private JTextField txtGiaBan;
+	private JTextField txtSoLuong;
+	private JTextField txtMaSach;
+	private theloaisachController tlsCon;
+	private Sach sach;
 	/**
 	 * Launch the application.
 	 */
@@ -44,7 +57,19 @@ public class ChinhSuaThongTinSach_frm extends JFrame {
 	 * Create the frame.
 	 */
 	public ChinhSuaThongTinSach_frm() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				MainView.frame.setEnabled(true);
+				
+			
+			}
+		});
+
+		tlsCon = new theloaisachController();
+		SachTableModel sachTblModel = new SachTableModel();
+		sach = sachTblModel.getThongTinSach(MainView.maSach);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 390, 457);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,77 +81,59 @@ public class ChinhSuaThongTinSach_frm extends JFrame {
 		label.setBounds(52, 93, 66, 16);
 		contentPane.add(label);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(131, 90, 193, 22);
-		contentPane.add(textField);
+		txtTenSach = new JTextField();
+		txtTenSach.setColumns(10);
+		txtTenSach.setBounds(131, 90, 193, 22);
+		contentPane.add(txtTenSach);
 		
 		JLabel label_1 = new JLabel("Th\u1EC3 lo\u1EA1i");
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_1.setBounds(62, 121, 56, 16);
 		contentPane.add(label_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(130, 118, 193, 22);
-		contentPane.add(textField_1);
-		
 		JLabel label_2 = new JLabel("T\u00E1c Gi\u1EA3");
 		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_2.setBounds(41, 150, 77, 16);
 		contentPane.add(label_2);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(130, 147, 193, 22);
-		contentPane.add(textField_2);
-		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(131, 174, 193, 22);
-		contentPane.add(textField_3);
-		
-		JLabel label_3 = new JLabel("N\u0103m Xu\u1EA5t B\u1EA3n");
-		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_3.setBounds(27, 177, 92, 16);
-		contentPane.add(label_3);
+		txtTacGia = new JTextField();
+		txtTacGia.setColumns(10);
+		txtTacGia.setBounds(130, 147, 193, 22);
+		contentPane.add(txtTacGia);
 		
 		JLabel label_4 = new JLabel("\u0110\u01A1n Gi\u00E1 ");
 		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setBounds(62, 207, 56, 16);
+		label_4.setBounds(63, 182, 56, 16);
 		contentPane.add(label_4);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(130, 204, 193, 22);
-		contentPane.add(textField_4);
+		txtGiaBan = new JTextField();
+		txtGiaBan.setColumns(10);
+		txtGiaBan.setBounds(131, 179, 193, 22);
+		contentPane.add(txtGiaBan);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(130, 233, 193, 22);
-		contentPane.add(textField_5);
+		txtSoLuong = new JTextField();
+		txtSoLuong.setColumns(10);
+		txtSoLuong.setBounds(131, 211, 193, 22);
+		contentPane.add(txtSoLuong);
 		
 		JLabel label_5 = new JLabel("S\u1ED1 l\u01B0\u1EE3ng");
 		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_5.setBounds(62, 236, 56, 16);
+		label_5.setBounds(63, 214, 56, 16);
 		contentPane.add(label_5);
 		
 		JLabel label_6 = new JLabel("M\u00F4 T\u1EA3");
 		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_6.setBounds(62, 265, 56, 16);
+		label_6.setBounds(63, 249, 56, 16);
 		contentPane.add(label_6);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(130, 262, 193, 100);
-		contentPane.add(textArea);
+		JTextArea txtMoTa = new JTextArea();
+		txtMoTa.setBounds(131, 246, 193, 100);
+		contentPane.add(txtMoTa);
 		
-		JButton btnChnhSa = new JButton("Ch\u1EC9nh S\u1EEDa");
-		btnChnhSa.setBounds(194, 375, 97, 25);
-		contentPane.add(btnChnhSa);
+		JButton btnEditSach = new JButton("Ch\u1EC9nh S\u1EEDa");
 		
-		JButton button_1 = new JButton("H\u1EE7y");
-		button_1.setBounds(85, 375, 97, 25);
-		contentPane.add(button_1);
+		btnEditSach.setBounds(114, 368, 177, 32);
+		contentPane.add(btnEditSach);
 		
 		JLabel lblChnhSaThng = new JLabel("Ch\u1EC9nh S\u1EEDa Th\u00F4ng Tin S\u00E1ch");
 		lblChnhSaThng.setFont(new Font("Tahoma", Font.BOLD, 22));
@@ -138,11 +145,47 @@ public class ChinhSuaThongTinSach_frm extends JFrame {
 		lblMSch.setBounds(52, 61, 66, 16);
 		contentPane.add(lblMSch);
 		
-		textField_6 = new JTextField();
-		textField_6.setEditable(false);
-		textField_6.setColumns(10);
-		textField_6.setBounds(131, 58, 193, 22);
-		contentPane.add(textField_6);
+		txtMaSach = new JTextField();
+		txtMaSach.setEditable(false);
+		txtMaSach.setColumns(10);
+		txtMaSach.setBounds(131, 58, 193, 22);
+		contentPane.add(txtMaSach);
+		
+		DefaultComboBoxModel cbbModel = new DefaultComboBoxModel<>();
+		tlsCon.getAllTLsach().forEach(tl -> {
+			cbbModel.addElement(tl);
+		});
+		JComboBox cbbTLSach = new JComboBox(cbbModel);
+		cbbTLSach.setBounds(131, 118, 193, 22);
+		contentPane.add(cbbTLSach);
+		
+		txtMaSach.setText(String.valueOf(sach.getMasach()));
+		txtTenSach.setText(sach.getTensach());
+		cbbTLSach.setSelectedItem(sach.getTLSach());
+		txtTacGia.setText(sach.getTacgia());
+		txtGiaBan.setText(String.valueOf(sach.getGiaban()));
+		txtSoLuong.setText(String.valueOf(sach.getSoluong()));
+		txtMoTa.setText(sach.getMota());
+		btnEditSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Pattern patternNum = Pattern.compile("^\\d+$");
+				if (!patternNum.matcher(txtGiaBan.getText().toString()).matches()) {
+					JOptionPane.showMessageDialog(null, "Giá Bán không hợp lệ");
+				} else if (!patternNum.matcher(txtSoLuong.getText().toString()).matches()) {
+					JOptionPane.showMessageDialog(null, "Số Lượng không hợp lệ");
+				} else {
+					sach.setTensach(txtTenSach.getText());
+					sach.setTacgia(txtTacGia.getText());
+					sach.setTLSach((TheLoai)cbbTLSach.getSelectedItem());
+					sach.setGiaban(Integer.parseInt(txtGiaBan.getText()));
+					sach.setSoluong(Integer.parseInt(txtSoLuong.getText()));
+					sach.setMota(txtMoTa.getText());
+					sachTblModel.updateSach(sach);
+					MainView.tblListSach.setModel(sachTblModel.getAllSachTableModel());
+					MainView.frame.setEnabled(true);
+					dispose();
+				}
+			}
+		});
 	}
-
 }

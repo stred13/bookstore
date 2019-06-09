@@ -20,7 +20,7 @@ public class sachDao {
 		SessionFactory sessFac = hibSessionFactory.getSession();
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
-		String hql = "From Sach";
+		String hql = "From Sach where xoa = 0";
 		Query query = sess.createQuery(hql);
 		List<Sach> listSach = query.getResultList();
 		sess.getTransaction().commit();
@@ -51,13 +51,28 @@ public class sachDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public List<Sach> getAllSachSearch(String txtSearch) {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+
+		List<Sach> listSach = sess.createQuery("from Sach s Where s.xoa = 0 and s.tensach like :txtSearch")
+				.setParameter("txtSearch", "%" + txtSearch + "%")
+				.getResultList();
+
+		sess.getTransaction().commit();
+		sess.close();
+
+		return listSach;
+	}
 
 	public Sach getSachbyName(String name) {
 		SessionFactory sessFac = hibSessionFactory.getSession();
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
 
-		Sach s = (Sach) sess.createQuery("from Sach s Where s.tensach = :name").setParameter("name", name)
+		Sach s = (Sach) sess.createQuery("from Sach s Where s.xoa = 0 and s.tensach = :name").setParameter("name", name)
 				.getSingleResult();
 
 		sess.getTransaction().commit();
@@ -71,7 +86,7 @@ public class sachDao {
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
 
-		Sach s = (Sach) sess.createQuery("from Sach s Where s.masach = :id").setParameter("id", id).getSingleResult();
+		Sach s = (Sach) sess.createQuery("from Sach s Where s.xoa = 0 and s.masach = :id").setParameter("id", id).getSingleResult();
 
 		sess.getTransaction().commit();
 		sess.close();
@@ -85,6 +100,24 @@ public class sachDao {
 		sess.beginTransaction();
 
 		sess.save(sach);
+		sess.getTransaction().commit();
+		sess.close();
+	}
+	public void updateSach(Sach s) {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+
+		sess.update(s);
+		sess.getTransaction().commit();
+		sess.close();
+	}
+	public void deleteSach(Sach s) {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+
+		sess.delete(s);
 		sess.getTransaction().commit();
 		sess.close();
 	}
