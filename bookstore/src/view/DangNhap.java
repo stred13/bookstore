@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import models.NhanVien;
 import viewmodels.NhanVienTableModel;
 
 import javax.swing.JLabel;
@@ -81,9 +82,9 @@ public class DangNhap extends JFrame {
 		JButton btnngNhp = new JButton("\u0110\u0103ng Nh\u1EADp");
 		btnngNhp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Pattern patternUsername = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9._-]{5,40}$");
-				Pattern patternPassword = Pattern.compile("^[a-zA-Z0-9]{6,40}$");
-				if (!patternUsername.matcher(txtTaiKhoan.getText().toString()).matches()) {
+				/*Pattern patternUsername = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9._-]{5,40}$");
+				Pattern patternPassword = Pattern.compile("^[a-zA-Z0-9]{6,40}$");*/
+				/*if (!patternUsername.matcher(txtTaiKhoan.getText().toString()).matches()) {
 			        JOptionPane.showMessageDialog(null, "Tài khoản không hợp lệ \nbắt đầu là chữ \ntừ 6 đến 40 ký tự \nký tự không dấu \nkhông chứa ký tự đặc biệt ngoại trừ ._-");
 			    } else if (!patternPassword.matcher(txtMatKhau.getText().toString()).matches()) {
 			        JOptionPane.showMessageDialog(null, "Mật khẩu không hợp lệ \ntừ 6 đến 40 ký tự \nký tự không dấu");
@@ -93,7 +94,18 @@ public class DangNhap extends JFrame {
 			    	MainView mv = new MainView();
 			    	mv.setVisible(true);
 			    	dispose();
-			    }
+			    }*/
+				NhanVienTableModel nvTblModel = new NhanVienTableModel();
+		    	NhanVien nvlogin = nvTblModel.NhanVienLogin(txtTaiKhoan.getText(), txtMatKhau.getText());
+		    	if(nvlogin != null) {
+		    		MainView mv = new MainView();
+		    		mv.setVisible(true);
+		    		dispose();
+		    	}else {
+					JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không hợp lệ ");
+				}
+	
+				System.out.println("tk:"+txtTaiKhoan.getText()+"  mk: "+txtMatKhau.getText());
 			}
 		});
 		btnngNhp.setFont(new Font("Times New Roman", Font.PLAIN, 15));

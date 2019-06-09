@@ -52,19 +52,21 @@ public class nhanvienDao {
 		
 		return nv;
 	}
+	
 	public NhanVien getNhanVienbyTaiKhoan(String tk, String mk) {
 		SessionFactory sessFac = hibSessionFactory.getSession();
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
 
-		NhanVien s = (NhanVien) sess.createQuery("from NhanVien s Where s.taikhoan = :tk and s.matkhau = :mk")
+		List<NhanVien> s = sess.createQuery("from NhanVien s Where s.taikhoan = :tk and s.matkhau = :mk")
 				.setParameter("tk", tk).setParameter("mk", mk)
-				.getSingleResult();
+				.getResultList();
 
 		sess.getTransaction().commit();
 		sess.close();
-
-		return s;
+		if(s.size()==0)
+			return null;
+		return s.get(0);
 	}
 	public void insertNhanVien(NhanVien nv) {
 		SessionFactory sessFac = hibSessionFactory.getSession();
