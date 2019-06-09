@@ -18,6 +18,7 @@ import models.PhieuNhap;
 import models.Sach;
 import viewmodels.NhanVienTableModel;
 import viewmodels.QLyNhapTableModel;
+import viewmodels.SachTableModel;
 import viewmodels.nhapSachTablemodel;
 
 import java.awt.Color;
@@ -81,13 +82,15 @@ public class MainView extends JFrame {
 	private JTable tbctpN;
 	public static JTable tbListNhanVien;
 
+	public static JTable tblListSach;
 	public static DefaultTableModel tbSachModel;
 	public static DefaultTableModel tbNhapsachModel;
 	public static DefaultTableModel tblDSNVModel;
 	private DefaultTableModel tbCTnsModel;
 
 	public static int manhanvien = 0;
-
+	public static int maSach = 0;
+	private JTextField txtTimSach;
 	/**
 	 * Launch the application.
 	 */
@@ -110,8 +113,9 @@ public class MainView extends JFrame {
 	public MainView() {
 		nhapSachTablemodel sachtbModel = new nhapSachTablemodel();
 		QLyNhapTableModel qlNhapSachtbmd = new QLyNhapTableModel();
-		NhanVienTableModel nvtblModel = new NhanVienTableModel();
-
+		NhanVienTableModel nvtblModel= new NhanVienTableModel();
+		SachTableModel sachTblModel = new SachTableModel();
+		
 		tbSachModel = sachtbModel.sachTablmodel();
 		tbNhapsachModel = qlNhapSachtbmd.getTbmdPhieuNhap();
 		tblDSNVModel = nvtblModel.nhanVienTablmodel();
@@ -781,6 +785,95 @@ public class MainView extends JFrame {
 		btnBoCo.setBounds(834, 644, 121, 25);
 		QLHDNhapSach.add(btnBoCo);
 
+		
+		JPanel pnlQLSach = new JPanel();
+		tabbedPane.addTab("Sách", null, pnlQLSach, null);
+		pnlQLSach.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(0, 0, 967, 99);
+		pnlQLSach.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Quản Lý Sách");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblNewLabel_1.setBounds(306, 13, 336, 55);
+		panel_1.add(lblNewLabel_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(10, 98, 945, 83);
+		pnlQLSach.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JButton btnThemSach = new JButton("Thêm Sách");
+		btnThemSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmThemSachMoi frmThemSach = new frmThemSachMoi();
+				frmThemSach.setVisible(true);
+				frame.setEnabled(false);
+			}
+		});
+		btnThemSach.setBounds(0, 13, 174, 28);
+		panel_2.add(btnThemSach);
+		
+		JButton btnChinhSuaSach = new JButton("Chỉnh Sửa Thông Tin Sách");
+		btnChinhSuaSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int rowSelect = tblListSach.getSelectedRow();
+				if (rowSelect > -1) {
+					int maSachEdit = Integer.parseInt(tblListSach.getModel().getValueAt(rowSelect, 0).toString());
+					maSach = maSachEdit;
+					ChinhSuaThongTinSach_frm frmEditSach = new ChinhSuaThongTinSach_frm();
+					frmEditSach.setVisible(true);
+					frame.setEnabled(false);
+				} else {
+					JOptionPane.showMessageDialog(frame, "Chưa chọn Sách cần chỉnh sửa.");
+				}
+
+				
+			}
+		});
+		btnChinhSuaSach.setBounds(187, 13, 223, 28);
+		panel_2.add(btnChinhSuaSach);
+		
+		JButton btnXaSch = new JButton("Xóa Sách");
+		btnXaSch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int rowSelect = tblListSach.getSelectedRow();
+				if (rowSelect > -1) {
+					int maSachXoa = Integer.parseInt(tblListSach.getModel().getValueAt(rowSelect, 0).toString());
+					sachTblModel.deleteSach(maSachXoa);
+					tblListSach.setModel(sachTblModel.getAllSachTableModel());
+
+				} else {
+					JOptionPane.showMessageDialog(frame, "Chưa chọn Sách cần Xóa.");
+				}
+			}
+		});
+		btnXaSch.setBounds(422, 14, 153, 28);
+		panel_2.add(btnXaSch);
+		
+		txtTimSach = new JTextField();
+		txtTimSach.setColumns(10);
+		txtTimSach.setBounds(422, 56, 402, 22);
+		panel_2.add(txtTimSach);
+		
+		JButton btnTimSach = new JButton("Tìm Kiếm");
+		btnTimSach.setBounds(836, 55, 109, 25);
+		panel_2.add(btnTimSach);
+		
+		JScrollPane tblQLSach = new JScrollPane();
+		tblQLSach.setBounds(12, 180, 943, 476);
+		pnlQLSach.add(tblQLSach);
+		tblListSach = new JTable(){
+			public boolean isCellEditable(int rowIndex, int colIndex) {
+				return false;
+			}
+		};
+		tblListSach.setModel(sachTblModel.getAllSachTableModel());
+		tblQLSach.setViewportView(tblListSach);
+
 		JPanel QLTV = new JPanel();
 		tabbedPane.addTab("Nhân Viên", null, QLTV, null);
 		QLTV.setLayout(null);
@@ -802,7 +895,7 @@ public class MainView extends JFrame {
 		QLTV.add(panel);
 
 		txtSearchNameNV = new JTextField();
-		txtSearchNameNV.setBounds(453, 55, 371, 22);
+		txtSearchNameNV.setBounds(422, 55, 402, 22);
 		panel.add(txtSearchNameNV);
 		txtSearchNameNV.setColumns(10);
 
@@ -837,7 +930,7 @@ public class MainView extends JFrame {
 		panel.add(btnChinhSuaNhanVien);
 
 		JButton btnSearchNameNV = new JButton("Tìm Kiếm");
-		btnSearchNameNV.setBounds(836, 54, 97, 25);
+		btnSearchNameNV.setBounds(836, 54, 109, 25);
 		panel.add(btnSearchNameNV);
 
 		JButton btnXoaNhanVien = new JButton("Xóa Nhân Viên");
