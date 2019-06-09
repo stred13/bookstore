@@ -37,7 +37,7 @@ public class sachDao {
 			// chi tiết phiếu nhập
 			/*ctpn.setGianhap(gianhap);
 			ctpn.setSoluong(soluong);*/
-
+			sach.setSoluong(sach.getSoluong()+ctpn.getSoluong());
 			// thông tin sách
 			ctpn.setSach(sach);
 

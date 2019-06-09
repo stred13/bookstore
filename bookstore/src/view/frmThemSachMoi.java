@@ -31,6 +31,7 @@ import java.awt.event.WindowEvent;
 
 public class frmThemSachMoi extends JFrame {
 
+	public static frmThemSachMoi frame;
 	private JPanel contentPane;
 	private JTextField txtTacGia;
 	private JTextField txtTenSach;
@@ -42,7 +43,7 @@ public class frmThemSachMoi extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmThemSachMoi frame = new frmThemSachMoi();
+					 frame = new frmThemSachMoi();
 					frame.setEnabled(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -136,6 +137,7 @@ public class frmThemSachMoi extends JFrame {
 				//MainView.tbSachModel = nhapSachtbmodel.sachTablmodel();
 				MainView.tbSach.setModel(nhapSachtbmodel.sachTablmodel());
 				//JOptionPane.showMessageDialog(null, "A basic JOptionPane message dialog "+MainView.tbSachModel.getRowCount());
+				//dispose();
 
 			}
 		});
