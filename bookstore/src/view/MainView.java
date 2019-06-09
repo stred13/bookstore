@@ -860,6 +860,12 @@ public class MainView extends JFrame {
 		panel_2.add(txtTimSach);
 		
 		JButton btnTimSach = new JButton("Tìm Kiếm");
+		btnTimSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String txtSearch = txtTimSach.getText().toString();
+				tblListSach.setModel(sachTblModel.getAllSachTablmodelSearch(txtSearch));
+			}
+		});
 		btnTimSach.setBounds(836, 55, 109, 25);
 		panel_2.add(btnTimSach);
 		
