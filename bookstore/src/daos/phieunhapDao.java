@@ -23,6 +23,18 @@ public class phieunhapDao {
 		return phieunhaps;
 	}
 	
+	public PhieuNhap getPhieuNhapbyId(int id) {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+		
+		PhieuNhap pn = sess.get(PhieuNhap.class, id);
+		
+		sess.getTransaction().commit();
+		sess.close();
+		return pn;
+	}
+	
 	public void insertPhieuNhap(NhanVien nv) {
 		SessionFactory sessFac = hibSessionFactory.getSession();
 		Session sess = sessFac.getCurrentSession();

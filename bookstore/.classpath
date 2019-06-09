@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/soft/jdbc/mysql-connector-java-8.0.15.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate_lib"/>
+	<classpathentry kind="lib" path="C:/Users/MT/.m2/repository/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate_lib"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
