@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2019 at 06:44 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.2.16
+-- Generation Time: Jun 09, 2019 at 08:14 PM
+-- Server version: 10.1.39-MariaDB
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,13 +36,6 @@ CREATE TABLE `chitiethoadon` (
   `DonGia` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `chitiethoadon`
---
-
-INSERT INTO `chitiethoadon` (`MaCTHD`, `MaHD`, `MaSach`, `SoLuong`, `DonGia`) VALUES
-(2, 1, 1, 4, 12000);
-
 -- --------------------------------------------------------
 
 --
@@ -53,7 +46,7 @@ CREATE TABLE `chitietphieunhap` (
   `MaCTNH` int(5) NOT NULL,
   `MaPN` int(5) NOT NULL,
   `MaSach` int(5) NOT NULL,
-  `DonGia` int(10) NOT NULL,
+  `GiaNhap` int(10) NOT NULL,
   `SoLuong` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -61,8 +54,11 @@ CREATE TABLE `chitietphieunhap` (
 -- Dumping data for table `chitietphieunhap`
 --
 
-INSERT INTO `chitietphieunhap` (`MaCTNH`, `MaPN`, `MaSach`, `DonGia`, `SoLuong`) VALUES
-(1, 3, 1, 250000, 15);
+INSERT INTO `chitietphieunhap` (`MaCTNH`, `MaPN`, `MaSach`, `GiaNhap`, `SoLuong`) VALUES
+(1, 1, 1, 250000, 15),
+(2, 1, 2, 250000, 15),
+(3, 1, 3, 13000, 23),
+(4, 1, 3, 10000, 2);
 
 -- --------------------------------------------------------
 
@@ -78,13 +74,6 @@ CREATE TABLE `hoadonbansach` (
   `TongTien` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `hoadonbansach`
---
-
-INSERT INTO `hoadonbansach` (`MaHD`, `NgayLap`, `MaNhanVien`, `MaKH`, `TongTien`) VALUES
-(1, '2019-05-05', 1, 1, 50000);
-
 -- --------------------------------------------------------
 
 --
@@ -94,6 +83,8 @@ INSERT INTO `hoadonbansach` (`MaHD`, `NgayLap`, `MaNhanVien`, `MaKH`, `TongTien`
 CREATE TABLE `khachhang` (
   `MaKH` int(5) NOT NULL,
   `TenKH` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `GioiTinh` int(2) NOT NULL,
+  `NamSinh` int(4) NOT NULL,
   `DiaChi` varchar(280) COLLATE utf8_unicode_ci NOT NULL,
   `SDT` char(11) COLLATE utf8_unicode_ci NOT NULL,
   `Email` char(50) COLLATE utf8_unicode_ci NOT NULL
@@ -103,9 +94,9 @@ CREATE TABLE `khachhang` (
 -- Dumping data for table `khachhang`
 --
 
-INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`, `Email`) VALUES
-(1, 'Doanh', '123 tam hà', '1111111111', 'doanh@gmail.com'),
-(2, 'TIến', '56 Gia Kiệm', '094545215', 'tien@gmail.com');
+INSERT INTO `khachhang` (`MaKH`, `TenKH`, `GioiTinh`, `NamSinh`, `DiaChi`, `SDT`, `Email`) VALUES
+(1, 'Doanh', 0, 0, '123 tam hà', '1111111111', 'doanh@gmail.com'),
+(2, 'TIến', 0, 0, '56 Gia Kiệm', '094545215', 'tien@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -116,16 +107,23 @@ INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`, `Email`) VALUES
 CREATE TABLE `nhanvien` (
   `MaNV` int(5) NOT NULL,
   `TenNV` varchar(100) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
-  `Sdt` char(10) COLLATE utf8_unicode_ci NOT NULL
+  `Sdt` char(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `taikhoan` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `matkhau` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `gioitinh` smallint(6) DEFAULT '1',
+  `ngaysinh` date DEFAULT NULL,
+  `diachi` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `nhanvien`
 --
 
-INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `Sdt`) VALUES
-(1, 'nv1', '11111111'),
-(2, 'nv2', '222222222');
+INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `Sdt`, `email`, `taikhoan`, `matkhau`, `gioitinh`, `ngaysinh`, `diachi`) VALUES
+(1, 'test1', NULL, 'test1@gmail.com', 'test1', 'test1', 1, NULL, NULL),
+(3, 'admin', '', 'admin@gmail.com', 'admin', 'admin', 1, NULL, ''),
+(4, '123123', '1231231231', 'asd@asd.com', 'asdasda', '[C@326cacad', 1, '2019-06-09', '123123');
 
 -- --------------------------------------------------------
 
@@ -135,17 +133,16 @@ INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `Sdt`) VALUES
 
 CREATE TABLE `phieunhap` (
   `MaPN` int(5) NOT NULL,
-  `NgayNhap` date NOT NULL
+  `NgayNhap` date NOT NULL,
+  `MaNV` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `phieunhap`
 --
 
-INSERT INTO `phieunhap` (`MaPN`, `NgayNhap`) VALUES
-(1, '2019-05-04'),
-(2, '2019-05-04'),
-(3, '2019-05-04');
+INSERT INTO `phieunhap` (`MaPN`, `NgayNhap`, `MaNV`) VALUES
+(1, '2019-05-09', 1);
 
 -- --------------------------------------------------------
 
@@ -157,16 +154,29 @@ CREATE TABLE `sach` (
   `MaSach` int(5) NOT NULL,
   `TenSach` varchar(280) COLLATE utf8_unicode_ci NOT NULL,
   `TacGia` varchar(280) COLLATE utf8_unicode_ci NOT NULL,
-  `TheLoai` int(5) NOT NULL
+  `TheLoai` int(5) NOT NULL,
+  `GiaBan` int(10) DEFAULT NULL,
+  `MoTa` text COLLATE utf8_unicode_ci,
+  `SoLuong` int(5) NOT NULL,
+  `Xoa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `sach`
 --
 
-INSERT INTO `sach` (`MaSach`, `TenSach`, `TacGia`, `TheLoai`) VALUES
-(1, 'XYZ', 'ABC', 1),
-(2, 'Me ma', 'hn', 1);
+INSERT INTO `sach` (`MaSach`, `TenSach`, `TacGia`, `TheLoai`, `GiaBan`, `MoTa`, `SoLuong`, `Xoa`) VALUES
+(1, 'sachdoanh', 'Doanh Tr?n', 1, 0, NULL, 15, 0),
+(2, 'java', 'doanhtran', 1, 0, NULL, 0, 1),
+(3, 'java', 'doanhtran', 2, 12000, 'ádadasd', 10, 0),
+(4, 'Tình chị em', 'Hoàng', 2, 20000, 'tình cảm chị em', 0, 0),
+(5, 'yêu lại từ đầu', 'Khắc Việt', 1, 20000, '', 0, 0),
+(6, '123123', '213123', 1, 20000, '213123', 0, 0),
+(7, '21321', '23123', 1, 20000, '21312312', 0, 0),
+(8, 'sdsdfs', 'sdfsdfds', 1, 20000, 'sdfsdfsd', 0, 0),
+(9, 'xzczxc', 'xcxzczx', 1, 20000, 'cxzczxc', 0, 0),
+(10, 'xdfg', 'dfgdfg', 1, 20000, 'fdgdfgd', 0, 0),
+(11, 'asdas', 'asdasa', 1, 20000, 'sdasdasdas', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -250,19 +260,19 @@ ALTER TABLE `theloai`
 -- AUTO_INCREMENT for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
-  MODIFY `MaCTHD` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `MaCTHD` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `chitietphieunhap`
 --
 ALTER TABLE `chitietphieunhap`
-  MODIFY `MaCTNH` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `MaCTNH` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hoadonbansach`
 --
 ALTER TABLE `hoadonbansach`
-  MODIFY `MaHD` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `MaHD` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `khachhang`
@@ -274,19 +284,19 @@ ALTER TABLE `khachhang`
 -- AUTO_INCREMENT for table `nhanvien`
 --
 ALTER TABLE `nhanvien`
-  MODIFY `MaNV` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `MaNV` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
-  MODIFY `MaPN` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `MaPN` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sach`
 --
 ALTER TABLE `sach`
-  MODIFY `MaSach` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `MaSach` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `theloai`
