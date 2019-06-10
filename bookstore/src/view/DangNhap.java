@@ -128,6 +128,8 @@ public class DangNhap extends JFrame {
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không hợp lệ ");
+					txtTaiKhoan.setText(null);
+					txtMatKhau.setText(null);
 				}
 
 				System.out.println("tk:" + taiKhoan + "  mk: " + matKhau);
