@@ -340,12 +340,12 @@ public class MainView extends JFrame {
 
 		txtMaHDBanSach = new JTextField();
 		txtMaHDBanSach.setColumns(10);
-		txtMaHDBanSach.setBounds(138, 10, 214, 25);
+		txtMaHDBanSach.setBounds(138, 10, 290, 25);
 		panel_14.add(txtMaHDBanSach);
 
 		txtNgayLapHDBanSach = new JTextField();
 		txtNgayLapHDBanSach.setColumns(10);
-		txtNgayLapHDBanSach.setBounds(138, 40, 214, 25);
+		txtNgayLapHDBanSach.setBounds(138, 40, 290, 25);
 		panel_14.add(txtNgayLapHDBanSach);
 
 		JLabel lblNgyLp = new JLabel("Ngày Lập:");
@@ -356,7 +356,7 @@ public class MainView extends JFrame {
 
 		txtMaNVLapHD = new JTextField();
 		txtMaNVLapHD.setColumns(10);
-		txtMaNVLapHD.setBounds(138, 70, 214, 25);
+		txtMaNVLapHD.setBounds(138, 70, 290, 25);
 		panel_14.add(txtMaNVLapHD);
 
 		JLabel label_51 = new JLabel("Mã NV:");
@@ -367,7 +367,7 @@ public class MainView extends JFrame {
 
 		textField_24 = new JTextField();
 		textField_24.setColumns(10);
-		textField_24.setBounds(138, 100, 214, 25);
+		textField_24.setBounds(138, 100, 290, 25);
 		panel_14.add(textField_24);
 
 		JLabel lblTngTin = new JLabel("Tổng Tiền:");
@@ -655,19 +655,19 @@ public class MainView extends JFrame {
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_6.setBounds(0, 8, 495, 625);
+		panel_6.setBounds(0, 8, 495, 612);
 		QLHDNhapSach.add(panel_6);
 		panel_6.setLayout(null);
 
 		JLabel lblThongTinNhap = new JLabel("Quản Lý Hóa Đơn Nhập Sách");
-		lblThongTinNhap.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThongTinNhap.setHorizontalAlignment(SwingConstants.LEFT);
 		lblThongTinNhap.setFont(new Font("Arial", Font.BOLD, 18));
-		lblThongTinNhap.setBounds(74, 11, 340, 25);
+		lblThongTinNhap.setBounds(10, 25, 475, 25);
 		panel_6.add(lblThongTinNhap);
 
 		textField_5 = new JTextField();
 		textField_5.setFont(new Font("Arial", Font.PLAIN, 14));
-		textField_5.setBounds(10, 76, 363, 25);
+		textField_5.setBounds(10, 76, 371, 25);
 		panel_6.add(textField_5);
 		textField_5.setColumns(10);
 
@@ -677,7 +677,7 @@ public class MainView extends JFrame {
 		panel_6.add(btnNewButton_5);
 
 		JScrollPane scrollPane_5 = new JScrollPane();
-		scrollPane_5.setBounds(10, 113, 475, 499);
+		scrollPane_5.setBounds(10, 107, 475, 492);
 		panel_6.add(scrollPane_5);
 
 		tbNhapsach = new JTable();
@@ -718,65 +718,65 @@ public class MainView extends JFrame {
 		JLabel lblNewLabel = new JLabel("Mã PN:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblNewLabel.setBounds(10, 11, 72, 17);
+		lblNewLabel.setBounds(43, 30, 72, 25);
 		panel_7.add(lblNewLabel);
 
 		txtMapn = new JTextField();
 		txtMapn.setEnabled(false);
-		txtMapn.setBounds(92, 10, 86, 25);
+		txtMapn.setBounds(130, 30, 300, 25);
 		panel_7.add(txtMapn);
 		txtMapn.setColumns(10);
 
 		txtNgaynhap = new JTextField();
 		txtNgaynhap.setEnabled(false);
 		txtNgaynhap.setColumns(10);
-		txtNgaynhap.setBounds(92, 56, 214, 25);
+		txtNgaynhap.setBounds(130, 65, 300, 25);
 		panel_7.add(txtNgaynhap);
 
 		JLabel lblNgyNhp = new JLabel("Ngày nhập:");
-		lblNgyNhp.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNgyNhp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNgyNhp.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblNgyNhp.setBounds(10, 57, 72, 17);
+		lblNgyNhp.setBounds(28, 65, 100, 25);
 		panel_7.add(lblNgyNhp);
 
 		txtManv = new JTextField();
 		txtManv.setEnabled(false);
 		txtManv.setColumns(10);
-		txtManv.setBounds(92, 98, 86, 25);
+		txtManv.setBounds(130, 100, 300, 25);
 		panel_7.add(txtManv);
 
 		JLabel lblMNv = new JLabel("Mã NV:");
 		lblMNv.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMNv.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblMNv.setBounds(10, 99, 72, 17);
+		lblMNv.setBounds(38, 100, 72, 25);
 		panel_7.add(lblMNv);
 
 		txtSoluong = new JTextField();
 		txtSoluong.setEnabled(false);
 		txtSoluong.setColumns(10);
-		txtSoluong.setBounds(92, 144, 86, 25);
+		txtSoluong.setBounds(130, 135, 300, 25);
 		panel_7.add(txtSoluong);
 
 		JLabel lblSLng = new JLabel("Số lượng:");
 		lblSLng.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSLng.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblSLng.setBounds(10, 145, 72, 17);
+		lblSLng.setBounds(38, 135, 72, 25);
 		panel_7.add(lblSLng);
 
 		JPanel panel_8 = new JPanel();
 		panel_8.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_8.setBounds(505, 208, 454, 425);
+		panel_8.setBounds(505, 208, 454, 412);
 		QLHDNhapSach.add(panel_8);
 		panel_8.setLayout(null);
 
 		JLabel lblChiTitPhiu = new JLabel("Chi Tiết Phiếu Nhập");
-		lblChiTitPhiu.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblChiTitPhiu.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblChiTitPhiu.setBounds(10, 11, 139, 17);
+		lblChiTitPhiu.setHorizontalAlignment(SwingConstants.LEFT);
+		lblChiTitPhiu.setFont(new Font("Arial", Font.BOLD, 15));
+		lblChiTitPhiu.setBounds(10, 11, 139, 25);
 		panel_8.add(lblChiTitPhiu);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 41, 432, 371);
+		scrollPane.setBounds(10, 41, 432, 359);
 		panel_8.add(scrollPane);
 
 		tbctpn = new JTable();
@@ -788,7 +788,7 @@ public class MainView extends JFrame {
 			}
 		});
 		btnBoCo.setFont(new Font("Arial", Font.PLAIN, 15));
-		btnBoCo.setBounds(834, 644, 121, 25);
+		btnBoCo.setBounds(812, 631, 147, 25);
 		QLHDNhapSach.add(btnBoCo);
 
 		
@@ -803,16 +803,17 @@ public class MainView extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Quản Lý Sách");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 25));
-		lblNewLabel_1.setBounds(306, 13, 336, 55);
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 26));
+		lblNewLabel_1.setBounds(306, 18, 336, 55);
 		panel_1.add(lblNewLabel_1);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 98, 945, 83);
+		panel_2.setBounds(11, 98, 944, 83);
 		pnlQLSach.add(panel_2);
 		panel_2.setLayout(null);
 		
 		JButton btnThemSach = new JButton("Thêm Sách");
+		btnThemSach.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnThemSach.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmThemSachMoi frmThemSach = new frmThemSachMoi();
@@ -820,10 +821,11 @@ public class MainView extends JFrame {
 				frame.setEnabled(false);
 			}
 		});
-		btnThemSach.setBounds(0, 13, 174, 28);
+		btnThemSach.setBounds(0, 11, 133, 28);
 		panel_2.add(btnThemSach);
 		
 		JButton btnChinhSuaSach = new JButton("Chỉnh Sửa Thông Tin Sách");
+		btnChinhSuaSach.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnChinhSuaSach.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int rowSelect = tblListSach.getSelectedRow();
@@ -840,10 +842,11 @@ public class MainView extends JFrame {
 				
 			}
 		});
-		btnChinhSuaSach.setBounds(187, 13, 223, 28);
+		btnChinhSuaSach.setBounds(143, 11, 223, 28);
 		panel_2.add(btnChinhSuaSach);
 		
 		JButton btnXaSch = new JButton("Xóa Sách");
+		btnXaSch.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnXaSch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int rowSelect = tblListSach.getSelectedRow();
@@ -857,22 +860,23 @@ public class MainView extends JFrame {
 				}
 			}
 		});
-		btnXaSch.setBounds(422, 14, 153, 28);
+		btnXaSch.setBounds(376, 13, 153, 25);
 		panel_2.add(btnXaSch);
 		
 		txtTimSach = new JTextField();
 		txtTimSach.setColumns(10);
-		txtTimSach.setBounds(422, 56, 402, 22);
+		txtTimSach.setBounds(0, 51, 778, 25);
 		panel_2.add(txtTimSach);
 		
 		JButton btnTimSach = new JButton("Tìm Kiếm");
+		btnTimSach.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnTimSach.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String txtSearch = txtTimSach.getText().toString();
 				tblListSach.setModel(sachTblModel.getAllSachTablmodelSearch(txtSearch));
 			}
 		});
-		btnTimSach.setBounds(836, 55, 109, 25);
+		btnTimSach.setBounds(788, 52, 156, 25);
 		panel_2.add(btnTimSach);
 		
 		JScrollPane tblQLSach = new JScrollPane();
@@ -902,16 +906,17 @@ public class MainView extends JFrame {
 		tblDSNV.setViewportView(tbListNhanVien);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 101, 945, 83);
+		panel.setBounds(12, 101, 944, 83);
 		panel.setLayout(null);
 		QLTV.add(panel);
 
 		txtSearchNameNV = new JTextField();
-		txtSearchNameNV.setBounds(422, 55, 402, 22);
+		txtSearchNameNV.setBounds(0, 52, 808, 25);
 		panel.add(txtSearchNameNV);
 		txtSearchNameNV.setColumns(10);
 
 		JButton btnThemNhanVien = new JButton("Thêm Nhân Viên Mới");
+		btnThemNhanVien.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnThemNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThemNhanVien_frm frmThemNhanVien = new ThemNhanVien_frm();
@@ -920,10 +925,11 @@ public class MainView extends JFrame {
 				// dispose();
 			}
 		});
-		btnThemNhanVien.setBounds(0, 13, 174, 28);
+		btnThemNhanVien.setBounds(0, 17, 179, 25);
 		panel.add(btnThemNhanVien);
 
 		JButton btnChinhSuaNhanVien = new JButton("Chỉnh Sửa Thông Tin Nhân Viên");
+		btnChinhSuaNhanVien.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnChinhSuaNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int rowSelect = tbListNhanVien.getSelectedRow();
@@ -938,14 +944,16 @@ public class MainView extends JFrame {
 				}
 			}
 		});
-		btnChinhSuaNhanVien.setBounds(187, 13, 223, 28);
+		btnChinhSuaNhanVien.setBounds(189, 16, 250, 25);
 		panel.add(btnChinhSuaNhanVien);
 
 		JButton btnSearchNameNV = new JButton("Tìm Kiếm");
-		btnSearchNameNV.setBounds(836, 54, 109, 25);
+		btnSearchNameNV.setFont(new Font("Arial", Font.PLAIN, 15));
+		btnSearchNameNV.setBounds(816, 52, 127, 25);
 		panel.add(btnSearchNameNV);
 
 		JButton btnXoaNhanVien = new JButton("Xóa Nhân Viên");
+		btnXoaNhanVien.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnXoaNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int rowSelect = tbListNhanVien.getSelectedRow();
@@ -960,7 +968,7 @@ public class MainView extends JFrame {
 				}
 			}
 		});
-		btnXoaNhanVien.setBounds(422, 14, 153, 28);
+		btnXoaNhanVien.setBounds(449, 16, 153, 25);
 		panel.add(btnXoaNhanVien);
 		btnSearchNameNV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -980,7 +988,7 @@ public class MainView extends JFrame {
 
 		JLabel lblQunLThnh = new JLabel("Quản Lý Tài Khoản Nhân Viên");
 		lblQunLThnh.setFont(new Font("Arial", Font.BOLD, 25));
-		lblQunLThnh.setBounds(315, 13, 283, 46);
+		lblQunLThnh.setBounds(315, 25, 375, 46);
 		QLTV.add(lblQunLThnh);
 	}
 	
