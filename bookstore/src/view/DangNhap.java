@@ -116,21 +116,21 @@ public class DangNhap extends JFrame {
 					NhanVienTableModel nvTblModel = new NhanVienTableModel();
 					nvTblModel.NhanVienLogin(taiKhoan.toString(), matKhau.toString());
 					MainView mv = new MainView();
-					mv.setVisible(true);
+					mv.showWindow();
 					dispose();
 				}
 
-				NhanVienTableModel nvTblModel = new NhanVienTableModel();
-				NhanVien nvlogin = nvTblModel.NhanVienLogin(taiKhoan, matKhau);
-				if (nvlogin != null) {
-					MainView mv = new MainView();
-					mv.setVisible(true);
-					dispose();
-				} else {
-					JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không hợp lệ ");
-					txtTaiKhoan.setText(null);
-					txtMatKhau.setText(null);
-				}
+//				NhanVienTableModel nvTblModel = new NhanVienTableModel();
+//				NhanVien nvlogin = nvTblModel.NhanVienLogin(taiKhoan, matKhau);
+//				if (nvlogin != null) {
+//					MainView mv = new MainView();
+//					mv.setVisible(true);
+//					dispose();
+//				} else {
+//					JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không hợp lệ ");
+//					txtTaiKhoan.setText(null);
+//					txtMatKhau.setText(null);
+//				}
 
 				System.out.println("tk:" + taiKhoan + "  mk: " + matKhau);
 
