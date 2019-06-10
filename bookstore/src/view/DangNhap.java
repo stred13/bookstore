@@ -105,32 +105,17 @@ public class DangNhap extends JFrame {
 				String taiKhoan = txtTaiKhoan.getText();
 				String matKhau = txtMatKhau.getText();
 
-				Pattern patternUsername = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9._-]{5,40}$");
-				Pattern patternPassword = Pattern.compile("^[a-zA-Z0-9]{6,40}$");
-				if (!patternUsername.matcher(taiKhoan.toString()).matches()) {
-					JOptionPane.showMessageDialog(null,
-							"Tài khoản không hợp lệ \nbắt đầu là chữ \ntừ 6 đến 40 ký tự \nký tự không dấu \nkhông chứa ký tự đặc biệt ngoại trừ ._-");
-				} else if (!patternPassword.matcher(matKhau.toString()).matches()) {
-					JOptionPane.showMessageDialog(null, "Mật khẩu không hợp lệ \ntừ 6 đến 40 ký tự \nký tự không dấu");
-				} else {
-					NhanVienTableModel nvTblModel = new NhanVienTableModel();
-					nvTblModel.NhanVienLogin(taiKhoan.toString(), matKhau.toString());
+				NhanVienTableModel nvTblModel = new NhanVienTableModel();
+				NhanVien nvlogin = nvTblModel.NhanVienLogin(taiKhoan, matKhau);
+				if (nvlogin != null) {
 					MainView mv = new MainView();
-					mv.showWindow();
+					mv.setVisible(true);
 					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không hợp lệ ");
+					txtTaiKhoan.setText(null);
+					txtMatKhau.setText(null);
 				}
-
-//				NhanVienTableModel nvTblModel = new NhanVienTableModel();
-//				NhanVien nvlogin = nvTblModel.NhanVienLogin(taiKhoan, matKhau);
-//				if (nvlogin != null) {
-//					MainView mv = new MainView();
-//					mv.setVisible(true);
-//					dispose();
-//				} else {
-//					JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không hợp lệ ");
-//					txtTaiKhoan.setText(null);
-//					txtMatKhau.setText(null);
-//				}
 
 				System.out.println("tk:" + taiKhoan + "  mk: " + matKhau);
 

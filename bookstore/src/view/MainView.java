@@ -99,7 +99,7 @@ public class MainView extends JFrame {
 			public void run() {
 				try {
 					frame = new MainView();
-//					frame.setVisible(true);
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
