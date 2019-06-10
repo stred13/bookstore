@@ -99,7 +99,7 @@ public class MainView extends JFrame {
 			public void run() {
 				try {
 					frame = new MainView();
-					frame.setVisible(true);
+//					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -119,7 +119,7 @@ public class MainView extends JFrame {
 		tbSachModel = sachtbModel.sachTablmodel();
 		tbNhapsachModel = qlNhapSachtbmd.getTbmdPhieuNhap();
 		tblDSNVModel = nvtblModel.nhanVienTablmodel();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 755);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -982,5 +982,15 @@ public class MainView extends JFrame {
 		lblQunLThnh.setFont(new Font("Arial", Font.BOLD, 25));
 		lblQunLThnh.setBounds(315, 13, 283, 46);
 		QLTV.add(lblQunLThnh);
+	}
+	
+	
+	public void showWindow() {
+		this.setSize(1000, 750);
+		this.setBounds(100, 100, 1000, 750);
+		this.setResizable ( false );
+		this.setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
 }
