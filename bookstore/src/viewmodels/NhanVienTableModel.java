@@ -47,8 +47,10 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 		nv = nvCon.getNhanVienbyId(maNV);
 		return nv;
 	}
-	public void NhanVienLogin(String tk, String mk) {
-		nvlogin = nvCon.getNhanVienLogin(tk, mk);
+	public NhanVien NhanVienLogin(String tk, String mk) {
+		nvlogin = (NhanVien) nvCon.getNhanVienLogin(tk, mk);
+		//System.out.println("nhan vien: "+nvlogin.toString());
+		return nvlogin;
 	}
 	public NhanVien getNhanVienLogin() {
 		return nvlogin;
