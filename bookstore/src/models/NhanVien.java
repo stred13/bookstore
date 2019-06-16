@@ -46,6 +46,13 @@ public class NhanVien implements Serializable {
 	
 	@Column(name = "NgaySinh")
 	private Date ngaysinh;
+	
+	@Column(name = "admin")
+	private int admin;
+	
+	@Column(name = "Xoa")
+	private int xoa;
+
 
 	@OneToMany(mappedBy = "nhanvien")
 	private Set<HoaDonBanSach> hoadon;
@@ -53,6 +60,23 @@ public class NhanVien implements Serializable {
 	@OneToMany(mappedBy = "nhanvien")
 	private Set<PhieuNhap> phieunhap;
 
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
+
+	public int getXoa() {
+		return xoa;
+	}
+
+	public void setXoa(int xoa) {
+		this.xoa = xoa;
+	}
+
+	
 	public int getManv() {
 		return manv;
 	}

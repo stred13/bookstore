@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -60,7 +61,12 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 	}
 	public void deleteNhanVien(int maNV) {
 		NhanVien nvDelete = nvCon.getNhanVienbyId(maNV);
-		nvCon.deleteNhanVien(nvDelete);
+		if(nvDelete.getAdmin() == 0) {
+			nvDelete.setXoa(1);
+			nvCon.updateNhanVien(nvDelete);			
+		}else {
+			JOptionPane.showMessageDialog(null, "nhân viên Admin không thể xóa");
+		}
 	}
 	public NhanVienTableModel() {
 		super();

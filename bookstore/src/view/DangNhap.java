@@ -109,6 +109,9 @@ public class DangNhap extends JFrame {
 				NhanVien nvlogin = nvTblModel.NhanVienLogin(taiKhoan, matKhau);
 				if (nvlogin != null) {
 					MainView mv = new MainView();
+					if(nvlogin.getAdmin() == 0) {
+						MainView.tabbedPane.setEnabledAt(5, false);
+					}
 					mv.setVisible(true);
 					dispose();
 				} else {

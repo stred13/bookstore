@@ -91,6 +91,7 @@ public class MainView extends JFrame {
 	public static int manhanvien = 0;
 	public static int maSach = 0;
 	private JTextField txtTimSach;
+	public static JTabbedPane tabbedPane;
 	/**
 	 * Launch the application.
 	 */
@@ -126,7 +127,7 @@ public class MainView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Arial", Font.PLAIN, 13));
 		contentPane.add(tabbedPane);
 
