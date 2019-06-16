@@ -19,7 +19,7 @@ public class nhanvienDao {
 		SessionFactory sessFac = hibSessionFactory.getSession();
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
-		String hql = "From NhanVien";
+		String hql = "From NhanVien where xoa = 0 ";
 		Query query = sess.createQuery(hql);
 		List<NhanVien> listSach = query.getResultList();
 		sess.getTransaction().commit();
@@ -30,7 +30,7 @@ public class nhanvienDao {
 		SessionFactory sessFac = hibSessionFactory.getSession();
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
-		String hql = "From NhanVien s Where s.tennv like :txtSearch";
+		String hql = "From NhanVien s Where xoa = 0 and s.tennv like :txtSearch";
 		List<NhanVien> listSach = sess.createQuery(hql).setParameter("txtSearch", "%" + txtSearch + "%").getResultList();
 
 		sess.getTransaction().commit();
@@ -58,7 +58,7 @@ public class nhanvienDao {
 		Session sess = sessFac.getCurrentSession();
 		sess.beginTransaction();
 
-		List<NhanVien> s = sess.createQuery("from NhanVien s Where s.taikhoan = :tk and s.matkhau = :mk")
+		List<NhanVien> s = sess.createQuery("from NhanVien s Where xoa = 0 and s.taikhoan = :tk and s.matkhau = :mk")
 				.setParameter("tk", tk).setParameter("mk", mk)
 				.getResultList();
 

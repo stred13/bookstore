@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2019 at 08:14 PM
+-- Generation Time: Jun 16, 2019 at 07:12 PM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -113,17 +113,19 @@ CREATE TABLE `nhanvien` (
   `matkhau` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `gioitinh` smallint(6) DEFAULT '1',
   `ngaysinh` date DEFAULT NULL,
-  `diachi` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+  `diachi` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `admin` int(11) NOT NULL DEFAULT '0',
+  `Xoa` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `nhanvien`
 --
 
-INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `Sdt`, `email`, `taikhoan`, `matkhau`, `gioitinh`, `ngaysinh`, `diachi`) VALUES
-(1, 'test1', NULL, 'test1@gmail.com', 'test1', 'test1', 1, NULL, NULL),
-(3, 'admin', '', 'admin@gmail.com', 'admin', 'admin', 1, NULL, ''),
-(4, '123123', '1231231231', 'asd@asd.com', 'asdasda', '[C@326cacad', 1, '2019-06-09', '123123');
+INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `Sdt`, `email`, `taikhoan`, `matkhau`, `gioitinh`, `ngaysinh`, `diachi`, `admin`, `Xoa`) VALUES
+(1, 'test1', NULL, 'test1@gmail.com', 'test1', 'test1', 1, NULL, NULL, 0, 0),
+(3, 'admin', '', 'admin@gmail.com', 'admin', 'admin', 1, NULL, '', 1, 0),
+(4, '123123', '1231231231', 'asd@asd.com', 'asdasda', '[C@326cacad', 1, '2019-06-09', '123123', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -166,17 +168,18 @@ CREATE TABLE `sach` (
 --
 
 INSERT INTO `sach` (`MaSach`, `TenSach`, `TacGia`, `TheLoai`, `GiaBan`, `MoTa`, `SoLuong`, `Xoa`) VALUES
-(1, 'sachdoanh', 'Doanh Tr?n', 1, 0, NULL, 15, 0),
+(1, 'sachdoanh', 'Doanh Tr?n', 1, 0, NULL, 15, 1),
 (2, 'java', 'doanhtran', 1, 0, NULL, 0, 1),
 (3, 'java', 'doanhtran', 2, 12000, 'ádadasd', 10, 0),
 (4, 'Tình chị em', 'Hoàng', 2, 20000, 'tình cảm chị em', 0, 0),
-(5, 'yêu lại từ đầu', 'Khắc Việt', 1, 20000, '', 0, 0),
+(5, 'yêu lại từ đầu', 'Khắc Việt', 1, 20000, '', 0, 1),
 (6, '123123', '213123', 1, 20000, '213123', 0, 0),
 (7, '21321', '23123', 1, 20000, '21312312', 0, 0),
-(8, 'sdsdfs', 'sdfsdfds', 1, 20000, 'sdfsdfsd', 0, 0),
+(8, 'wqeqwe ', 'sdfsdfds', 2, 20000, 'sdfsdfsd', 0, 0),
 (9, 'xzczxc', 'xcxzczx', 1, 20000, 'cxzczxc', 0, 0),
 (10, 'xdfg', 'dfgdfg', 1, 20000, 'fdgdfgd', 0, 0),
-(11, 'asdas', 'asdasa', 1, 20000, 'sdasdasdas', 0, 0);
+(11, 'asdas', 'asdasa', 1, 20000, 'sdasdasdas', 0, 0),
+(12, 'qưeqe', 'rưerew', 2, 0, 'qưeqwe', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -296,7 +299,7 @@ ALTER TABLE `phieunhap`
 -- AUTO_INCREMENT for table `sach`
 --
 ALTER TABLE `sach`
-  MODIFY `MaSach` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `MaSach` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `theloai`
