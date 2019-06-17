@@ -19,7 +19,7 @@ public class hoadonbansachDao {
 		
 		HoaDonBanSach hd = new HoaDonBanSach();
 		hd.setCthd(null);
-		hd.setKhachhang(kh);
+		//hd.setKhachhang(kh);
 		hd.setNhanvien(nv);
 		hd.setNgaylap(new Date());
 		hd.setCthd(null);

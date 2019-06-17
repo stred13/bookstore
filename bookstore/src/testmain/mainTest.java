@@ -32,7 +32,7 @@ public class mainTest {
 		NhanVien nv = nvd.getNhanVienbyId(1);
 		PhieuNhap pn = new PhieuNhap();
 		phieunhapDao pndao = new phieunhapDao();
-		
+		 sDao.getListSachCon();
 //		pn.setNgaynhap(new Date());
 //		pn.setNhanvien(nv);
 //		
@@ -43,7 +43,7 @@ public class mainTest {
 //		pndao.deletePhieuNhap();
 		//sDao.nhapSach(sDao.getSachbyId(1), nv, pn, ctpn);
 		
-		System.out.println(nvd.getNhanVienbyId(1).getTennv());
+		System.out.println( sDao.getListSachCon().size());
 		
 	}
 }

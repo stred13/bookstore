@@ -9,7 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import config.hibSessionFactory;
+import models.ChiTietHoaDon;
 import models.ChiTietPhieuNhap;
+import models.HoaDonBanSach;
 import models.NhanVien;
 import models.PhieuNhap;
 import models.Sach;
@@ -26,6 +28,43 @@ public class sachDao {
 		sess.getTransaction().commit();
 		sess.close();
 		return listSach;
+	}
+	
+	public List<Sach> getListSachCon() {
+		SessionFactory sessFac = hibSessionFactory.getSession();
+		Session sess = sessFac.getCurrentSession();
+		sess.beginTransaction();
+		String hql = "From Sach where soluong>0 and xoa = 0";
+		Query query = sess.createQuery(hql);
+		List<Sach> listSach = query.getResultList();
+		sess.getTransaction().commit();
+		sess.close();
+		return listSach;
+	}
+	
+	public void banSach(Sach sach,NhanVien nv, HoaDonBanSach hd, ChiTietHoaDon cthd) {
+		try {
+			SessionFactory sessFac = hibSessionFactory.getSession();
+			Session sess = sessFac.getCurrentSession();
+			sess.beginTransaction();
+
+			// chi tiết phiếu nhập
+			/*ctpn.setGianhap(gianhap);
+			ctpn.setSoluong(soluong);*/
+			
+			sach.setSoluong(sach.getSoluong()-cthd.getSoluong());
+			// thông tin sách
+			cthd.setSach(sach);
+			System.out.println("sl "+sach.getSoluong());
+			// thông tin phiếu nhập
+			cthd.setHoadon(hd);
+
+			sess.save(cthd);
+			sess.getTransaction().commit();
+			sess.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void nhapSach(Sach sach, NhanVien nv, PhieuNhap pn, ChiTietPhieuNhap ctpn) {

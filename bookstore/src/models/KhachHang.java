@@ -30,18 +30,6 @@ public class KhachHang {
 	@Column(name="Email")
 	String email;
 	
-	@OneToMany(mappedBy="khachhang")
-	private Set<HoaDonBanSach> hoadonbansach;
-
-
-	public Set<HoaDonBanSach> getHoadonbansach() {
-		return hoadonbansach;
-	}
-
-	public void setHoadonbansach(Set<HoaDonBanSach> hoadonbansach) {
-		this.hoadonbansach = hoadonbansach;
-	}
-	
 	
 
 	public int getMakh() {
