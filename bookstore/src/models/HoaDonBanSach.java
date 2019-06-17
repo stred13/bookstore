@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +35,7 @@ public class HoaDonBanSach implements Serializable{
 	@JoinColumn(name = "MaNhanVien")
 	private NhanVien nhanvien;
 	
-	@OneToMany(mappedBy = "hoadon",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "hoadon",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<ChiTietHoaDon> cthd = new HashSet<>();
 
 	public int getMahd() {

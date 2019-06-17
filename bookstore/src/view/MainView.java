@@ -12,14 +12,17 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import controllers.hoadonController;
 import controllers.phieunhapController;
 import controllers.sachController;
 import models.ChiTietPhieuNhap;
+import models.HoaDonBanSach;
 import models.PhieuNhap;
 import models.Sach;
 import viewmodels.NhanVienTableModel;
 import viewmodels.QLyNhapTableModel;
 import viewmodels.SachTableModel;
+import viewmodels.hoadonTableModel;
 import viewmodels.nhapSachTablemodel;
 
 import java.awt.Color;
@@ -72,7 +75,7 @@ public class MainView extends JFrame {
 	private JTextField txtMaHDBanSach;
 	private JTextField txtNgayLapHDBanSach;
 	private JTextField txtMaNVLapHD;
-	private JTextField textField_24;
+	private JTextField txtTongTien;
 	private JTable tbSachcs;
 	private JTextField txtMaSach;
 	private JTextField txtTenSach;
@@ -91,6 +94,8 @@ public class MainView extends JFrame {
 	public static DefaultTableModel tbSachBsModel;
 	private DefaultTableModel tbCTnsModel;
 	private DefaultTableModel tbmdChonSach;
+	private DefaultTableModel tbmdHoadon;
+	private DefaultTableModel tbmdCTHD;
 
 	public static int manhanvien = 0;
 	public static int maSach = 0;
@@ -99,6 +104,8 @@ public class MainView extends JFrame {
 	private JTable tbSachbs;
 	private JTextField txtTacGia;
 	long tongtienmua = 0;
+	private JTable tbHoaDon;
+	private JTable tbCTHD;
 	/**
 	 * Launch the application.
 	 */
@@ -124,12 +131,16 @@ public class MainView extends JFrame {
 		QLyNhapTableModel qlNhapSachtbmd = new QLyNhapTableModel();
 		NhanVienTableModel nvtblModel= new NhanVienTableModel();
 		SachTableModel sachTblModel = new SachTableModel();
+		hoadonTableModel hdtbModel = new hoadonTableModel();
+		
 		
 		tbSachModel = sachtbModel.sachTablmodel();
 		tbNhapsachModel = qlNhapSachtbmd.getTbmdPhieuNhap();
 		tblDSNVModel = nvtblModel.nhanVienTablmodel();
 		tbSachBsModel = sachTblModel.getAllSachTableModelCon();
 		tbmdChonSach = sachTblModel.getTbmdMuaSach();
+		tbmdHoadon = hdtbModel.gettbmdHoaDonAll();
+		
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 728);
 		contentPane = new JPanel();
@@ -202,13 +213,15 @@ public class MainView extends JFrame {
 				int ids = Integer.parseInt(txtMaSach.getText().toString());
 				int slsmua =  Integer.parseInt(txtSLMua.getText().toString());
 				Sach s = sCon.getSachbyId(ids);
-				if(s.getSoluong()<slsmua) {
+				int slcon = Integer.parseInt(tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 5).toString());
+				if(slcon<slsmua) {
 					JOptionPane.showMessageDialog(null, "Vượt số lượng tồn");
 				}
 				else {
 					sachTblModel.ChonSach(s, slsmua);
 					tongtienmua = tongtienmua + s.getGiaban()*slsmua;
 					lblTongTienMuaSach.setText(String.valueOf(tongtienmua));
+					tbSachbs.getModel().setValueAt(Integer.parseInt(tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 5).toString()) -slsmua, tbSachbs.getSelectedRow(), 5);
 				}
 										
 			}
@@ -323,6 +336,7 @@ public class MainView extends JFrame {
 				txtTenSach.setText(tenSach);
 				txtTheLoai.setText(tlSach);
 				txtSLCon.setText(String.valueOf(slS));
+				txtTacGia.setText(tacGia);
 				txtGiaban.setText(String.valueOf(giabanS));
 				txaMoTa.setText(motaS);
 			}
@@ -338,7 +352,7 @@ public class MainView extends JFrame {
 		pnlTimKiemSach.add(lblDanhSchSch_1);
 
 		JScrollPane lstSachMua = new JScrollPane();
-		lstSachMua.setBounds(10, 393, 949, 215);
+		lstSachMua.setBounds(10, 387, 949, 215);
 		BanSach.add(lstSachMua);
 
 		tbSachcs = new JTable();
@@ -421,6 +435,34 @@ public class MainView extends JFrame {
 		JScrollPane tblDSHDBanSach = new JScrollPane();
 		tblDSHDBanSach.setBounds(10, 113, 475, 463);
 		panel_13.add(tblDSHDBanSach);
+		
+		
+		tbHoaDon = new JTable();
+		tbHoaDon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int mahd = Integer.parseInt(tbHoaDon.getModel().getValueAt(tbHoaDon.getSelectedRow(), 0).toString());
+				String ngaylap = tbHoaDon.getModel().getValueAt(tbHoaDon.getSelectedRow(), 1).toString();
+				String manv = tbHoaDon.getModel().getValueAt(tbHoaDon.getSelectedRow(), 2).toString();
+				
+				hoadonController hdCon = new hoadonController();
+				
+				HoaDonBanSach hdbs = hdCon.getHoaDonbyID(mahd);
+				
+				long tongt = hdtbModel.getTienHD(hdbs.getCthd());
+				
+				tbmdCTHD=hdtbModel.gettbmdCTHDs(hdbs);
+				
+				txtMaHDBanSach.setText(String.valueOf(mahd));
+				txtNgayLapHDBanSach.setText(ngaylap);
+				txtMaNVLapHD.setText(manv);
+				txtTongTien.setText(String.valueOf(tongt));
+				
+				tbCTHD.setModel(tbmdCTHD);
+			}
+		});
+		tblDSHDBanSach.setViewportView(tbHoaDon);
+		tbHoaDon.setModel(tbmdHoadon);
 
 		JPanel panel_14 = new JPanel();
 		panel_14.setLayout(null);
@@ -435,11 +477,13 @@ public class MainView extends JFrame {
 		panel_14.add(lblMH);
 
 		txtMaHDBanSach = new JTextField();
+		txtMaHDBanSach.setEditable(false);
 		txtMaHDBanSach.setColumns(10);
 		txtMaHDBanSach.setBounds(138, 10, 290, 25);
 		panel_14.add(txtMaHDBanSach);
 
 		txtNgayLapHDBanSach = new JTextField();
+		txtNgayLapHDBanSach.setEditable(false);
 		txtNgayLapHDBanSach.setColumns(10);
 		txtNgayLapHDBanSach.setBounds(138, 40, 290, 25);
 		panel_14.add(txtNgayLapHDBanSach);
@@ -451,6 +495,7 @@ public class MainView extends JFrame {
 		panel_14.add(lblNgyLp);
 
 		txtMaNVLapHD = new JTextField();
+		txtMaNVLapHD.setEditable(false);
 		txtMaNVLapHD.setColumns(10);
 		txtMaNVLapHD.setBounds(138, 70, 290, 25);
 		panel_14.add(txtMaNVLapHD);
@@ -461,10 +506,11 @@ public class MainView extends JFrame {
 		label_51.setBounds(50, 70, 72, 25);
 		panel_14.add(label_51);
 
-		textField_24 = new JTextField();
-		textField_24.setColumns(10);
-		textField_24.setBounds(138, 100, 290, 25);
-		panel_14.add(textField_24);
+		txtTongTien = new JTextField();
+		txtTongTien.setEditable(false);
+		txtTongTien.setColumns(10);
+		txtTongTien.setBounds(138, 100, 290, 25);
+		panel_14.add(txtTongTien);
 
 		JLabel lblTngTin = new JLabel("Tổng Tiền:");
 		lblTngTin.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -484,9 +530,12 @@ public class MainView extends JFrame {
 		lblChiTitHa.setBounds(10, 11, 139, 25);
 		panel_15.add(lblChiTitHa);
 
-		JScrollPane tblChiTietHDBanSach = new JScrollPane();
-		tblChiTietHDBanSach.setBounds(10, 41, 428, 385);
-		panel_15.add(tblChiTietHDBanSach);
+		JScrollPane tbChiTietHDBanSach = new JScrollPane();
+		tbChiTietHDBanSach.setBounds(10, 41, 428, 385);
+		panel_15.add(tbChiTietHDBanSach);
+		
+		tbCTHD = new JTable();
+		tbChiTietHDBanSach.setViewportView(tbCTHD);
 
 		JButton btnNewButton_6 = new JButton("Xuất Báo Cáo");
 		btnNewButton_6.setFont(new Font("Arial", Font.PLAIN, 15));

@@ -22,7 +22,6 @@ public class QLyNhapTableModel extends javax.swing.JFrame {
 		while(iCt.hasNext()) {
 			sum+=iCt.next().getSoluong();
 		}
-		
 		return sum;
 	}
 
