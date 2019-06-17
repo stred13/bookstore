@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,17 +32,10 @@ public class HoaDonBanSach implements Serializable{
 	private Date ngaylap;
 
 	@ManyToOne
-	@JoinColumn(name = "MaKH")
-	private KhachHang khachhang;
-
-	@ManyToOne
 	@JoinColumn(name = "MaNhanVien")
 	private NhanVien nhanvien;
-
-	@Column(name = "TongTien")
-	private long tongtien;
 	
-	@OneToMany(mappedBy = "hoadon",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "hoadon",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<ChiTietHoaDon> cthd = new HashSet<>();
 
 	public int getMahd() {
@@ -61,14 +55,6 @@ public class HoaDonBanSach implements Serializable{
 	}
 
 
-	public KhachHang getKhachhang() {
-		return khachhang;
-	}
-
-	public void setKhachhang(KhachHang khachhang) {
-		this.khachhang = khachhang;
-	}
-
 	public Set<ChiTietHoaDon> getCthd() {
 		return cthd;
 	}
@@ -83,14 +69,6 @@ public class HoaDonBanSach implements Serializable{
 
 	public void setNhanvien(NhanVien nhanvien) {
 		this.nhanvien = nhanvien;
-	}
-
-	public long getTongtien() {
-		return tongtien;
-	}
-
-	public void setTongtien(long tongtien) {
-		this.tongtien = tongtien;
 	}
 
 	public HoaDonBanSach() {

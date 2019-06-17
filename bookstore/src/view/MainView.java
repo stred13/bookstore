@@ -12,13 +12,17 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import controllers.hoadonController;
 import controllers.phieunhapController;
+import controllers.sachController;
 import models.ChiTietPhieuNhap;
+import models.HoaDonBanSach;
 import models.PhieuNhap;
 import models.Sach;
 import viewmodels.NhanVienTableModel;
 import viewmodels.QLyNhapTableModel;
 import viewmodels.SachTableModel;
+import viewmodels.hoadonTableModel;
 import viewmodels.nhapSachTablemodel;
 
 import java.awt.Color;
@@ -45,6 +49,7 @@ import java.awt.event.MouseEvent;
 import java.util.Date;
 
 import javax.swing.ScrollPaneConstants;
+import datechooser.beans.DateChooserCombo;
 
 public class MainView extends JFrame {
 	public static JFrame frame;
@@ -70,12 +75,12 @@ public class MainView extends JFrame {
 	private JTextField txtMaHDBanSach;
 	private JTextField txtNgayLapHDBanSach;
 	private JTextField txtMaNVLapHD;
-	private JTextField textField_24;
-	private JTable table_3;
+	private JTextField txtTongTien;
+	private JTable tbSachcs;
 	private JTextField txtMaSach;
 	private JTextField txtTenSach;
 	private JTextField txtTheLoai;
-	private JTextField txtDonGia;
+	private JTextField txtGiaban;
 	private JTextField txtSLCon;
 	public static JTable tbSach;
 	private JTextField txtTheLoaiN;
@@ -86,12 +91,21 @@ public class MainView extends JFrame {
 	public static DefaultTableModel tbSachModel;
 	public static DefaultTableModel tbNhapsachModel;
 	public static DefaultTableModel tblDSNVModel;
+	public static DefaultTableModel tbSachBsModel;
 	private DefaultTableModel tbCTnsModel;
+	private DefaultTableModel tbmdChonSach;
+	private DefaultTableModel tbmdHoadon;
+	private DefaultTableModel tbmdCTHD;
 
 	public static int manhanvien = 0;
 	public static int maSach = 0;
 	private JTextField txtTimSach;
 	public static JTabbedPane tabbedPane;
+	private JTable tbSachbs;
+	private JTextField txtTacGia;
+	long tongtienmua = 0;
+	private JTable tbHoaDon;
+	private JTable tbCTHD;
 	/**
 	 * Launch the application.
 	 */
@@ -112,16 +126,23 @@ public class MainView extends JFrame {
 	 * Create the frame.
 	 */
 	public MainView() {
+		
 		nhapSachTablemodel sachtbModel = new nhapSachTablemodel();
 		QLyNhapTableModel qlNhapSachtbmd = new QLyNhapTableModel();
 		NhanVienTableModel nvtblModel= new NhanVienTableModel();
 		SachTableModel sachTblModel = new SachTableModel();
+		hoadonTableModel hdtbModel = new hoadonTableModel();
+		
 		
 		tbSachModel = sachtbModel.sachTablmodel();
 		tbNhapsachModel = qlNhapSachtbmd.getTbmdPhieuNhap();
 		tblDSNVModel = nvtblModel.nhanVienTablmodel();
+		tbSachBsModel = sachTblModel.getAllSachTableModelCon();
+		tbmdChonSach = sachTblModel.getTbmdMuaSach();
+		tbmdHoadon = hdtbModel.gettbmdHoaDonAll();
+		
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 755);
+		setBounds(100, 100, 1000, 728);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -162,30 +183,57 @@ public class MainView extends JFrame {
 		JLabel lblSLMua = new JLabel("Số Lượng Mua");
 		lblSLMua.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSLMua.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblSLMua.setBounds(40, 160, 102, 25);
+		lblSLMua.setBounds(40, 190, 102, 25);
 		pnlThongTinSach.add(lblSLMua);
 
 		txtSLMua = new JTextField();
 		txtSLMua.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtSLMua.setColumns(10);
-		txtSLMua.setBounds(155, 160, 241, 25);
+		txtSLMua.setBounds(155, 190, 241, 25);
 		pnlThongTinSach.add(txtSLMua);
 
 		JLabel lblSLSach = new JLabel("Số Lượng Còn");
 		lblSLSach.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSLSach.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblSLSach.setBounds(40, 130, 102, 25);
+		lblSLSach.setBounds(40, 160, 102, 25);
 		pnlThongTinSach.add(lblSLSach);
+		
+		JLabel lblTongTienMuaSach = new JLabel("100000 VNĐ");
+		lblTongTienMuaSach.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTongTienMuaSach.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblTongTienMuaSach.setBounds(109, 619, 132, 25);
+		BanSach.add(lblTongTienMuaSach);
+		lblTongTienMuaSach.setText(String.valueOf(tongtienmua));
+		
 
 		JButton btnMua = new JButton("Chọn Mua");
+		btnMua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sachController sCon = new sachController();
+				int ids = Integer.parseInt(txtMaSach.getText().toString());
+				int slsmua =  Integer.parseInt(txtSLMua.getText().toString());
+				Sach s = sCon.getSachbyId(ids);
+				int slcon = Integer.parseInt(tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 5).toString());
+				if(slcon<slsmua) {
+					JOptionPane.showMessageDialog(null, "Vượt số lượng tồn");
+				}
+				else {
+					sachTblModel.ChonSach(s, slsmua);
+					tongtienmua = tongtienmua + s.getGiaban()*slsmua;
+					lblTongTienMuaSach.setText(String.valueOf(tongtienmua));
+					tbSachbs.getModel().setValueAt(Integer.parseInt(tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 5).toString()) -slsmua, tbSachbs.getSelectedRow(), 5);
+				}
+										
+			}
+		});
 		btnMua.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnMua.setBounds(294, 309, 102, 25);
 		pnlThongTinSach.add(btnMua);
 
-		JLabel lblnGi = new JLabel("Đơn Giá Bán");
+		JLabel lblnGi = new JLabel("Giá Bán");
 		lblnGi.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblnGi.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblnGi.setBounds(40, 100, 102, 25);
+		lblnGi.setBounds(40, 130, 102, 25);
 		pnlThongTinSach.add(lblnGi);
 
 		txtMaSach = new JTextField();
@@ -209,31 +257,44 @@ public class MainView extends JFrame {
 		txtTheLoai.setBounds(155, 70, 241, 25);
 		pnlThongTinSach.add(txtTheLoai);
 
-		txtDonGia = new JTextField();
-		txtDonGia.setFont(new Font("Arial", Font.PLAIN, 15));
-		txtDonGia.setEditable(false);
-		txtDonGia.setColumns(10);
-		txtDonGia.setBounds(155, 100, 241, 25);
-		pnlThongTinSach.add(txtDonGia);
+		txtGiaban = new JTextField();
+		txtGiaban.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtGiaban.setEditable(false);
+		txtGiaban.setColumns(10);
+		txtGiaban.setBounds(155, 130, 241, 25);
+		pnlThongTinSach.add(txtGiaban);
 
 		txtSLCon = new JTextField();
 		txtSLCon.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtSLCon.setEditable(false);
 		txtSLCon.setColumns(10);
-		txtSLCon.setBounds(155, 130, 241, 25);
+		txtSLCon.setBounds(155, 160, 241, 25);
 		pnlThongTinSach.add(txtSLCon);
 
 		JLabel label = new JLabel("Mô Tả");
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		label.setFont(new Font("Arial", Font.PLAIN, 15));
-		label.setBounds(40, 190, 102, 25);
+		label.setBounds(40, 220, 102, 25);
 		pnlThongTinSach.add(label);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setText("");
-		textArea.setEditable(false);
-		textArea.setBounds(155, 190, 241, 105);
-		pnlThongTinSach.add(textArea);
+		JTextArea txaMoTa = new JTextArea();
+		txaMoTa.setText("");
+		txaMoTa.setEditable(false);
+		txaMoTa.setBounds(155, 220, 241, 78);
+		pnlThongTinSach.add(txaMoTa);
+		
+		txtTacGia = new JTextField();
+		txtTacGia.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtTacGia.setEditable(false);
+		txtTacGia.setColumns(10);
+		txtTacGia.setBounds(155, 100, 241, 25);
+		pnlThongTinSach.add(txtTacGia);
+		
+		JLabel lblTcGi = new JLabel("Tác Giả");
+		lblTcGi.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTcGi.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblTcGi.setBounds(40, 100, 102, 25);
+		pnlThongTinSach.add(lblTcGi);
 
 		JPanel pnlTimKiemSach = new JPanel();
 		pnlTimKiemSach.setLayout(null);
@@ -255,6 +316,34 @@ public class MainView extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 77, 475, 257);
 		pnlTimKiemSach.add(scrollPane_1);
+		
+		tbSachbs = new JTable();
+		tbSachbs.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				sachController sachCon = new sachController();
+				//"Mã Sách", "Tên Sách", "Tác Giả", "Thể Loại", "Giá Bán", "Số Lượng", "Mô Tả"
+				
+				int maSach = Integer.parseInt(tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 0).toString());
+				String tenSach = tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 1).toString();
+				String tacGia = tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 2).toString();
+				String tlSach = tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 3).toString();
+				long giabanS = Long.parseLong(tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 4).toString());
+				int slS = Integer.parseInt(tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 5).toString());
+				String motaS = tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 6).toString();
+				
+				txtMaSach.setText(String.valueOf(maSach));
+				txtTenSach.setText(tenSach);
+				txtTheLoai.setText(tlSach);
+				txtSLCon.setText(String.valueOf(slS));
+				txtTacGia.setText(tacGia);
+				txtGiaban.setText(String.valueOf(giabanS));
+				txaMoTa.setText(motaS);
+			}
+		});
+		tbSachbs.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		scrollPane_1.setViewportView(tbSachbs);
+		tbSachbs.setModel(tbSachBsModel);
 
 		JLabel lblDanhSchSch_1 = new JLabel("Danh Sách Sách");
 		lblDanhSchSch_1.setFont(new Font("Arial", Font.BOLD, 16));
@@ -263,38 +352,58 @@ public class MainView extends JFrame {
 		pnlTimKiemSach.add(lblDanhSchSch_1);
 
 		JScrollPane lstSachMua = new JScrollPane();
-		lstSachMua.setBounds(10, 393, 949, 215);
+		lstSachMua.setBounds(10, 387, 949, 215);
 		BanSach.add(lstSachMua);
 
-		table_3 = new JTable();
-		lstSachMua.setViewportView(table_3);
+		tbSachcs = new JTable();
+		lstSachMua.setViewportView(tbSachcs);
+		tbSachcs.setModel(tbmdChonSach);
+		
 
 		JLabel lblDanhSchSch = new JLabel("Danh sách Sách Chọn Mua");
 		lblDanhSchSch.setFont(new Font("Arial", Font.BOLD, 16));
 		lblDanhSchSch.setBounds(10, 363, 228, 25);
 		BanSach.add(lblDanhSchSch);
 
-		JLabel label_7 = new JLabel("Tổng Tiền:");
-		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_7.setFont(new Font("Arial", Font.PLAIN, 14));
-		label_7.setBounds(728, 615, 96, 25);
-		BanSach.add(label_7);
-
-		JLabel label_47 = new JLabel("100000 VNĐ");
-		label_47.setHorizontalAlignment(SwingConstants.CENTER);
-		label_47.setFont(new Font("Arial", Font.PLAIN, 14));
-		label_47.setBounds(827, 615, 132, 25);
-		BanSach.add(label_47);
-
 		JButton btnXuatHD = new JButton("Xuất Hóa Đơn");
+		btnXuatHD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int optMua = JOptionPane.showConfirmDialog(null, "Bạn muốn mua sách không ?", "Bán sách",
+						JOptionPane.YES_NO_OPTION);
+				if (optMua == 0) {
+					sachTblModel.banSach();
+					tbSachBsModel = sachTblModel.getAllSachTableModelCon();
+					tbmdChonSach.setRowCount(0);
+				}
+			}
+		});
 		btnXuatHD.setFont(new Font("Arial", Font.PLAIN, 14));
-		btnXuatHD.setBounds(827, 643, 133, 25);
+		btnXuatHD.setBounds(826, 619, 133, 25);
 		BanSach.add(btnXuatHD);
 
 		JButton btnBoSach = new JButton("Bỏ Chọn");
-		btnBoSach.setBounds(718, 643, 102, 25);
+		btnBoSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sachController sCon = new sachController();
+				int maSach = Integer.parseInt(tbSachcs.getModel().getValueAt(tbSachcs.getSelectedRow(), 0).toString());
+				long slsb = Integer.parseInt(tbSachcs.getModel().getValueAt(tbSachcs.getSelectedRow(), 6).toString());
+				Sach sach = (Sach)sCon.getSachbyId(maSach);
+				sachTblModel.boChonSach(tbSachcs.getSelectedRow());
+				tongtienmua = tongtienmua-slsb;
+				lblTongTienMuaSach.setText(String.valueOf(tongtienmua));
+			}
+		});
+		btnBoSach.setBounds(717, 619, 102, 25);
 		BanSach.add(btnBoSach);
 		btnBoSach.setFont(new Font("Arial", Font.PLAIN, 13));
+		
+		
+		
+		JLabel label_4 = new JLabel("Tổng Tiền:");
+		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_4.setFont(new Font("Arial", Font.PLAIN, 14));
+		label_4.setBounds(10, 619, 96, 25);
+		BanSach.add(label_4);
 
 		JPanel QLHDBanSach = new JPanel();
 		tabbedPane.addTab("Quản Lý Hóa Đơn Bán Sách", null, QLHDBanSach, null);
@@ -303,7 +412,7 @@ public class MainView extends JFrame {
 		JPanel panel_13 = new JPanel();
 		panel_13.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_13.setLayout(null);
-		panel_13.setBounds(10, 11, 495, 625);
+		panel_13.setBounds(10, 11, 495, 589);
 		QLHDBanSach.add(panel_13);
 
 		JLabel lblDanhSchHa = new JLabel("Danh Sách Hóa Đơn");
@@ -324,8 +433,36 @@ public class MainView extends JFrame {
 		panel_13.add(btnSearchHDBanSach);
 
 		JScrollPane tblDSHDBanSach = new JScrollPane();
-		tblDSHDBanSach.setBounds(10, 113, 475, 499);
+		tblDSHDBanSach.setBounds(10, 113, 475, 463);
 		panel_13.add(tblDSHDBanSach);
+		
+		
+		tbHoaDon = new JTable();
+		tbHoaDon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int mahd = Integer.parseInt(tbHoaDon.getModel().getValueAt(tbHoaDon.getSelectedRow(), 0).toString());
+				String ngaylap = tbHoaDon.getModel().getValueAt(tbHoaDon.getSelectedRow(), 1).toString();
+				String manv = tbHoaDon.getModel().getValueAt(tbHoaDon.getSelectedRow(), 2).toString();
+				
+				hoadonController hdCon = new hoadonController();
+				
+				HoaDonBanSach hdbs = hdCon.getHoaDonbyID(mahd);
+				
+				long tongt = hdtbModel.getTienHD(hdbs.getCthd());
+				
+				tbmdCTHD=hdtbModel.gettbmdCTHDs(hdbs);
+				
+				txtMaHDBanSach.setText(String.valueOf(mahd));
+				txtNgayLapHDBanSach.setText(ngaylap);
+				txtMaNVLapHD.setText(manv);
+				txtTongTien.setText(String.valueOf(tongt));
+				
+				tbCTHD.setModel(tbmdCTHD);
+			}
+		});
+		tblDSHDBanSach.setViewportView(tbHoaDon);
+		tbHoaDon.setModel(tbmdHoadon);
 
 		JPanel panel_14 = new JPanel();
 		panel_14.setLayout(null);
@@ -340,11 +477,13 @@ public class MainView extends JFrame {
 		panel_14.add(lblMH);
 
 		txtMaHDBanSach = new JTextField();
+		txtMaHDBanSach.setEditable(false);
 		txtMaHDBanSach.setColumns(10);
 		txtMaHDBanSach.setBounds(138, 10, 290, 25);
 		panel_14.add(txtMaHDBanSach);
 
 		txtNgayLapHDBanSach = new JTextField();
+		txtNgayLapHDBanSach.setEditable(false);
 		txtNgayLapHDBanSach.setColumns(10);
 		txtNgayLapHDBanSach.setBounds(138, 40, 290, 25);
 		panel_14.add(txtNgayLapHDBanSach);
@@ -356,6 +495,7 @@ public class MainView extends JFrame {
 		panel_14.add(lblNgyLp);
 
 		txtMaNVLapHD = new JTextField();
+		txtMaNVLapHD.setEditable(false);
 		txtMaNVLapHD.setColumns(10);
 		txtMaNVLapHD.setBounds(138, 70, 290, 25);
 		panel_14.add(txtMaNVLapHD);
@@ -366,10 +506,11 @@ public class MainView extends JFrame {
 		label_51.setBounds(50, 70, 72, 25);
 		panel_14.add(label_51);
 
-		textField_24 = new JTextField();
-		textField_24.setColumns(10);
-		textField_24.setBounds(138, 100, 290, 25);
-		panel_14.add(textField_24);
+		txtTongTien = new JTextField();
+		txtTongTien.setEditable(false);
+		txtTongTien.setColumns(10);
+		txtTongTien.setBounds(138, 100, 290, 25);
+		panel_14.add(txtTongTien);
 
 		JLabel lblTngTin = new JLabel("Tổng Tiền:");
 		lblTngTin.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -380,7 +521,7 @@ public class MainView extends JFrame {
 		JPanel panel_15 = new JPanel();
 		panel_15.setLayout(null);
 		panel_15.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_15.setBounds(515, 168, 450, 468);
+		panel_15.setBounds(515, 168, 450, 433);
 		QLHDBanSach.add(panel_15);
 
 		JLabel lblChiTitHa = new JLabel("Chi Tiết Hóa Đơn");
@@ -389,13 +530,16 @@ public class MainView extends JFrame {
 		lblChiTitHa.setBounds(10, 11, 139, 25);
 		panel_15.add(lblChiTitHa);
 
-		JScrollPane tblChiTietHDBanSach = new JScrollPane();
-		tblChiTietHDBanSach.setBounds(10, 41, 428, 414);
-		panel_15.add(tblChiTietHDBanSach);
+		JScrollPane tbChiTietHDBanSach = new JScrollPane();
+		tbChiTietHDBanSach.setBounds(10, 41, 428, 385);
+		panel_15.add(tbChiTietHDBanSach);
+		
+		tbCTHD = new JTable();
+		tbChiTietHDBanSach.setViewportView(tbCTHD);
 
 		JButton btnNewButton_6 = new JButton("Xuất Báo Cáo");
 		btnNewButton_6.setFont(new Font("Arial", Font.PLAIN, 15));
-		btnNewButton_6.setBounds(815, 643, 140, 25);
+		btnNewButton_6.setBounds(825, 614, 140, 25);
 		QLHDBanSach.add(btnNewButton_6);
 
 		JPanel NhapSach = new JPanel();
@@ -465,9 +609,6 @@ public class MainView extends JFrame {
 			}
 		});
 		tbSach.setModel(tbSachModel);
-		// System.out.println(tbSachModel.getRowCount());
-		// JOptionPane.showMessageDialog(null, "sach
-		// "+MainView.tbSachModel.getRowCount());
 
 		scrollPane_6.setViewportView(tbSach);
 
@@ -622,11 +763,11 @@ public class MainView extends JFrame {
 			}
 		});
 		btnNhpSch.setFont(new Font("Arial", Font.PLAIN, 14));
-		btnNhpSch.setBounds(834, 637, 125, 28);
+		btnNhpSch.setBounds(834, 614, 125, 28);
 		NhapSach.add(btnNhpSch);
 
-		JButton button_3 = new JButton("Bỏ Chọn");
-		button_3.addActionListener(new ActionListener() {
+		JButton btnBochon = new JButton("Bỏ Chọn");
+		btnBochon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (tbctpN.getSelectedRow() != -1) {
 					sachtbModel.boChonSach(
@@ -634,20 +775,20 @@ public class MainView extends JFrame {
 				}
 			}
 		});
-		button_3.setBounds(726, 637, 102, 28);
-		NhapSach.add(button_3);
-		button_3.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnBochon.setBounds(726, 614, 102, 28);
+		NhapSach.add(btnBochon);
+		btnBochon.setFont(new Font("Arial", Font.PLAIN, 14));
 
 		JLabel label_1 = new JLabel("Tổng Tiền:");
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_1.setFont(new Font("Arial", Font.PLAIN, 14));
-		label_1.setBounds(716, 608, 109, 25);
+		label_1.setBounds(10, 614, 109, 25);
 		NhapSach.add(label_1);
 
 		JLabel label_2 = new JLabel("100000 VNĐ");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		label_2.setFont(new Font("Arial", Font.PLAIN, 14));
-		label_2.setBounds(842, 608, 117, 25);
+		label_2.setBounds(136, 614, 117, 25);
 		NhapSach.add(label_2);
 
 		JPanel QLHDNhapSach = new JPanel();
@@ -656,7 +797,7 @@ public class MainView extends JFrame {
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_6.setBounds(0, 8, 495, 612);
+		panel_6.setBounds(0, 8, 495, 592);
 		QLHDNhapSach.add(panel_6);
 		panel_6.setLayout(null);
 
@@ -672,13 +813,13 @@ public class MainView extends JFrame {
 		panel_6.add(textField_5);
 		textField_5.setColumns(10);
 
-		JButton btnNewButton_5 = new JButton("Tìm Kiếm");
-		btnNewButton_5.setFont(new Font("Arial", Font.PLAIN, 15));
-		btnNewButton_5.setBounds(385, 76, 100, 25);
-		panel_6.add(btnNewButton_5);
+		JButton btnTKNhapS = new JButton("Tìm Kiếm");
+		btnTKNhapS.setFont(new Font("Arial", Font.PLAIN, 15));
+		btnTKNhapS.setBounds(385, 76, 100, 25);
+		panel_6.add(btnTKNhapS);
 
 		JScrollPane scrollPane_5 = new JScrollPane();
-		scrollPane_5.setBounds(10, 107, 475, 492);
+		scrollPane_5.setBounds(10, 107, 475, 473);
 		panel_6.add(scrollPane_5);
 
 		tbNhapsach = new JTable();
@@ -766,31 +907,41 @@ public class MainView extends JFrame {
 
 		JPanel panel_8 = new JPanel();
 		panel_8.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_8.setBounds(505, 208, 454, 412);
+		panel_8.setBounds(505, 208, 454, 393);
 		QLHDNhapSach.add(panel_8);
 		panel_8.setLayout(null);
 
 		JLabel lblChiTitPhiu = new JLabel("Chi Tiết Phiếu Nhập");
 		lblChiTitPhiu.setHorizontalAlignment(SwingConstants.LEFT);
 		lblChiTitPhiu.setFont(new Font("Arial", Font.BOLD, 15));
-		lblChiTitPhiu.setBounds(10, 11, 139, 25);
+		lblChiTitPhiu.setBounds(10, 11, 215, 25);
 		panel_8.add(lblChiTitPhiu);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 41, 432, 359);
+		scrollPane.setBounds(10, 41, 432, 342);
 		panel_8.add(scrollPane);
 
 		tbctpn = new JTable();
 		scrollPane.setViewportView(tbctpn);
 
-		JButton btnBoCo = new JButton("Xuất Báo Cáo");
-		btnBoCo.addActionListener(new ActionListener() {
+		JButton btnBcNhapS = new JButton("Xuất Báo Cáo");
+		btnBcNhapS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnBoCo.setFont(new Font("Arial", Font.PLAIN, 15));
-		btnBoCo.setBounds(812, 631, 147, 25);
-		QLHDNhapSach.add(btnBoCo);
+		btnBcNhapS.setFont(new Font("Arial", Font.PLAIN, 15));
+		btnBcNhapS.setBounds(812, 612, 147, 25);
+		QLHDNhapSach.add(btnBcNhapS);
+		
+		JButton btnLamMoiNS = new JButton("Làm Mới");
+		btnLamMoiNS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tbNhapsachModel = qlNhapSachtbmd.getTbmdPhieuNhap();
+			}
+		});
+		btnLamMoiNS.setFont(new Font("Arial", Font.PLAIN, 15));
+		btnLamMoiNS.setBounds(634, 612, 147, 25);
+		QLHDNhapSach.add(btnLamMoiNS);
 
 		
 		JPanel pnlQLSach = new JPanel();
@@ -881,7 +1032,7 @@ public class MainView extends JFrame {
 		panel_2.add(btnTimSach);
 		
 		JScrollPane tblQLSach = new JScrollPane();
-		tblQLSach.setBounds(12, 180, 943, 476);
+		tblQLSach.setBounds(12, 180, 943, 446);
 		pnlQLSach.add(tblQLSach);
 		tblListSach = new JTable(){
 			public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -896,7 +1047,7 @@ public class MainView extends JFrame {
 		QLTV.setLayout(null);
 
 		JScrollPane tblDSNV = new JScrollPane();
-		tblDSNV.setBounds(12, 187, 943, 482);
+		tblDSNV.setBounds(12, 187, 943, 452);
 		QLTV.add(tblDSNV);
 		tbListNhanVien = new JTable() {
 			public boolean isCellEditable(int rowIndex, int colIndex) {

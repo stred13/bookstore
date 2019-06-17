@@ -23,7 +23,7 @@ public class ChiTietHoaDon implements Serializable {
 	@Column(name = "MaCTHD")
 	private int macthd;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "MaSach")
 	private Sach sach;
 

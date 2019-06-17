@@ -62,8 +62,6 @@ public class frmThemSachMoi extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				MainView.frame.setEnabled(true);
-				
-			
 			}
 		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
