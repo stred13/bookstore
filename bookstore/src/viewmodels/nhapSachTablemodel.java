@@ -34,6 +34,16 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 		});
 		return model;
 	}
+	public DefaultTableModel sachTablmodelSearch(String search) {
+		model = new DefaultTableModel();
+		model.setColumnIdentifiers(new Object[] { "ID", "Tên Sách", "Tác Giả", "Thể Loại", "Số Lượng","Mô Tả" });
+		sCon.getAllSachSearch(search).forEach(sach -> {
+			model.addRow(new Object[] { sach.getMasach(), sach.getTensach(), sach.getTacgia(),
+					sach.getTLSach().getTentl(), sach.getSoluong(), sach.getMota() });
+		});
+		return model;
+	}
+
 	
 	public void insertSachtbModel(Sach sach) {
 		model.addRow(new Object[] { sach.getMasach(), sach.getTensach(), sach.getTacgia(),

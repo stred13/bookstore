@@ -209,9 +209,27 @@ public class MainView extends JFrame {
 		JButton btnMua = new JButton("Chọn Mua");
 		btnMua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(txtMaSach.getText().toString().equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn sách");
+					return;
+				}
+				if(txtSLMua.getText().toString().equals("")) {
+					JOptionPane.showMessageDialog(null, "số lượng mua không thể để trống");
+					return;
+				}
 				sachController sCon = new sachController();
 				int ids = Integer.parseInt(txtMaSach.getText().toString());
-				int slsmua =  Integer.parseInt(txtSLMua.getText().toString());
+				int slsmua = 0;
+				try {
+					slsmua =  Integer.parseInt(txtSLMua.getText().toString());
+				} catch (NumberFormatException exception) {
+					JOptionPane.showMessageDialog(null, "số lượng mua không hợp lệ");
+					return;
+				}
+				if(slsmua < 1) {
+					JOptionPane.showMessageDialog(null, "số lượng mua phải lớn hơn 0");
+					return;
+				}
 				Sach s = sCon.getSachbyId(ids);
 				int slcon = Integer.parseInt(tbSachbs.getModel().getValueAt(tbSachbs.getSelectedRow(), 5).toString());
 				if(slcon<slsmua) {
@@ -309,6 +327,7 @@ public class MainView extends JFrame {
 		pnlTimKiemSach.add(txtTimKiem);
 
 		JButton btnTimKiem = new JButton("Tìm Kiếm");
+		
 		btnTimKiem.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnTimKiem.setBounds(378, 44, 107, 25);
 		pnlTimKiemSach.add(btnTimKiem);
@@ -343,7 +362,12 @@ public class MainView extends JFrame {
 		});
 		tbSachbs.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		scrollPane_1.setViewportView(tbSachbs);
-		tbSachbs.setModel(tbSachBsModel);
+		tbSachbs.setModel(sachTblModel.getAllSachTableModelCon());
+		btnTimKiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tbSachbs.setModel(sachTblModel.getAllSachTableModelConSearch(txtTimKiem.getText().toString()));
+			}
+		});
 
 		JLabel lblDanhSchSch_1 = new JLabel("Danh Sách Sách");
 		lblDanhSchSch_1.setFont(new Font("Arial", Font.BOLD, 16));
@@ -559,6 +583,7 @@ public class MainView extends JFrame {
 		panel_10.add(textField_13);
 
 		JButton button = new JButton("Tìm Kiếm");
+		
 		button.setFont(new Font("Arial", Font.PLAIN, 15));
 		button.setBounds(416, 42, 107, 25);
 		panel_10.add(button);
@@ -611,6 +636,11 @@ public class MainView extends JFrame {
 		tbSach.setModel(tbSachModel);
 
 		scrollPane_6.setViewportView(tbSach);
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tbSach.setModel(sachtbModel.sachTablmodelSearch(textField_13.getText().toString()));
+			}
+		});
 
 		JLabel label_43 = new JLabel("Danh Sách Sách");
 		label_43.setHorizontalAlignment(SwingConstants.LEFT);
@@ -740,9 +770,27 @@ public class MainView extends JFrame {
 		panel_11.add(txtChonN);
 		txtChonN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(txtMaSachN.getText().toString().equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn sách");
+					return;
+				}
+				int slNhap = 0;
+				int giaNhap = 0;
+				try {
+					slNhap =  Integer.parseInt(txtSLNhap.getText().toString());
+					giaNhap =  Integer.parseInt(txtGiaNhapN.getText().toString());
+					if(slNhap < 1 || giaNhap < 1) {
+						JOptionPane.showMessageDialog(null, "số lượng nhập hoặc giá nhập phải lớn hơn 0");
+						return;
+					}
+
+				} catch (NumberFormatException exception) {
+					JOptionPane.showMessageDialog(null, "số lượng nhập hoặc giá nhập không hợp lệ");
+					return;
+				}
 				sachtbModel.ChonSach(Integer.parseInt(txtMaSachN.getText().toString()),
-						Integer.parseInt(txtSLNhap.getText().toString()),
-						Integer.parseInt(txtGiaNhapN.getText().toString()));
+				Integer.parseInt(txtSLNhap.getText().toString()),
+				Integer.parseInt(txtGiaNhapN.getText().toString()));
 			}
 		});
 		txtChonN.setFont(new Font("Arial", Font.PLAIN, 14));

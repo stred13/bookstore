@@ -29,7 +29,7 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 		
 		nvCon.getAllNhanVien().forEach(nv -> {
 			DSNVModel.addRow(new Object[] { nv.getManv(), nv.getTennv(), nv.getEmail(),
-					nv.getGioitinh(), nv.getNgaysinh(), nv.getSdt(), nv.getDiachi() });
+					nv.getGioitinh() == 1 ? "nam" : "Nữ", nv.getSdt(), nv.getDiachi() });
 		});
 
 		return DSNVModel;
@@ -38,7 +38,7 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 		
 		nvCon.getNhanVienSearch(txtSearch).forEach(nv -> {
 			DSNVModel.addRow(new Object[] { nv.getManv(), nv.getTennv(), nv.getEmail(),
-					nv.getGioitinh(), nv.getNgaysinh(), nv.getSdt(), nv.getDiachi() });
+					nv.getGioitinh() == 1 ? "nam" : "Nữ", nv.getSdt(), nv.getDiachi() });
 		});
 
 		return DSNVModel;
@@ -50,7 +50,6 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 	}
 	public NhanVien NhanVienLogin(String tk, String mk) {
 		nvlogin = (NhanVien) nvCon.getNhanVienLogin(tk, mk);
-		//System.out.println("nhan vien: "+nvlogin.toString());
 		return nvlogin;
 	}
 	public NhanVien getNhanVienLogin() {
@@ -70,7 +69,7 @@ public class NhanVienTableModel extends javax.swing.JFrame {
 	}
 	public NhanVienTableModel() {
 		super();
-		DSNVModel.setColumnIdentifiers(new Object[] { "Mã NV", "Họ Tên", "Email", "Giới Tính", "Ngày Sinh", "SDT", "Địa Chỉ" });
+		DSNVModel.setColumnIdentifiers(new Object[] { "Mã NV", "Họ Tên", "Email", "Giới Tính", "SDT", "Địa Chỉ" });
 		
 	}
 

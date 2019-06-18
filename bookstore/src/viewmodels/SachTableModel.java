@@ -44,7 +44,15 @@ public class SachTableModel extends javax.swing.JFrame {
 		});
 		return DSSachModelCon;
 	}
-	
+	public DefaultTableModel getAllSachTableModelConSearch(String txtSearch) {
+		DSSachModelCon.setRowCount(0);
+		sCon.getAllSachSearch(txtSearch).forEach(s -> {
+			if(s.getSoluong() > 0) {
+				DSSachModelCon.addRow(new Object[] { s.getMasach(), s.getTensach(), s.getTacgia(), s.getTLSach(), s.getGiaban(), s.getSoluong(), s.getMota() });				
+			}
+		});
+		return DSSachModelCon;
+	}
 	public DefaultTableModel getAllSachTablmodelSearch(String txtSearch) {
 		DSSachModel.setRowCount(0);
 		sCon.getAllSachSearch(txtSearch).forEach(s -> {

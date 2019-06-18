@@ -34,7 +34,6 @@ import java.awt.event.ActionEvent;
 public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 	private JTextField txtHoTen;
 	private JTextField txtEmail;
-	private JTextField txtNgaySinh;
 	private JTextField txtSDT;
 	private JTextField txtDiaChi;
 	private JTextField txtMaNV;
@@ -107,35 +106,25 @@ public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_3.setBounds(65, 149, 77, 16);
 		panel.add(label_3);
-
-		txtNgaySinh = new JTextField();
-		txtNgaySinh.setColumns(10);
-		txtNgaySinh.setBounds(154, 174, 193, 22);
-		panel.add(txtNgaySinh);
-		
-		JLabel label_4 = new JLabel("Ng\u00E0y Sinh");
-		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setBounds(49, 177, 92, 16);
-		panel.add(label_4);
 		
 		JLabel label_5 = new JLabel("S\u0110T");
 		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_5.setBounds(85, 207, 56, 16);
+		label_5.setBounds(85, 181, 56, 16);
 		panel.add(label_5);
 		
 		txtSDT = new JTextField();
 		txtSDT.setColumns(10);
-		txtSDT.setBounds(154, 204, 193, 22);
+		txtSDT.setBounds(154, 178, 193, 22);
 		panel.add(txtSDT);
 		
 		txtDiaChi = new JTextField();
 		txtDiaChi.setColumns(10);
-		txtDiaChi.setBounds(153, 233, 194, 22);
+		txtDiaChi.setBounds(153, 207, 194, 22);
 		panel.add(txtDiaChi);
 		
 		JLabel label_6 = new JLabel("\u0110\u1ECBa ch\u1EC9");
 		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_6.setBounds(85, 236, 56, 16);
+		label_6.setBounds(85, 210, 56, 16);
 		panel.add(label_6);
 
 		txtMaNV = new JTextField();
@@ -197,7 +186,7 @@ public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 			    }
 			}
 		});
-		btnChinhSua.setBounds(111, 268, 210, 25);
+		btnChinhSua.setBounds(115, 254, 210, 25);
 		panel.add(btnChinhSua);
 		
 		JLabel lblMThnhVin = new JLabel("M\u00E3 Nh\u00E2nVi\u00EAn");
@@ -209,8 +198,7 @@ public class ChinhSuaThongTinNhanVien_frm extends JFrame {
 		txtHoTen.setText(nv.getTennv());
 		txtEmail.setText(nv.getEmail());
 		txtDiaChi.setText(nv.getDiachi());
-		txtSDT.setText(nv.getSdt().toString());
-		txtNgaySinh.setText(nv.getNgaysinh().toString());
+		txtSDT.setText(nv.getSdt());
 		int gioitinh = nv.getGioitinh();
 		if(gioitinh == 1) {
 			rdbtnNam.setSelected(true);
