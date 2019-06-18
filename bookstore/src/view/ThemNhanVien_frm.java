@@ -37,7 +37,6 @@ public class ThemNhanVien_frm extends JFrame {
 	private JTextField txtUsername;
 	private JTextField txtName;
 	private JTextField txtEmail;
-	private JTextField txtBirthday;
 	private JTextField txtPhone;
 	private JTextField txtAddress;
 	private JPasswordField txtPassword;
@@ -86,7 +85,7 @@ public class ThemNhanVien_frm extends JFrame {
 		contentPane.add(lblThmThnhVin);
 		
 		JButton btnThem = new JButton("Th\u00EAm");
-		btnThem.setBounds(183, 400, 97, 25);
+		btnThem.setBounds(182, 373, 97, 25);
 		contentPane.add(btnThem);
 		
 		JButton btnClose = new JButton("\u0110\u00F3ng");
@@ -96,7 +95,7 @@ public class ThemNhanVien_frm extends JFrame {
 				dispose();
 			}
 		});
-		btnClose.setBounds(74, 400, 97, 25);
+		btnClose.setBounds(73, 373, 97, 25);
 		contentPane.add(btnClose);
 		
 		JPanel panel = new JPanel();
@@ -135,7 +134,7 @@ public class ThemNhanVien_frm extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(12, 184, 351, 203);
+		panel_1.setBounds(12, 184, 351, 176);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -173,34 +172,24 @@ public class ThemNhanVien_frm extends JFrame {
 		rdNu.setBounds(196, 76, 63, 25);
 		panel_1.add(rdNu);
 		
-		txtBirthday = new JTextField();
-		txtBirthday.setColumns(10);
-		txtBirthday.setBounds(132, 105, 193, 22);
-		panel_1.add(txtBirthday);
-		
-		JLabel label_6 = new JLabel("Ng\u00E0y Sinh");
-		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_6.setBounds(27, 108, 92, 16);
-		panel_1.add(label_6);
-		
 		JLabel label_7 = new JLabel("S\u0110T");
 		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_7.setBounds(63, 138, 56, 16);
+		label_7.setBounds(64, 112, 56, 16);
 		panel_1.add(label_7);
 		
 		txtPhone = new JTextField();
 		txtPhone.setColumns(10);
-		txtPhone.setBounds(132, 135, 193, 22);
+		txtPhone.setBounds(133, 109, 193, 22);
 		panel_1.add(txtPhone);
 		
 		txtAddress = new JTextField();
 		txtAddress.setColumns(10);
-		txtAddress.setBounds(131, 164, 194, 22);
+		txtAddress.setBounds(132, 138, 194, 22);
 		panel_1.add(txtAddress);
 		
 		JLabel label_8 = new JLabel("\u0110\u1ECBa ch\u1EC9");
 		label_8.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_8.setBounds(63, 167, 56, 16);
+		label_8.setBounds(64, 141, 56, 16);
 		panel_1.add(label_8);
 		rdNam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
