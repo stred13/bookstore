@@ -44,6 +44,15 @@ public class QLyNhapTableModel extends javax.swing.JFrame {
 
 	
 	
+	
+	public DefaultTableModel getTbmdCTPN() {
+		return tbmdCTPN;
+	}
+
+	public void setTbmdCTPN(DefaultTableModel tbmdCTPN) {
+		this.tbmdCTPN = tbmdCTPN;
+	}
+
 	public QLyNhapTableModel() {
 		super();
 		//this.tbmdPhieuNhap = tbmodel;

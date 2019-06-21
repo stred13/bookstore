@@ -30,6 +30,7 @@ public class DangNhap extends JFrame {
 
 	JButton btnLogin;
 	private JButton btnForgetPass;
+	public static NhanVien nv =new NhanVien();
 
 	/**
 	 * Launch the application.
@@ -109,6 +110,7 @@ public class DangNhap extends JFrame {
 				NhanVien nvlogin = nvTblModel.NhanVienLogin(taiKhoan, matKhau);
 				if (nvlogin != null) {
 					MainView mv = new MainView();
+					nv=nvlogin;
 					if(nvlogin.getAdmin() == 0) {
 						MainView.tabbedPane.setEnabledAt(5, false);
 					}

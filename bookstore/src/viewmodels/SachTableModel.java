@@ -18,6 +18,7 @@ import models.HoaDonBanSach;
 import models.NhanVien;
 import models.PhieuNhap;
 import models.Sach;
+import view.DangNhap;
 
 public class SachTableModel extends javax.swing.JFrame {
 	sachController sCon = new sachController();
@@ -85,11 +86,12 @@ public class SachTableModel extends javax.swing.JFrame {
 	public void banSach() {
 		HoaDonBanSach hd = new HoaDonBanSach();
 		hd.setNgaylap(new Date());
-		nv = nvDao.getNhanVienbyId(1);
-		hd.setNhanvien(nv);
+		
+		//nv = nvDao.getNhanVienbyId(1);
+		hd.setNhanvien(DangNhap.nv);
 		
 		for(int i=0;i<sachs.size();i++) {
-			sCon.banSach(sachs.get(i), nv, hd, cthds.get(i));
+			sCon.banSach(sachs.get(i), DangNhap.nv, hd, cthds.get(i));
 			//System.out.println(cthds.get(i).getSoluong());
 		}
 			

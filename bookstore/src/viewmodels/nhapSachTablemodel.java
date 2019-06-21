@@ -15,6 +15,7 @@ import models.ChiTietPhieuNhap;
 import models.NhanVien;
 import models.PhieuNhap;
 import models.Sach;
+import view.DangNhap;
 
 public class nhapSachTablemodel extends javax.swing.JFrame {
 	List<ChiTietPhieuNhap> ctpns = new ArrayList<>();
@@ -68,6 +69,12 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 		ctpns.add(ctpn);
 	}
 	
+	public DefaultTableModel getNmodel() {
+		return Nmodel;
+	}
+	public void setNmodel(DefaultTableModel nmodel) {
+		Nmodel = nmodel;
+	}
 	public void boChonSach(int maSach) {
 		int nRows = this.Nmodel.getRowCount();
 		for(int count = 0; count < nRows; count++){
@@ -86,10 +93,10 @@ public class nhapSachTablemodel extends javax.swing.JFrame {
 		PhieuNhap pn = new PhieuNhap();
 		pn.setNgaynhap(new Date());
 		nv = nvDao.getNhanVienbyId(1);
-		pn.setNhanvien(nv);
+		pn.setNhanvien(DangNhap.nv);
 		
 		for(int i=0;i<sachs.size();i++) {
-			sCon.nhapSach(sachs.get(i), null, pn, ctpns.get(i));
+			sCon.nhapSach(sachs.get(i), DangNhap.nv, pn, ctpns.get(i));
 		}
 	}
 
